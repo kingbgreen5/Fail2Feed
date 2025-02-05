@@ -1,18 +1,26 @@
 // db.js
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const connection = mysql.createConnection({
+
+
+
+const db = mysql.createConnection({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'your_database_name',
+    password: process.env.DB_PASSWORD || 'Limegreengbc',
+    database: process.env.DB_NAME || 'gun',
 });
 
-connection.connect(err => {
-    if (err) throw err;
+db.connect(err => {
+    if (err) {
+        console.error('Error connecting to MySQL:', err.message);
+        return;
+    }
     console.log('Connected to MySQL!');
 });
 
-module.exports = connection;
+
+
+module.exports = db;
