@@ -11,6 +11,9 @@ CREATE TABLE firearms (
     make VARCHAR(50) NOT NULL,
     model VARCHAR(50) NOT NULL,
     manufacturing_date YEAR NOT NULL
+    total_rounds_fired INT 
+
+
 );
 
 CREATE TABLE range_reports (
