@@ -20,9 +20,9 @@ const seedFirearm = () => {
 
         const insertFirearmsQuery = `
             INSERT INTO firearm (make, model, rounds_fired, reports_filed) VALUES
-            ('Glock', '19', 500, 3),
-            ('Smith & Wesson', 'M&P Shield', 1200, 2),
-            ('Sig Sauer', 'P320', 750, 1)
+            ('Glock', '19', 500, 4),
+            ('Smith & Wesson', 'M&P Shield', 1200, 6),
+            ('Sig Sauer', 'P320', 750, 3)
             ON DUPLICATE KEY UPDATE 
                 rounds_fired = VALUES(rounds_fired), 
                 reports_filed = VALUES(reports_filed);
