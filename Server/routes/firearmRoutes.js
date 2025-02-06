@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authenticateUser = require("../middleware/authMiddleware"); // If you have authentication
-const Firearm = require("../models/Firearm");
+const Firearm = require("../models/firearmModel");
 
 const db = require('../config/db');
 
@@ -19,7 +19,7 @@ const db = require('../config/db');
 
 
 router.get('/all', (req, res) => {
-    db.query('SELECT * FROM firearm', (err, results) => {
+    db.query('SELECT * FROM firearms', (err, results) => {
         console.log("Hit the get all firearms route")
         if (err) {
             console.error('Error fetching firearms:', err);
