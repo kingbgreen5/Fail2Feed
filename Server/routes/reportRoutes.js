@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Report = require('../models/reportModel');
-const authenticateToken = require('../middleware/authMiddleware');
+const { authenticateToken, authorizeAdmin } = require('../middleware/authMiddleware');
+
 
 // Get all reports (Public)
 router.get('/all', (req, res) => {
@@ -10,6 +11,12 @@ router.get('/all', (req, res) => {
         res.json(results);
     });
 });
+
+
+
+
+
+
 
 // Create a report (Protected)
 router.post('/create', authenticateToken, (req, res) => {
@@ -26,14 +33,44 @@ router.post('/create', authenticateToken, (req, res) => {
     });
 });
 
-// Delete a report (Protected)
-router.delete('/delete/:id', authenticateToken, (req, res) => {
+
+// ------------------ SOFT DELETE -----------------
+
+//  Admin Soft Delete
+
+// THIS IS AN EXAMPLE OF HOW TO USE AUTHORIZEADMIN TO RESTRICT CERTAIN ACTIONS TO ADMIN ONLY
+// COULD BE APPLIED TO SOMETHING LIKE DELETE FIREARM OR DELETE REPORTS THAT SEEM FRAUDULENT
+router.put('/admin/delete/:id', authenticateToken, authorizeAdmin, (req, res) => {
     const reportId = req.params.id;
 
-    Report.deleteReport(reportId, (err, result) => {
+    Report.softDeleteReport(reportId, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
-        res.json({ message: 'Report deleted' });
+        res.json({ message: 'Report deactivated successfully by admin.' });
     });
 });
+
+// User Soft Delete (Only Their Own Reports)
+router.put('/user/delete/:id', authenticateToken, (req, res) => {
+    const reportId = req.params.id;
+    const userId = req.user.id;
+
+    Report.softDeleteReportByUser(reportId, userId, (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (result.affectedRows === 0) {
+            return res.status(403).json({ message: 'Unauthorized to delete this report.' });
+        }
+        res.json({ message: 'Report deactivated successfully by user.' });
+    });
+});
+
+
+// THIS IS AN EXAMPLE OF HOW TO USE AUTHORIZEADMIN TO RESTRICT CERTAIN ACTIONS TO ADMIN ONLY
+// COULD BE APPLIED TO SOMETHING LIKE DELETE FIREARM OR DELETE REPORTS THAT SEEM FRAUDULENT
+
+
+
+
+
+
 
 module.exports = router;

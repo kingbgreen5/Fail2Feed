@@ -11,9 +11,17 @@ const authenticateToken = (req, res, next) => {
     jwt.verify(token, SECRET_KEY, (err, decoded) => {
         if (err) return res.status(403).json({ message: 'Invalid token' });
 
-        req.user = decoded; // Store user info in request
+        req.user = decoded;  // 🔹 Extract user ID and Role
         next();
     });
 };
 
-module.exports = authenticateToken;
+// 🔹 Admin-Only Middleware
+const authorizeAdmin = (req, res, next) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ message: 'Access denied. Admins only.' });
+    }
+    next();
+};
+
+module.exports = { authenticateToken, authorizeAdmin };

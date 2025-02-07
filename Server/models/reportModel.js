@@ -7,8 +7,8 @@ const db = require('../config/db');
 
 
 const Report = {
-    getAllReports: (callback) => {
-        db.query('SELECT * FROM reports', callback);
+    getAllReports : (callback) => {
+        db.query('SELECT * FROM reports WHERE is_active = TRUE', callback);
     },
 
     getReportById: (id, callback) => {
@@ -54,9 +54,25 @@ const Report = {
         );
     },
 
-    deleteReport: (id, callback) => {
-        db.query('DELETE FROM reports WHERE id = ?', [id], callback);
+
+    
+   softDeleteReport: (reportId, callback) => {
+        db.query(
+            'UPDATE reports SET is_active = FALSE WHERE id = ?',
+            [reportId],
+            callback
+        );
+    },
+    
+    softDeleteReportByUser: (reportId, userId, callback) => {
+        db.query(
+            'UPDATE reports SET is_active = FALSE WHERE id = ? AND user_id = ?',
+            [reportId, userId],
+            callback
+        );
     }
+
+
 };
 
 module.exports = Report;
