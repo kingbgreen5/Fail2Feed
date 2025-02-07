@@ -34,7 +34,7 @@ router.get('/all', (req, res) => {
 
 
 // Update a firearm
-router.put('/update/:id', authenticateUser, async (req, res) => {
+router.put('/update/:id', authenticateUser.authenticateToken, async (req, res) => {
     try {
         const { make, model, manufacturing_date } = req.body;
         await Firearm.updateFirearm(req.params.id, make, model, manufacturing_date);
