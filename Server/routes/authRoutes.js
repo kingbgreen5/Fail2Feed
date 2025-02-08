@@ -336,6 +336,15 @@ router.post('/reset-password', async (req, res) => {
     });
 });
 
+//CHANGE TO RESET PASSWORD FRONTEND
+router.get('/reset-password', (req, res) => {
+    const { token } = req.query;
+    res.redirect(`http://yourfrontend.com/reset-password?token=${token}`);
+});
+
+
+
+
 // 🚀 Token Refresh
 router.post('/refresh', (req, res) => {
     const { refreshToken } = req.body;
