@@ -203,6 +203,10 @@ router.post('/register', async (req, res) => {
     });
 });
 
+
+
+
+
 // 🚀 Verify Email
 router.get('/verify/:token', (req, res) => {
     const { token } = req.params;
@@ -218,6 +222,39 @@ router.get('/verify/:token', (req, res) => {
     });
 });
 
+// // 🚀 Login User (Only Verified Users)
+// router.post('/login', (req, res) => {
+//     const { email, password } = req.body;
+//     if (!email || !password) {
+//         return res.status(400).json({ message: 'Email and password are required' });
+//     }
+
+//     User.getUserByEmail(email, async (err, user) => {
+//         if (err || !user) {
+//             return res.status(401).json({ message: 'Invalid credentials' });
+//         }
+
+//         // 🚫 Block login if user is not verified
+//         if (user.is_verified === 0) {
+//             return res.status(403).json({ message: 'Please verify your email before logging in.' });
+//         }
+
+//         // 🚫 Block login if user is soft deleted
+//         if (user.is_active === 0) {
+//             return res.status(403).json({ message: 'This account has been deactivated.' });
+//         }
+
+//         const passwordMatch = await bcrypt.compare(password, user.password);
+//         if (!passwordMatch) {
+//             return res.status(401).json({ message: 'Invalid credentials' });
+//         }
+
+//         const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+//         res.json({ message: 'Login successful', token });
+//     });
+// });
+
+
 // 🚀 Login User (Only Verified Users)
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -226,8 +263,13 @@ router.post('/login', (req, res) => {
     }
 
     User.getUserByEmail(email, async (err, user) => {
-        if (err || !user) {
-            return res.status(401).json({ message: 'Invalid credentials' });
+        if (err) {
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+        // console.log(user)
+        console.log(email)
+        if (!user) {
+            return res.status(401).json({ message: 'no user found' });
         }
 
         // 🚫 Block login if user is not verified
@@ -241,6 +283,8 @@ router.post('/login', (req, res) => {
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password);
+        console.log(password,"password")
+        console.log(user.password,"storedPassword")
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
@@ -249,6 +293,10 @@ router.post('/login', (req, res) => {
         res.json({ message: 'Login successful', token });
     });
 });
+
+
+
+
 
 // 🚀 Password Reset Request
 router.post('/reset-password-request', (req, res) => {

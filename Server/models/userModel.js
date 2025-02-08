@@ -171,25 +171,53 @@ const User = {
 
     // Get user by email (for login)
     getUserByEmail: (email, callback) => {
-        db.query('SELECT * FROM users WHERE email = ? AND is_active = 1 AND is_verified = 1', [email], (err, results) => {
+        db.query('SELECT * FROM users WHERE email = ? AND is_active = 1 ', [email], (err, results) => {
             if (err) return callback(err, null);
             callback(null, results.length > 0 ? results[0] : null);
         });
     },
 
-    // Store verification token
-    storeVerificationToken: (userId, token, callback) => {
-        db.query('UPDATE users SET verification_token = ? WHERE id = ?', [token, userId], callback);
-    },
+    // // Store verification token
+    // storeVerificationToken: (userId, token, callback) => {
+    //     db.query('UPDATE users SET verification_token = ? WHERE id = ?', [token, userId], callback);
+    // },
 
-    // Verify user by token
+    storeVerificationToken: (userId, token, callback) => {
+        db.query('UPDATE users SET verification_token = ? WHERE id = ?', [token, userId], (err, result) => {
+            if (err) {
+                console.error('Error storing verification token:', err);
+                return callback(err, null);
+            }
+            callback(null, result);
+        });
+    },
+    
+
+
+
+    // // Verify user by token
+    // verifyUserByToken: (token, callback) => {
+    //     db.query(
+    //         'UPDATE users SET is_verified = 1, verification_token = NULL WHERE verification_token = ?',
+    //         [token],
+    //         callback
+    //     );
+    // },
+
     verifyUserByToken: (token, callback) => {
         db.query(
             'UPDATE users SET is_verified = 1, verification_token = NULL WHERE verification_token = ?',
             [token],
-            callback
+            (err, result) => {
+                if (err) {
+                    console.error('Error verifying user:', err);
+                    return callback(err, null);
+                }
+                callback(null, result);
+            }
         );
     },
+    
 
     // Store password reset token
     storeResetToken: (email, token, expiry, callback) => {
@@ -206,14 +234,30 @@ const User = {
         );
     },
 
-    // Create a new user (default `is_verified = 0`)
-    createUser: async (username, email, password, role = 'user', callback) => {
-        db.query(
-            'INSERT INTO users (username, email, password, role, is_verified) VALUES (?, ?, ?, ?, 0)',
-            [username, email, password, role],
-            callback
-        );
+    // // Create a new user (default `is_verified = 0`)
+    // createUser: async (username, email, password, role = 'user', callback) => {
+    //     db.query(
+    //         'INSERT INTO users (username, email, password, role, is_verified) VALUES (?, ?, ?, ?, 0)',
+    //         [username, email, password, role],
+    //         callback
+    //     );
+    // },
+    createUser: async (username, email, password, role = 'user', verificationToken, callback) => {
+        try {
+            const query = 'INSERT INTO users (username, email, password, role, is_verified, verification_token) VALUES (?, ?, ?, ?, 0, ?)';
+            db.query(query, [username, email, password, role, verificationToken], (err, result) => {
+                if (err) {
+                    console.error('Error inserting user:', err);
+                    return callback(err, null);
+                }
+                callback(null, result);
+            });
+        } catch (error) {
+            console.error('Unexpected error in createUser:', error);
+            callback(error, null);
+        }
     },
+    
 
     // Update user information (optional password update)
     updateUser: async (id, username, email, password, callback) => {
