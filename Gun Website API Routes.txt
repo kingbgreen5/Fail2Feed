@@ -1,0 +1,96 @@
+Gun Website API Routes 
+
+
+---------------------------------------------------- CREATE NEW USER ----------------------------------------------------
+
+
+
+POST         http://localhost:5000/api/auth/register
+
+ADMIN
+{
+  "username": "Kingb",
+  "email": "Thebeakeh@gmail.com",
+  "password": "Limegreengbc",
+  "role": "admin"
+}
+
+REGULAR USER
+
+{
+  "username": "Kingb",
+  "email": "Thebeakeh@gmail.com",
+  "password": "Limegreengbc"
+}
+
+
+
+
+---------------------------------------------------- LOGIN ----------------------------------------------------
+
+POST         http://localhost:5000/api/auth/login
+
+
+
+{
+  "email": "Thebeakeh@gmail.com",
+  "password": "Limegreengbc"
+}
+
+
+Authorization: Bearer your.jwt.token
+
+
+
+
+---------------------------------------------------- GET ALL USERS (ADMIN)----------------------------------------------------
+
+GET http://localhost:5000/api/users/all
+Authorization: Bearer your.jwt.token
+
+
+---------------------------------------------------- GET USER BY ID ----------------------------------------------------
+GET http://localhost:5000/api/users/3
+Authorization: Bearer your.jwt.token
+
+
+{
+  "username": "KingB Updated",
+  "email": "updatedemail@gmail.com",
+  "password": "NewPassword123"
+}
+
+
+---------------------------------------------------- UPDATE USER ----------------------------------------------------
+PUT http://localhost:5000/api/users/update/3
+Authorization: Bearer your.jwt.token
+
+
+{
+  "username": "KingB Updated",
+  "email": "updatedemail@gmail.com",
+  "password": "NewPassword123"
+}
+
+
+
+
+
+
+---------------------------------------------------- DEACTIVATE USER  ----------------------------------------------------
+PUT http://localhost:5000/api/users/deactivate/3
+Authorization: Bearer your.jwt.token
+
+
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+
+----------------------------------------------------
+
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+----------------------------------------------------
+
+
