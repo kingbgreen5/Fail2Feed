@@ -15,7 +15,7 @@ router.get('/all', authenticateToken, authorizeAdmin, (req, res) => {
         }
         res.json(results);
     });
-});
+}); 
 
 // Get a single user by ID (User can view own profile, Admin can view any profile)
 router.get('/:id', authenticateToken, (req, res) => {

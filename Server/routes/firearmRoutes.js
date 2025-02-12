@@ -5,17 +5,6 @@ const Firearm = require("../models/firearmModel");
 
 const db = require('../config/db');
 
-// Get all firearms
-// router.get('/all', async (req, res) => {
-//     console.log("Hit the get all firearms route")
-//     try {
-//         const firearms = await Firearm.getAllFirearms();
-//         res.json(firearms);
-//         console.log(firearms)
-//     } catch (error) {
-//         res.status(500).json({ message: 'Server error' });
-//     }
-// });
 
 
 router.get('/all', (req, res) => {
@@ -31,6 +20,45 @@ router.get('/all', (req, res) => {
 
 
 
+// Get unique firearm makes
+router.get('/makes', (req, res) => {
+    Firearm.getAllMakes((err, results) => {
+        console.log(results)
+        if (err) return res.status(500).json({ error: err.message });
+        // res.json(results.map(row => row.make));
+        res.json(results);
+    });
+});
+
+
+
+
+
+// router.get("/makes", async (req, res) => {
+//     try {
+//         const [rows] = await db.execute("SELECT name FROM manufacturers");
+//         console.log("Database query result:", rows); // Log the result to debug
+//         res.json(rows); // Send the response
+//     } catch (error) {
+//         console.error("Error fetching makes:", error);
+//         res.status(500).json({ error: "Database error" });
+//     }
+// });
+
+
+// Get models for a selected make
+router.get('/models', (req, res) => {
+    const { make } = req.query;
+    if (!make) return res.status(400).json({ error: "Make is required" });
+    Firearm.getModelsByMake(make, (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        // res.json(results.map(row => row.model));
+    });
+    res.json(results.length > 0 ? results : []); // Always return an array
+
+});
+
+
 
 
 // Update a firearm
@@ -43,6 +71,16 @@ router.put('/update/:id', authenticateUser.authenticateToken, async (req, res) =
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+
+
+
+
+
+
+
+
+
 
 
 module.exports = router;
