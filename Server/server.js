@@ -4,6 +4,7 @@ const authRoutes = require('./routes/authRoutes');
 const firearmRoutes = require('./routes/firearmRoutes');
 const reportsRoutes = require('./routes/reportRoutes');
 const userRoutes = require('./routes/userRoutes'); // Import user routes
+const userFirearmsRoutes= require('./routes/userFirearmsRoutes');
 
 
 
@@ -25,6 +26,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/firearms', firearmRoutes);
 app.use('/api/reports', reportsRoutes)
+app.use('/userFirearmsRoutes', userFirearmsRoutes)
 
 
 const PORT = process.env.PORT || 5000;

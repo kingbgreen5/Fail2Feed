@@ -47,16 +47,47 @@ router.get('/makes', (req, res) => {
 
 
 // Get models for a selected make
-router.get('/models', (req, res) => {
-    const { make } = req.query;
-    if (!make) return res.status(400).json({ error: "Make is required" });
-    Firearm.getModelsByMake(make, (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        // res.json(results.map(row => row.model));
-    });
-    res.json(results.length > 0 ? results : []); // Always return an array
+// router.get('/models', (req, res) => {
+//     const { make } = req.query;
+//     if (!make) return res.status(400).json({ error: "Make is required" });
+//     Firearm.getModelsByMake(make, (err, results) => {
+//         if (err) return res.status(500).json({ error: err.message });
+//         // res.json(results.map(row => row.model));
+//     });
+//     res.json(results.length > 0 ? results : []); // Always return an array
 
+// });
+
+
+
+// Get models for a selected make
+router.get("/models", (req, res) => {
+    const make = req.query.make;  // Get manufacturer name from query
+    if (!make) {
+        return res.status(400).json({ error: "Manufacturer is required" });
+    }
+
+    const query = "SELECT model FROM firearms WHERE manufacturer = ?";
+
+    db.query(query, [make], (err, results) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ error: "Database error" });
+        }
+
+        if (!results || results.length === 0) {
+            return res.json([]); // Return an empty array instead of causing an error
+        }
+
+        res.json(results.map(row => row.model)); // Send back an array of models
+    });
 });
+
+
+
+
+
+
 
 
 

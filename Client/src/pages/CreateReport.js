@@ -25,6 +25,10 @@ const CreateReport = () => {
     }, [makes]);
     
 
+    useEffect(() => {
+        console.log("Selected Make:", selectedMake);
+    }, [selectedMake]);
+    
 
 
 
@@ -53,26 +57,32 @@ const CreateReport = () => {
     return (
         <form>
             <h2>Create Range Report</h2>
-<h3>Firearm</h3>
+<h3>Select Firearm</h3>
 {/* <h1>Makes:{makes.map}</h1> */}
-
+<div> 
             {/* Make Dropdown */}
-            <label>Manufacturer:</label>
+            <label>Manufacturer: </label>
             <select value={selectedMake} onChange={(e) => setSelectedMake(e.target.value)}>
                 <option value="">Select Make</option>
                 {makes.map((make, index) => (
                     <option key={index} value={make}>{make}</option>
                 ))}
             </select>
-
+            </div>
+            <div> 
             {/* Model Dropdown */}
-            <label>Model:</label>
+            <label>Model: </label>
             <select value={selectedModel} onChange={(e) => setSelectedModel(e.target.value)} disabled={!selectedMake || models.length === 0}>
                 <option value="">{models.length === 0 ? "No models available" : "Select Model"}</option>
                     {models.map((model, index) => (
                         <option key={index} value={model}>{model}</option>
     ))}
 </select>
+</div>
+<div>
+   <h2>FIREARM: {selectedMake} {selectedModel}</h2>
+
+</div>
 
 
             {/* Submit Button */}
