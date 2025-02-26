@@ -1,142 +1,138 @@
-
-
-const db = require('../config/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
 const bcrypt = require('bcrypt');
 
-
-const User = {
-    // Get all users (excluding deactivated users)
-    getAllUsers: (callback) => {
-        db.query('SELECT id, username, email, role FROM users WHERE is_active = 1', callback);
+const User = sequelize.define('User', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
-
-    // Get a user by ID
-    getUserById: (id, callback) => {
-        db.query('SELECT id, username, email, role FROM users WHERE id = ? AND is_active = 1', [id], (err, results) => {
-            if (err) return callback(err, null);
-            callback(null, results[0]);
-        });
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
     },
-
-    // Get user by email (for login)
-    getUserByEmail: (email, callback) => {
-        db.query('SELECT * FROM users WHERE email = ? AND is_active = 1 ', [email], (err, results) => {
-            if (err) return callback(err, null);
-            callback(null, results.length > 0 ? results[0] : null);
-        });
-    },
-
-    // // Store verification token
-    // storeVerificationToken: (userId, token, callback) => {
-    //     db.query('UPDATE users SET verification_token = ? WHERE id = ?', [token, userId], callback);
-    // },
-
-    storeVerificationToken: (userId, token, callback) => {
-        db.query('UPDATE users SET verification_token = ? WHERE id = ?', [token, userId], (err, result) => {
-            if (err) {
-                console.error('Error storing verification token:', err);
-                return callback(err, null);
-            }
-            callback(null, result);
-        });
-    },
-    
-
-
-
-    // // Verify user by token
-    // verifyUserByToken: (token, callback) => {
-    //     db.query(
-    //         'UPDATE users SET is_verified = 1, verification_token = NULL WHERE verification_token = ?',
-    //         [token],
-    //         callback
-    //     );
-    // },
-
-    verifyUserByToken: (token, callback) => {
-        db.query(
-            'UPDATE users SET is_verified = 1, verification_token = NULL WHERE verification_token = ?',
-            [token],
-            (err, result) => {
-                if (err) {
-                    console.error('Error verifying user:', err);
-                    return callback(err, null);
-                }
-                callback(null, result);
-            }
-        );
-    },
-    
-
-    // Store password reset token
-    storeResetToken: (email, token, expiry, callback) => {
-        db.query('UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?', [token, expiry, email], callback);
-    },
-
-    // Reset password
-    resetPassword: async (token, newPassword, callback) => {
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        db.query(
-            'UPDATE users SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = ? AND reset_token_expiry > NOW()',
-            [hashedPassword, token],
-            callback
-        );
-    },
-
-    // // Create a new user (default `is_verified = 0`)
-    // createUser: async (username, email, password, role = 'user', callback) => {
-    //     db.query(
-    //         'INSERT INTO users (username, email, password, role, is_verified) VALUES (?, ?, ?, ?, 0)',
-    //         [username, email, password, role],
-    //         callback
-    //     );
-    // },
-    createUser: async (username, email, password, role = 'user', verificationToken, callback) => {
-        try {
-            const query = 'INSERT INTO users (username, email, password, role, is_verified, verification_token) VALUES (?, ?, ?, ?, 0, ?)';
-            db.query(query, [username, email, password, role, verificationToken], (err, result) => {
-                if (err) {
-                    console.error('Error inserting user:', err);
-                    return callback(err, null);
-                }
-                callback(null, result);
-            });
-        } catch (error) {
-            console.error('Unexpected error in createUser:', error);
-            callback(error, null);
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+            isEmail: true
         }
     },
-    
-
-    // Update user information (optional password update)
-    updateUser: async (id, username, email, password, callback) => {
-        let query = 'UPDATE users SET username = ?, email = ?';
-        let values = [username, email];
-
-        if (password) {
-            const hashedPassword = await bcrypt.hash(password, 10);
-            query += ', password = ?';
-            values.push(hashedPassword);
-        }
-
-        query += ' WHERE id = ? AND is_active = 1';
-        values.push(id);
-
-        db.query(query, values, callback);
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-
-    // Soft delete user (deactivate account)
-    softDeleteUser: (id, callback) => {
-        db.query('UPDATE users SET is_active = 0 WHERE id = ?', [id], callback);
+    created_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     },
-
-    // Check if a user is an admin
-    isAdmin: (id, callback) => {
-        db.query('SELECT role FROM users WHERE id = ? AND is_active = 1', [id], (err, results) => {
-            if (err || !results.length) return callback(err, false);
-            callback(null, results[0].role === 'admin');
-        });
+    role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'user'
+    },
+    is_active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    },
+    is_verified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    verification_token: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    reset_token: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    reset_token_expiry: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
+}, {
+    tableName: 'users',
+    timestamps: false, 
+    underscored: true 
+});
+
+User.prototype.comparePassword = async function(password) {
+    return await bcrypt.compare(password, this.password);
+};
+
+User.beforeCreate(async (user) => {
+    if (user.password) {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+    }
+});
+
+User.beforeUpdate(async (user) => {
+    if (user.changed('password')) {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+    }
+});
+
+User.getAllUsers = async function() {
+    return await User.findAll({ where: { is_active: true } });
+};
+
+User.getUserById = async function(id) {
+    return await User.findOne({ where: { id, is_active: true } });
+};
+
+User.getUserByEmail = async function(email) {
+    return await User.findOne({ where: { email, is_active: true } });
+};
+
+User.storeVerificationToken = async function(userId, token) {
+    return await User.update({ verification_token: token }, { where: { id: userId } });
+};
+
+User.verifyUserByToken = async function(token) {
+    return await User.update({ is_verified: true, verification_token: null }, { where: { verification_token: token } });
+};
+
+User.storeResetToken = async function(email, token, expiry) {
+    return await User.update({ reset_token: token, reset_token_expiry: expiry }, { where: { email } });
+};
+
+User.resetPassword = async function(token, newPassword) {
+    const user = await User.findOne({ where: { reset_token: token, reset_token_expiry: { [sequelize.Op.gt]: new Date() } } });
+    if (!user) return null;
+    user.password = newPassword;
+    await user.save();
+    return user;
+};
+
+User.createUser = async function(username, email, password, role = 'user', verificationToken) {
+    return await User.create({ username, email, password, role, verification_token: verificationToken });
+};
+
+User.updateUser = async function(id, username, email, password) {
+    const user = await User.findByPk(id);
+    if (!user) return null;
+    user.username = username;
+    user.email = email;
+    if (password) {
+        user.password = password;
+    }
+    await user.save();
+    return user;
+};
+
+User.softDeleteUser = async function(id) {
+    return await User.update({ is_active: false }, { where: { id } });
+};
+
+User.isAdmin = async function(id) {
+    const user = await User.findByPk(id);
+    return user && user.role === 'admin';
 };
 
 module.exports = User;

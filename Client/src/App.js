@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import HomePage from "./components/HomePage";
 import NavBar from "./components/NavBar";
 import CreateReport from "./pages/CreateReport";
+import UserDashboard from "./pages/UserDashboard";
 import "./App.css";
 
 const App = () => {
@@ -12,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     if (token) {
-      fetch("http://localhost:5000/api/auth/user", {
+      fetch("http://localhost:3000/api/auth/user", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())
@@ -37,9 +38,10 @@ const App = () => {
         <>
           <NavBar user={user} onLogout={handleLogout} setCurrentPage={setCurrentPage} />
           
-          Conditionally render pages
+          {/* Conditionally render pages */}
           {/* {currentPage === "home" && <HomePage />} */}
           {currentPage === "createReport" && <CreateReport />}
+          {currentPage === "UserDashboard" && <UserDashboard />}
         </>
       ) : (
         <Login onLoginSuccess={setToken} />
