@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const db = require('./models');
 const authRoutes = require('./routes/authRoutes');
 const firearmRoutes = require('./routes/firearmRoutes');
 const reportsRoutes = require('./routes/reportRoutes');
 const userRoutes = require('./routes/userRoutes');
-const userFirearmsRoutes= require('./routes/userFirearmsRoutes');
+const userFirearmsRoutes = require('./routes/userFirearmsRoutes');
 
 require('dotenv').config();
 const app = express();
@@ -26,8 +27,19 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRoutes); 
 app.use('/api/auth', authRoutes);
 app.use('/api/firearms', firearmRoutes);
-app.use('/api/reports', reportsRoutes)
-app.use('/api/userFirearms', userFirearmsRoutes)
+app.use('/api/reports', reportsRoutes);
+app.use('/api/userFirearms', userFirearmsRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}!!!!!`));
+
+// Sync database and start server
+db.sequelize.sync()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}!!!!!`);
+            console.log('Database synced successfully');
+        });
+    })
+    .catch(err => {
+        console.error('Failed to sync database:', err);
+    });

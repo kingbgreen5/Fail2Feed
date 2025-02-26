@@ -1,75 +1,78 @@
 const express = require("express");
 const router = express.Router();
-const db = require('../config/db');
+const db = require('../models');
+const { authenticateToken } = require('../middleware/authMiddleware');
+const { addUserFirearm, getUserFirearms, removeUserFirearm } = require('../controllers/userFirearmsController');
+const {getFirearmId} = require('../controllers/firearmController');
 
-const { addUserFirearm, getUserFirearms, removeUserFirearm } = require("../models/userFirearmsModel");
-const { authenticateToken, authorizeAdmin } = require('../middleware/authMiddleware');
 
 // Route to get all firearm makes
-router.get("/makes", async (req, res) => {
-    try {
-        const [makes] = await db.promise().query(
-            "SELECT DISTINCT make FROM firearm ORDER BY make"
-        );
-        res.json(makes.map(row => row.make));
-    } catch (error) {
-        console.error("Error fetching makes:", error);
-        res.status(500).json({ message: "Failed to fetch firearm makes" });
-    }
-});
+// router.get("/makes", async (req, res) => {
+//     try {
+//         const makes = await db.Firearm.findAll({
+//             attributes: [[db.sequelize.fn('DISTINCT', db.sequelize.col('make')), 'make']],
+//             order: [['make', 'ASC']]
+//         });
+//         res.json(makes.map(row => row.make));
+//     } catch (error) {
+//         console.error("Error fetching makes:", error);
+//         res.status(500).json({ message: "Failed to fetch firearm makes" });
+//     }
+// });
 
 // Route to get models for a specific make
-router.get("/models", async (req, res) => {
-    try {
-        const { make } = req.query;
-        if (!make) {
-            return res.status(400).json({ message: "Make parameter is required" });
-        }
+// router.get("/models", async (req, res) => {
+//     try {
+//         const { make } = req.query;
+//         if (!make) {
+//             return res.status(400).json({ message: "Make parameter is required" });
+//         }
 
-        const [models] = await db.promise().query(
-            "SELECT model FROM firearm WHERE make = ? ORDER BY model",
-            [make]
-        );
-        res.json(models.map(row => row.model));
-    } catch (error) {
-        console.error("Error fetching models:", error);
-        res.status(500).json({ message: "Failed to fetch firearm models" });
-    }
-});
+//         const models = await db.Firearm.findAll({
+//             attributes: ['model'],
+//             where: { make },
+//             order: [['model', 'ASC']]
+//         });
+//         res.json(models.map(row => row.model));
+//     } catch (error) {
+//         console.error("Error fetching models:", error);
+//         res.status(500).json({ message: "Failed to fetch firearm models" });
+//     }
+// });
 
 // Route to add a firearm to the user's profile
 router.post("/add", authenticateToken, async (req, res) => {
     try {
+        console.log('Add firearm route hit', req.body);
         const { make, model } = req.body;
         if (!make || !model) {
             return res.status(400).json({ message: "Make and model are required" });
         }
 
-        // First, get the firearm_id
-        const [firearm] = await db.promise().query(
-            "SELECT id FROM firearm WHERE make = ? AND model = ?",
-            [make, model]
-        );
-
-        if (!firearm.length) {
+            const firearmID = await  getFirearmId(make, model);
+        console.log("firearm ID", firearmID)
+        if (!firearmID) {
             return res.status(404).json({ message: "Firearm not found" });
         }
 
         const userId = req.user.id;
-        const firearm_id = firearm[0].id;
+        const firearm_id = firearmID;
         const firearmEntryId = await addUserFirearm(userId, firearm_id);
+        console.log(firearmEntryId)
         res.status(201).json({ message: "Firearm added successfully", firearmEntryId });
     } catch (error) {
         console.error("Error adding firearm:", error);
         res.status(500).json({ message: error.message || "Failed to add firearm" });
     }
+   
 });
+
+
+
+
 
 // Route to get all firearms associated with the logged-in user
 router.get("/", authenticateToken, async (req, res) => {
-    console.log("Request reached /api/userFirearms");
-    console.log("Authenticated User ID:", req.user ? req.user.id : "No user attached");
-
     try {
         const userId = req.user.id;
         if (!userId) {

@@ -40,7 +40,7 @@ router.get("/models", async (req, res) => {
 
     try {
         const results = await db.query(
-            "SELECT model FROM firearms WHERE manufacturer = ? ORDER BY model",
+            "SELECT model FROM firearms WHERE make= ? ORDER BY model",
             {
                 replacements: [make],
                 type: QueryTypes.SELECT
@@ -58,7 +58,7 @@ router.put('/update/:id', authenticateUser.authenticateToken, async (req, res) =
     try {
         const { make, model, manufacturing_date } = req.body;
         const result = await db.query(
-            'UPDATE firearms SET manufacturer = ?, model = ?, manufacturing_date = ? WHERE id = ?',
+            'UPDATE firearms SET make = ?, model = ?, manufacturing_date = ? WHERE id = ?',
             {
                 replacements: [make, model, manufacturing_date, req.params.id],
                 type: QueryTypes.UPDATE

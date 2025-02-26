@@ -1,53 +1,109 @@
-const db = require('../config/db');
+const { Model, DataTypes } = require('sequelize');
 
-const Firearm = {
-    getAllFirearms: (callback) => {
-        db.query('SELECT * FROM firearms', callback);
-    },
-
-    createFirearm: (manufacturer, model, roundsFired, reportsFiled, callback) => {
-        db.query(
-            'INSERT INTO firearms (manufacturer, model, rounds_fired, reports_filed) VALUES (?, ?, ?, ?)',
-            [manufacturer, model, roundsFired, reportsFiled],
-            callback
-        );
-    },
-
-    getAllMakes: (callback) => {
-        db.query('SELECT name FROM manufacturers ORDER BY name', (error, results) => {
-            if (error) return callback(error, null);
-            const makes = results.map(row => row.name);
-            callback(null, makes);
+class Firearm extends Model {
+    static init(sequelize) {
+        return super.init({
+            // id: {
+            //     type: DataTypes.INTEGER,
+            //     primaryKey: true,
+            //     autoIncrement: true
+            // },
+            // make: {
+            //     type: DataTypes.STRING,
+            //     allowNull: false
+            // },
+            // model: {
+            //     type: DataTypes.STRING,
+            //     allowNull: false
+            // }
+            id: {
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true,
+            },
+            make: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            model: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            rounds_fired: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            reports_filed: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            is_active: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: true,
+            },
+            is_revolver: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
+        }, {
+            sequelize,
+            modelName: 'Firearm',
+            tableName: 'firearms',
+            timestamps: false
         });
-    },
-
-    getModelsByMake: (make, callback) => {
-        db.query(
-            'SELECT model FROM firearms WHERE manufacturer = ? AND is_active = 1 ORDER BY model',
-            [make],
-            (error, results) => {
-                if (error) return callback(error, null);
-                const models = results.map(row => row.model);
-                callback(null, models);
-            }
-        );
-    },
-
-    addRoundsFired: (firearmId, rounds, callback) => {
-        db.query(
-            'UPDATE firearms SET rounds_fired = rounds_fired + ? WHERE id = ?',
-            [rounds, firearmId],
-            callback
-        );
-    },
-
-    incrementReportsFiled: (firearmId, callback) => {
-        db.query(
-            'UPDATE firearms SET reports_filed = reports_filed + 1 WHERE id = ?',
-            [firearmId],
-            callback
-        );
     }
-};
+
+    static associate(models) {
+        this.hasMany(models.UserFirearms, { foreignKey: 'firearm_id' });
+    }
+}
 
 module.exports = Firearm;
+
+
+// const { Model, DataTypes } = require("sequelize");
+// // const sequelize = require("../config/db"); // Import the database connection
+
+// class Firearm extends Model {}
+
+// Firearm.init(
+//     {
+//         id: {
+//             type: DataTypes.INTEGER,
+//             primaryKey: true,
+//             autoIncrement: true,
+//         },
+//         make: {
+//             type: DataTypes.STRING,
+//             allowNull: false,
+//         },
+//         model: {
+//             type: DataTypes.STRING,
+//             allowNull: false,
+//         },
+//         rounds_fired: {
+//             type: DataTypes.INTEGER,
+//             defaultValue: 0,
+//         },
+//         reports_filed: {
+//             type: DataTypes.INTEGER,
+//             defaultValue: 0,
+//         },
+//         is_active: {
+//             type: DataTypes.BOOLEAN,
+//             defaultValue: true,
+//         },
+//         is_revolver: {
+//             type: DataTypes.BOOLEAN,
+//             defaultValue: false,
+//         },
+//     },
+//     {
+//         sequelize, // Pass the database connection
+//         modelName: "Firearm",
+//         tableName: "firearms",
+//         timestamps: false, // Disable createdAt and updatedAt timestamps
+//     }
+// );
+
+// module.exports = Firearm;

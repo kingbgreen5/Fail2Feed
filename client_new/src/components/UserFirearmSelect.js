@@ -60,7 +60,7 @@ const UserFirearmSelect = () => {
 
         const token = localStorage.getItem("token");
         axios.post(
-            `${config.API_URL}/api/firearms/add`,
+            `${config.API_URL}/api/userFirearms/add`,
             { make: selectedMake, model: selectedModel },
             { headers: { Authorization: `Bearer ${token}` } }
         )
