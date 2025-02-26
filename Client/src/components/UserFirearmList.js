@@ -8,7 +8,9 @@ const UserFirearmList = () => {
     // Fetch user's saved firearms
     useEffect(() => {
         const token = localStorage.getItem("token"); // Assuming authentication
-        axios.get("http://localhost:5000/api/user/firearms", { 
+// console.log("Token being sent:", token);
+
+        axios.get("http://localhost:5000/api/userFirearms", { 
             headers: { Authorization: `Bearer ${token}` } 
         })
         .then(response => setFirearms(response.data))
@@ -18,7 +20,7 @@ const UserFirearmList = () => {
     // Handle firearm removal
     const handleRemoveFirearm = (firearmId) => {
         const token = localStorage.getItem("token");
-        axios.delete(`http://localhost:5000/api/user/firearms/${firearmId}`, { 
+        axios.delete(`http://localhost:5000/api/userFirearms/${firearmId}`, { 
             headers: { Authorization: `Bearer ${token}` } 
         })
         .then(() => {

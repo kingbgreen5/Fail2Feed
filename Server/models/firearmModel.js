@@ -5,65 +5,49 @@ const Firearm = {
         db.query('SELECT * FROM firearms', callback);
     },
 
-    createFirearm: (make, model, roundsFired, reportsFiled, callback) => {
+    createFirearm: (manufacturer, model, roundsFired, reportsFiled, callback) => {
         db.query(
-            'INSERT INTO firearms (make, model, rounds_fired, reports_filed) VALUES (?, ?, ?, ?)',
-            [make, model, roundsFired, reportsFiled],
+            'INSERT INTO firearms (manufacturer, model, rounds_fired, reports_filed) VALUES (?, ?, ?, ?)',
+            [manufacturer, model, roundsFired, reportsFiled],
             callback
         );
     },
 
-
-
     getAllMakes: (callback) => {
-        db.query('SELECT DISTINCT name FROM manufacturers', (error, results) => {
+        db.query('SELECT name FROM manufacturers ORDER BY name', (error, results) => {
             if (error) return callback(error, null);
-            
-            // Convert the array of objects into an array of strings
             const makes = results.map(row => row.name);
             callback(null, makes);
         });
     },
 
-
-
-
-    
-    // getModelsByMake: (make, callback) => {
-    //     db.query('SELECT model FROM firearms WHERE make = ?', [make], callback);
-    // },
-
-
-
-
     getModelsByMake: (make, callback) => {
-        // Ensure we're using manufacturer_id instead of make (string)
-        const query = `
-            SELECT model 
-            FROM firearms 
-            WHERE manufacturer = ?
-            )
-        `;
+        db.query(
+            'SELECT model FROM firearms WHERE manufacturer = ? AND is_active = 1 ORDER BY model',
+            [make],
+            (error, results) => {
+                if (error) return callback(error, null);
+                const models = results.map(row => row.model);
+                callback(null, models);
+            }
+        );
+    },
 
-        db.query(query, [make], (error, results) => {
-            if (error) return callback(error, null);
+    addRoundsFired: (firearmId, rounds, callback) => {
+        db.query(
+            'UPDATE firearms SET rounds_fired = rounds_fired + ? WHERE id = ?',
+            [rounds, firearmId],
+            callback
+        );
+    },
 
-            // Convert the result into an array of model names
-            const models = results.map(row => row.model);
-            callback(null, models);
-        });
+    incrementReportsFiled: (firearmId, callback) => {
+        db.query(
+            'UPDATE firearms SET reports_filed = reports_filed + 1 WHERE id = ?',
+            [firearmId],
+            callback
+        );
     }
-
-
-
-
-
-
-
-
-
-
-
 };
 
 module.exports = Firearm;

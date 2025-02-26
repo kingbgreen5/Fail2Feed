@@ -13,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     if (token) {
-      fetch("http://localhost:5000/api/auth/user", {
+      fetch("http://localhost:3000/api/auth/user", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())

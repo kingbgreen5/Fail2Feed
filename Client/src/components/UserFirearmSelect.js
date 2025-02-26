@@ -34,7 +34,7 @@ const UserFirearmSelect = () => {
         if (!selectedMake || !selectedModel) return;
 
         const token = localStorage.getItem("token"); // Assuming user authentication
-        axios.post("http://localhost:5000/api/user/firearms", 
+        axios.post("http://localhost:3000/api/userFirearms/add", 
             { make: selectedMake, model: selectedModel }, 
             { headers: { Authorization: `Bearer ${token}` } }
         )
