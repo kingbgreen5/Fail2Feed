@@ -3,6 +3,28 @@ node_modules/
 /.pnp
 .pnp.js
 
+# Client directories
+/Client/node_modules/
+/Client/build/
+/Client/.env
+/Client/.env.local
+/Client/.env.development
+/Client/.env.production
+
+# New client directories
+/client_new/build/
+/client_new/node_modules/
+/client_new/.env
+/client_new/.env.local
+/client_new/.env.development
+/client_new/.env.production
+
+# Server files
+/Server/node_modules/
+/Server/.env
+/Server/logs/
+/Server/uploads/
+
 # Environment variables
 .env
 .env.local
@@ -37,20 +59,6 @@ yarn-error.log*
 # Local database files
 *.sqlite
 *.sqlite3
-
-# Client build files
-/client_new/build/
-/client_new/node_modules/
-/client_new/.env
-/client_new/.env.local
-/client_new/.env.development
-/client_new/.env.production
-
-# Server files
-/Server/node_modules/
-/Server/.env
-/Server/logs/
-/Server/uploads/
 
 # Misc
 .DS_Store

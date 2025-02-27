@@ -1,4 +1,3 @@
-// db.js
 const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -20,13 +19,24 @@ const sequelize = new Sequelize(
     }
 );
 
-// Test the connection
-sequelize.authenticate()
-    .then(() => {
-        console.log('Connected to MySQL!');
-    })
-    .catch(err => {
-        console.error('Error connecting to MySQL:', err.message);
-    });
+const db = {
+    sequelize,
+    Sequelize
+};
 
-module.exports = sequelize;
+// Import models
+const Firearm = require('./firearmModel');
+const UserFirearms = require('./userFirearmsModel');
+
+// Initialize models
+db.Firearm = Firearm.init(sequelize);
+db.UserFirearms = UserFirearms.init(sequelize);
+
+// Run associations
+Object.values(db).forEach((model) => {
+    if (model.associate && typeof model.associate === 'function') {
+        model.associate(db);
+    }
+});
+
+module.exports = db;
