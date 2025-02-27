@@ -326,3 +326,33 @@ button:disabled {
   border-radius: 4px;
   text-align: center;
 }
+
+/* -------------------------------------------USERS FIREARM LIST CSS */
+
+.firearm-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.firearm-tile {
+  background-color: #a7a7a7; /* light gray background */
+  border-radius: 10px;       /* rounded corners */
+  padding: 20px;             /* space inside the tile */
+  width: 200px;              /* fixed width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  text-align: center;        /* center text */
+  transition: transform 0.3s ease-in-out; /* smooth hover effect */
+}
+
+.firearm-tile:hover {
+  transform: translateY(-5px); /* lift the tile on hover */
+}
+
+.firearm-make, .firearm-model {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  color: #333; /* dark text for contrast */
+}
