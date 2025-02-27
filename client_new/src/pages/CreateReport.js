@@ -1,11 +1,36 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../config";
+// import UserFirearmList from "../components/UserFirearmList";
+
+
 
 const CreateReport = () => {
     const [makes, setMakes] = useState([]);
     const [models, setModels] = useState([]);
     const [selectedMake, setSelectedMake] = useState("");
     const [selectedModel, setSelectedModel] = useState("");
+    const [userFirearms, setUserFirearms] = useState([]);
+    const [selectedFirearm, setSelectedFirearm] =useState("")
+
+
+// GET USERS FIREARMS
+    useEffect(() => {
+        // console.log(firearms)
+          const token = localStorage.getItem("token");
+          // console.log("Token from local storage",token)
+          axios.get(`${config.API_URL}/api/userFirearms`, { 
+              headers: { Authorization: `Bearer ${token}` } 
+          })
+          .then(response => setUserFirearms(response.data))
+          .catch(error => console.error("Error fetching user firearms:", error));
+      }, [console.log(userFirearms)]);
+  
+  
+
+
+
+
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/firearms/makes")
@@ -29,9 +54,28 @@ const CreateReport = () => {
     }, [selectedMake]);
 
     return (
+        <div>
         <form>
-            <h2>Create Range Report</h2>
-            <h3>Select Firearm</h3>
+            <h1>Range Report</h1>
+        
+            <h2>Firearm Used</h2>
+            <h3>Add from Collection</h3>
+            <div> 
+                <label> </label>
+                <select value={selectedFirearm} onChange={(e) => setSelectedMake(e.target.value)}>
+                    <option value="">Select Firearm from Collection</option>
+                    {userFirearms.map((firearm, index) => (
+                          <option key={index} value={firearm.Firearm.id}>
+                          {firearm.Firearm.make} - {firearm.Firearm.model}
+                      </option>
+                    ))}
+                </select>
+            </div>
+
+<h3>
+    Add by Make/Model
+</h3>
+
             <div> 
                 <label>Manufacturer: </label>
                 <select value={selectedMake} onChange={(e) => setSelectedMake(e.target.value)}>
@@ -60,6 +104,10 @@ const CreateReport = () => {
 
             <button type="submit">Submit Report</button>
         </form>
+
+{/* <div> <UserFirearmList /> </div>  */}
+ 
+</div>
     );
 };
 

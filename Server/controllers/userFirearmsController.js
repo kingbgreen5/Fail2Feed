@@ -39,7 +39,7 @@ const getUserFirearms = async (userId) => {
             },
             include: [{
                 model: Firearm,
-                attributes: ['make', 'model']
+                attributes: ['make', 'model', 'id', 'rounds_fired']
             }],
             attributes: ['id', 'created_at']
         });
@@ -51,24 +51,70 @@ const getUserFirearms = async (userId) => {
 };
 
 // Soft delete (mark as inactive) a firearm from a user's profile
-const removeUserFirearm = async (userId, firearmId) => {
+
+// const removeUserFirearm = async (userId, firearmId) => {
+//     try {
+//         const result = await UserFirearms.update(
+//             { is_active: 0 },
+//             {
+//                 where: {
+//                     user_id: userId,
+//                     firearm_id: firearmId,
+//                     is_active: 1
+//                 }
+//             }
+//         );
+//         console.log(result)
+//         return result[0] > 0; // Returns true if any rows were updated
+//     } catch (error) {
+//         console.error('Error in removeUserFirearm:', error);
+//         throw error;
+//     }
+// };
+
+
+const removeUserFirearm = async (userId, id) => {
+    console.log(`Starting removeUserFirearm for userId: ${userId}, userFirearmId: ${id}`);
+
     try {
-        const result = await UserFirearms.update(
-            { is_active: false },
-            {
-                where: {
-                    user_id: userId,
-                    firearm_id: firearmId,
-                    is_active: true
-                }
-            }
-        );
-        return result[0] > 0; // Returns true if any rows were updated
+        // Define the update values
+        const updateValues = { is_active: 0 };
+        console.log('Update Values:', updateValues);
+
+        // Define the WHERE condition
+        const whereCondition = {
+            user_id: userId,
+            id: id,
+            is_active: 1
+        };
+        console.log('Where Condition:', whereCondition);
+
+        // Execute the update operation
+        const result = await UserFirearms.update(updateValues, { where: whereCondition });
+
+        console.log('Update Result:', result); // Expecting [number of rows updated]
+
+        const success = result[0] > 0;
+        console.log(`Was a row updated? ${success}`);
+
+        return success;
     } catch (error) {
         console.error('Error in removeUserFirearm:', error);
         throw error;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = {
     addUserFirearm,

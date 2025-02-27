@@ -23,7 +23,7 @@ router.get('/makes', async (req, res) => {
         const results = await db.query('SELECT name FROM manufacturers ORDER BY name', {
             type: QueryTypes.SELECT
         });
-        console.log('Makes query results:', results);
+        // console.log('Makes query results:', results);
         res.json(results.map(row => row.name));
     } catch (error) {
         console.error('Error fetching makes:', error);

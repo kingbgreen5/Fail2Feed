@@ -91,6 +91,7 @@ router.delete("/remove/:firearm_id", authenticateToken, async (req, res) => {
     try {
         const { firearm_id } = req.params;
         const userId = req.user.id;
+        console.log("Delete Route hit, removing firearm ID", firearm_id , "from User ID", (userId));
         const success = await removeUserFirearm(userId, firearm_id);
         
         if (success) {

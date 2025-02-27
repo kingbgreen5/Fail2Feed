@@ -16,7 +16,7 @@ const UserFirearmSelect = () => {
         setError("");
         axios.get(`${config.API_URL}/api/firearms/makes`)
             .then(response => {
-                console.log("Makes response:", response.data);
+                // console.log("Makes response:", response.data);
                 setMakes(response.data);
             })
             .catch(error => {
@@ -34,7 +34,7 @@ const UserFirearmSelect = () => {
                 params: { make: selectedMake }
             })
             .then(response => {
-                console.log("Models response:", response.data);
+                // console.log("Models response:", response.data);
                 setModels(response.data);
             })
             .catch(error => {
