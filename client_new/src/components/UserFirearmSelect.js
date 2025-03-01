@@ -79,7 +79,7 @@ const UserFirearmSelect = () => {
 
     return (
         <div className="firearm-select">
-            <h2>Select Firearm</h2>
+            <h2>Add Firearm to Collection</h2>
 
             {error && <div className="error-message">{error}</div>}
             {message && <div className="success-message">{message}</div>}

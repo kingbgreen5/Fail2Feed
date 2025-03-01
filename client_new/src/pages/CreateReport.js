@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../config";
-// import UserFirearmList from "../components/UserFirearmList";
+
 
 
 
 const CreateReport = () => {
-    const [makes, setMakes] = useState([]);
-    const [models, setModels] = useState([]);
-    const [selectedMake, setSelectedMake] = useState("");
-    const [selectedModel, setSelectedModel] = useState("");
     const [userFirearms, setUserFirearms] = useState([]);
-    const [selectedFirearm, setSelectedFirearm] =useState("")
+    const [selectedFirearmID, setSelectedFirearmID] =useState("")
+    const [selectedUserFirearm, setSelectedUserFirearm] = useState(null);
+    const [selectedAmmo,setSelectedAmmo] = useState(null);
 
-
-// GET USERS FIREARMS
+//------------------------------------------------------------------------- GETS USERS FIREARMS
     useEffect(() => {
         // console.log(firearms)
           const token = localStorage.getItem("token");
@@ -26,89 +23,318 @@ const CreateReport = () => {
           .catch(error => console.error("Error fetching user firearms:", error));
       }, [console.log(userFirearms)]);
   
-  
+
+      const handleSelect = (e) => {
+        const id = parseInt(e.target.value, 10); // Convert value to integer
+        setSelectedFirearmID(id);
+        // Find the firearm in userFirearms that matches the selected ID
+        const firearm = userFirearms.find(f => f.Firearm.id === id);
+        setSelectedUserFirearm(firearm || null); // Set to null if not found
+    };
+    
+
+    // const RangeReportForm = ({ selectedUserFirearm, ammoOptions }) => {
+        const [formData, setFormData] = useState({
+            user_id:"",
+            firearm_id:selectedFirearmID,
+            ammo: "",
+            suppressor: false,
+            optic: false,
+            modificationLevel: 1,
+            date: new Date().toISOString().split("T")[0], // Default to today's date
+            manufactureYear: "",
+            roundsFired: "",
+            malfunctions: {
+                firing: 0,
+                unlocking: 0,
+                extracting: 0,
+                ejecting: 0,
+                cocking: 0,
+                feeding: 0,
+                chambering: 0,
+                locking: 0,
+                magazine: 0,
+                ammunition: 0,
+                other: 0,
+            },
+            catastrophicFailure: false,
+            comments: "",
+        });
+    
+        const handleChange = (e) => {
+            const { name, value, type, checked } = e.target;
+            setFormData((prev) => ({
+                ...prev,
+                [name]: type === "checkbox" ? checked : value,
+            }));
+        };
+    
+        const handleMalfunctionChange = (e) => {
+            const { name, checked } = e.target;
+            setFormData((prev) => ({
+                ...prev,
+                malfunctions: {
+                    ...prev.malfunctions,
+                    [name]: checked,
+                },
+            }));
+        };
+    
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            console.log("Form Submitted:", formData);
+        };
 
 
 
 
 
-    useEffect(() => {
-        axios.get("http://localhost:5000/api/firearms/makes")
-            .then(response => setMakes(response.data))
-            .catch(error => console.error("Error fetching makes:", error));
-    }, []);
 
-    useEffect(() => {
-        if (selectedMake) {
-            axios.get(`http://localhost:5000/api/firearms/models?make=${selectedMake}`)
-                .then(response => {
-                    setModels(response.data || []);
-                })
-                .catch(error => {
-                    console.error("Error fetching models:", error);
-                    setModels([]);
-                });
-        } else {
-            setModels([]);
-        }
-    }, [selectedMake]);
+// ----------------------------------------------------------------------------------RETURN STATEMENT-------------------------------------------------------------------
 
     return (
         <div>
         <form>
             <h1>Range Report</h1>
-        
+        {/* ----------------------------------------------------------------ADD FIREARM FROM COllLLECTION */}
             <h2>Firearm Used</h2>
             <h3>Add from Collection</h3>
-            <div> 
-                <label> </label>
-                <select value={selectedFirearm} onChange={(e) => setSelectedMake(e.target.value)}>
-                    <option value="">Select Firearm from Collection</option>
-                    {userFirearms.map((firearm, index) => (
-                          <option key={index} value={firearm.Firearm.id}>
-                          {firearm.Firearm.make} - {firearm.Firearm.model}
-                      </option>
-                    ))}
-                </select>
-            </div>
 
-<h3>
-    Add by Make/Model
-</h3>
 
-            <div> 
-                <label>Manufacturer: </label>
-                <select value={selectedMake} onChange={(e) => setSelectedMake(e.target.value)}>
-                    <option value="">Select Make</option>
-                    {makes.map((make, index) => (
-                        <option key={index} value={make}>{make}</option>
+
+
+<select value={selectedFirearmID} onChange={handleSelect}>
+    <option value="">Select Firearm from Collection</option>
+    {userFirearms.map((firearm) => (
+        <option key={firearm.Firearm.id} value={firearm.Firearm.id}>
+            {firearm.Firearm.make} - {firearm.Firearm.model}
+        </option>
+    ))}
+</select>
+
+{/* 
+-----------------------------------ADD AMMO SELECTION */}
+{/* 
+ <select value={selectedFirearmID} onChange={handleSelect}>
+    <option value="">Ammunition used: </option>
+    {userFirearms.map((firearm) => (
+        <option key={firearm.Firearm.id} value={firearm.Firearm.id}>
+            {firearm.Firearm.make} - {firearm.Firearm.model}
+        </option>
+    ))}
+</select>  */}
+
+
+<form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold">Range Report</h2>
+
+            {/* Ammo Selection Dropdown */}
+            <label>
+                Ammo Selection:
+                {/* <select name="ammo" value={formData.ammo} onChange={handleChange}>
+                    <option value="">Select Ammo</option>
+                    {ammoOptions.map((ammo) => (
+                        <option key={ammo.id} value={ammo.name}>
+                            {ammo.name}
+                        </option>
                     ))}
-                </select>
-            </div>
-            <div> 
-                <label>Model: </label>
-                <select 
-                    value={selectedModel} 
-                    onChange={(e) => setSelectedModel(e.target.value)} 
-                    disabled={!selectedMake || models.length === 0}
-                >
-                    <option value="">{models.length === 0 ? "No models available" : "Select Model"}</option>
-                    {models.map((model, index) => (
-                        <option key={index} value={model}>{model}</option>
-                    ))}
-                </select>
-            </div>
+                </select> */}
+
+            </label>
+
             <div>
-                <h2>FIREARM: {selectedMake} {selectedModel}</h2>
+                                                                                       {/* Suppressor Checkbox */}
+            <label>
+                <input type="checkbox" name="suppressor" 
+                checked={formData.suppressor} onChange={handleChange} />
+                Suppressor Used
+            </label>
             </div>
 
-            <button type="submit">Submit Report</button>
+            <div>
+                                                                                        {/* Optic Checkbox */}
+            <label>
+                <input type="checkbox" name="optic" 
+                checked={formData.optic} onChange={handleChange} />
+                Optic Used
+            </label>
+            </div>
+
+                <div>
+                                                                                      {/* MODIFICATIONS */}
+            <label>
+                Modification Level: {formData.modificationLevel}
+                <input
+                    type="range"
+                    name="modificationLevel"
+                    min="0"
+                    max="5"
+                    value={formData.modificationLevel}
+                    onChange={handleChange}
+                />
+
+            </label>
+</div>
+                                                                                                  {/* Date Input */}
+            <label>
+                Date:
+                <input type="date" name="date" value={formData.date} onChange={handleChange} />
+            </label>
+            <div>
+            {/* Year of Manufacture */}
+            {/* <label>
+                Year of Manufacture(If known): 
+                <input type="number" name="manufactureYear" value={formData.manufactureYear} onChange={handleChange} />
+            </label> */}
+</div>
+<div>
+                                                                                           {/* Rounds Fired Input */}
+            <label>
+                Rounds Fired with this Ammo:
+                <input type="number" name="roundsFired" value={formData.roundsFired} onChange={handleChange} />
+            </label>
+
+
+</div>
+            <h3 className="text-lg font-semibold">Malfunctions Encountered</h3>
+
+
+<div>
+            <label>
+                    Firing
+                <input type="number" name="Firing" value={formData.firing} onChange={handleChange} />
+            </label>
+
+            <label>
+            Unlocking
+                <input type="number" name="unlocking" value={formData.unlocking} onChange={handleChange} />
+            </label>
+
+            <label>
+            Extracting
+                <input type="number" name="Extracting" value={formData.extracting} onChange={handleChange} />
+            </label>
+
+</div>
+
+
+
+
+
+
+
+
+
+                                                                                   {/* Malfunctions /}
+            {Object.keys(formData.malfunctions).map((malfunction) => (
+                <label key={malfunction}>
+                    <input
+                        type="checkbox"
+                        name={malfunction}
+                        checked={formData.malfunctions[malfunction]}
+                        onChange={handleMalfunctionChange}
+                    />
+                    {malfunction.charAt(0).toUpperCase() + malfunction.slice(1)}
+                </label>
+            ))}
+
+            {/* Catastrophic Malfunction */}
+            <label>
+                <input
+                    type="checkbox"
+                    name="catastrophicFailure"
+                    checked={formData.catastrophicFailure}
+                    onChange={handleChange}
+                />
+                Did you encounter a Catastrophic Malfunction?
+            </label>
+
+            {/* Comment Box */}
+            <label>
+                Comments:
+                <textarea name="comments" value={formData.comments} onChange={handleChange} rows="4" />
+            </label>
+
+            {/* Submit Button */}
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                Submit Report
+            </button>
         </form>
 
-{/* <div> <UserFirearmList /> </div>  */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* 
+
+<div>Ammo Selection Dropdown</div>
+<div>Suppressor Checkbox</div>
+<div>Optic Checkbox</div>
+<div>Modification Level Sliding scale 1-5</div>
+<div>Date</div>
+<div>Year of Manufacture entry field</div>
+<div>Rounds fired With this ammo Numerical entry feild</div>
+<h2>List Malfunctions you encountered</h2>
+<div>Firing </div>
+<div>Unlocking</div>
+<div>extracting</div>
+<div>Ejecting</div>
+<div>Cocking</div>
+<div>Feeding</div>
+<div>Chambering</div>
+<div>Locking</div>
+<div>Magazine</div>
+<div>Ammunition</div>
+<div>Other</div>
+<div>Did you encounter a Catastrophic Malfunction?</div>
+<div>Comment Box</div>
+ */}
+
+
+            <div>
+                <h2>Selected Firearm ID: {selectedFirearmID} </h2>
+            </div>
+
+         
+        </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <button type="submit">Submit Report</button>
+
+
+    </div>
+)}
+
+
+{/* ----------------------------------CHANGE TO DISPLAY ONCE ALL NECESSARY DATA HAS BEEN FILLED IN */}
+
  
-</div>
-    );
-};
+// </div>
+
+//     );
+// };
 
 export default CreateReport;
