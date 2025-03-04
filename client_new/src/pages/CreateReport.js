@@ -81,7 +81,7 @@ const CreateReport = () => {
         };
     
         const handleSubmit = (e) => {
-            e.preventDefault();
+            // e.preventDefault();
             console.log("Form Submitted:", formData);
         };
 
@@ -218,9 +218,59 @@ const CreateReport = () => {
 </div>
 
 
+<div>
+            <label>
+                    Ejecting
+                <input type="number" name="Ejecting" value={formData.ejecting} onChange={handleChange} />
+            </label>
+
+            <label>
+            Cocking
+                <input type="number" name="Cocking" value={formData.cocking} onChange={handleChange} />
+            </label>
+
+            <label>
+            Feeding
+                <input type="number" name="Feeding" value={formData.feeding} onChange={handleChange} />
+            </label>
+
+</div>
+<div>
+
+</div>
+
+
+<div>
+<label>
+            Chambering 
+                <input type="number" name="Chambering" value={formData.chambering} onChange={handleChange} />
+            </label>
+            <label>
+                    Locking 
+                <input type="number" name="Locking" value={formData.locking} onChange={handleChange} />
+            </label>
+
+
+</div>
+
+<div>
+<label>
+                    Magazine Failure
+                <input type="number" name="Magazine" value={formData.magazine} onChange={handleChange} />
+            </label>
+
+</div>
 
 
 
+
+<div>
+<label>
+                    Ammunition Failure
+                <input type="number" name="Ammunition" value={formData.ammunition} onChange={handleChange} />
+            </label>
+
+</div>
 
 
 
@@ -238,7 +288,7 @@ const CreateReport = () => {
                 </label>
             ))}
 
-            {/* Catastrophic Malfunction */}
+                                                                     // {/* Catastrophic Malfunction */}
             <label>
                 <input
                     type="checkbox"
@@ -249,8 +299,10 @@ const CreateReport = () => {
                 Did you encounter a Catastrophic Malfunction?
             </label>
 
-            {/* Comment Box */}
-            <label>
+
+<div>
+                                                                                {/* Comment Box */}
+                <label>
                 Comments:
                 <textarea name="comments" value={formData.comments} onChange={handleChange} rows="4" />
             </label>
@@ -259,48 +311,11 @@ const CreateReport = () => {
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
                 Submit Report
             </button>
+</div>
+
+
         </form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* 
-
-<div>Ammo Selection Dropdown</div>
-<div>Suppressor Checkbox</div>
-<div>Optic Checkbox</div>
-<div>Modification Level Sliding scale 1-5</div>
-<div>Date</div>
-<div>Year of Manufacture entry field</div>
-<div>Rounds fired With this ammo Numerical entry feild</div>
-<h2>List Malfunctions you encountered</h2>
-<div>Firing </div>
-<div>Unlocking</div>
-<div>extracting</div>
-<div>Ejecting</div>
-<div>Cocking</div>
-<div>Feeding</div>
-<div>Chambering</div>
-<div>Locking</div>
-<div>Magazine</div>
-<div>Ammunition</div>
-<div>Other</div>
-<div>Did you encounter a Catastrophic Malfunction?</div>
-<div>Comment Box</div>
- */}
 
 
             <div>
@@ -309,21 +324,6 @@ const CreateReport = () => {
 
          
         </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <button type="submit">Submit Report</button>
-
 
     </div>
 )}
