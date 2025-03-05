@@ -30,6 +30,29 @@ const addUserFirearm = async (userId, firearmId) => {
 };
 
 // Get all active firearms for a user
+// const getUserFirearms = async (userId) => {
+//     try {
+//         const firearms = await UserFirearms.findAll({
+//             where: {
+//                 user_id: userId,
+//                 is_active: true
+//             },
+//             include: [{
+//                 model: Firearm,
+//                 attributes: ['make', 'model', 'id', 'rounds_fired']
+//             }],
+//             attributes: ['id', 'created_at']
+//         });
+//         return firearms;
+//     } catch (error) {
+//         console.error('Error in getUserFirearms:', error);
+//         throw error;
+//     }
+// };
+
+
+
+
 const getUserFirearms = async (userId) => {
     try {
         const firearms = await UserFirearms.findAll({
@@ -41,7 +64,7 @@ const getUserFirearms = async (userId) => {
                 model: Firearm,
                 attributes: ['make', 'model', 'id', 'rounds_fired']
             }],
-            attributes: ['id', 'created_at']
+            attributes: { exclude: [] } // Fetch all attributes
         });
         return firearms;
     } catch (error) {
@@ -50,27 +73,9 @@ const getUserFirearms = async (userId) => {
     }
 };
 
-// Soft delete (mark as inactive) a firearm from a user's profile
 
-// const removeUserFirearm = async (userId, firearmId) => {
-//     try {
-//         const result = await UserFirearms.update(
-//             { is_active: 0 },
-//             {
-//                 where: {
-//                     user_id: userId,
-//                     firearm_id: firearmId,
-//                     is_active: 1
-//                 }
-//             }
-//         );
-//         console.log(result)
-//         return result[0] > 0; // Returns true if any rows were updated
-//     } catch (error) {
-//         console.error('Error in removeUserFirearm:', error);
-//         throw error;
-//     }
-// };
+
+
 
 
 const removeUserFirearm = async (userId, id) => {

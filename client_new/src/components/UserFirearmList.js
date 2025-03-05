@@ -19,9 +19,9 @@ const UserFirearmList = () => {
         })
         .then(response => setFirearms(response.data))
         .catch(error => console.error("Error fetching user firearms:", error));
-
+        console.log(firearms)
         
-    }, []);
+    }, [console.log(firearms)]);
 
 
 //---------------------------------------------------------------REMOVE FIREARM
@@ -56,6 +56,14 @@ const UserFirearmList = () => {
           <p className="firearm-model"> Internal ID: {firearm.Firearm.id}</p>
           <p className="firearm-model"> userFirearm ID: {firearm.id} </p>
           <p className="firearm-model">Total Rounds Fired: {firearm.Firearm.rounds_fired}</p>
+          <p>{firearm.slide_mod === 1 ? "Slide Modified " : ""}</p>
+          <p>{firearm.barrel_mod === 1 ? "Barrel Modified " : ""}</p>
+          <p>{firearm.recoilSpring_mod === 1 ? "Recoil Spring Modified " : ""}</p>
+          <p>{firearm.extractor_mod === 1 ? "Extractor Modified " : ""}</p>
+          <p>{firearm.triggerGroup_mod === 1 ? "Trigger Group Modified " : ""}</p>
+          <p>{firearm.hammer_mod === 1 ? "Hammer Modified " : ""}</p>
+          <p>{firearm.firingPinStriker_mod === 1 ? "Firing Pin/Striker Modified " : ""}</p>
+
         </div>
         <button
           className="userFirearm remove-button"
@@ -67,7 +75,7 @@ const UserFirearmList = () => {
     ))}
   </div>
 )}
-
+<hr></hr>
         </div>
     );
 };
