@@ -3,31 +3,43 @@ const UserFirearms = db.UserFirearms;
 const Firearm = db.Firearm;
 
 // Add a firearm to the user's profile
-const addUserFirearm = async (userId, firearmId) => {
+// const addUserFirearm = async (userId, firearmId) => {
+//     try {
+//         const result = await UserFirearms.create({
+//             user_id: userId,
+//             firearm_id: firearmId
+//         });
+        
+//         return result.id;
+//     } catch (error) {
+//         console.error('Error in addUserFirearm:', error);
+//         throw error;
+//     }
+// };
+
+
+
+const addUserFirearm = async (userId, firearmId, modifications) => {
     try {
-        // const existing = await UserFirearms.findOne({
-        //     where: {
-        //         user_id: userId,
-        //         firearm_id: firearmId,
-        //         is_active: true
-        //     }
-        // });
-
-        // if (existing) {
-        //     throw new Error("Firearm already exists in user profile.");
-        // }
-
         const result = await UserFirearms.create({
             user_id: userId,
-            firearm_id: firearmId
+            firearm_id: firearmId,
+            ...modifications // Spread the modifications into the database entry
         });
-        
+
         return result.id;
     } catch (error) {
         console.error('Error in addUserFirearm:', error);
         throw error;
     }
 };
+
+
+
+
+
+
+
 
 // Get all active firearms for a user
 // const getUserFirearms = async (userId) => {

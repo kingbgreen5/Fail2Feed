@@ -24,14 +24,25 @@ const CreateReport = () => {
       }, [console.log(userFirearms)]);
   
 
-      const handleSelect = (e) => {
+    const handleSelect = (e) => {
         const id = parseInt(e.target.value, 10); // Convert value to integer
         setSelectedFirearmID(id);
+
         // Find the firearm in userFirearms that matches the selected ID
         const firearm = userFirearms.find(f => f.Firearm.id === id);
-        setSelectedUserFirearm(firearm || null); // Set to null if not found
+        setSelectedUserFirearm(firearm || null); 
     };
     
+    // UseEffect to watch for selectedUserFirearm updates
+    useEffect(() => {
+        console.log("Selected User Firearm:", selectedUserFirearm);
+    }, [selectedUserFirearm]); // This will log only when selectedUserFirearm updates
+    
+
+
+
+
+
 
     // const RangeReportForm = ({ selectedUserFirearm, ammoOptions }) => {
         const [formData, setFormData] = useState({
@@ -93,7 +104,14 @@ const CreateReport = () => {
 // ----------------------------------------------------------------------------------RETURN STATEMENT-------------------------------------------------------------------
 
     return (
+
+        
         <div>
+
+
+
+
+
         <form>
             <h1>Range Report</h1>
         {/* ----------------------------------------------------------------ADD FIREARM FROM COllLLECTION */}
@@ -126,7 +144,21 @@ const CreateReport = () => {
 
 
 <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold">Range Report</h2>
+            {/* <h2 className="text-xl font-semibold">Range Report</h2> */}
+
+
+{/* 
+//-----------------------------------------------------------------------------------IF SELECTED USER FIREARM EXISTS, onc */}
+            {selectedUserFirearm && (
+  <div>
+    {/* Your content here */}
+
+
+    <div>
+                <h2>Selected Firearm ID: {selectedFirearmID} </h2>
+                <h2>   Hammer Modification  {selectedUserFirearm.hammer_mod}</h2>
+            </div>
+
 
             {/* Ammo Selection Dropdown */}
             <label>
@@ -141,6 +173,10 @@ const CreateReport = () => {
                 </select> */}
 
             </label>
+
+
+
+
 
             <div>
                                                                                        {/* Suppressor Checkbox */}
@@ -181,11 +217,7 @@ const CreateReport = () => {
                 <input type="date" name="date" value={formData.date} onChange={handleChange} />
             </label>
             <div>
-            {/* Year of Manufacture */}
-            {/* <label>
-                Year of Manufacture(If known): 
-                <input type="number" name="manufactureYear" value={formData.manufactureYear} onChange={handleChange} />
-            </label> */}
+  
 </div>
 <div>
                                                                                            {/* Rounds Fired Input */}
@@ -235,9 +267,7 @@ const CreateReport = () => {
             </label>
 
 </div>
-<div>
 
-</div>
 
 
 <div>
@@ -275,20 +305,9 @@ const CreateReport = () => {
 
 
 
-                                                                                   {/* Malfunctions /}
-            {Object.keys(formData.malfunctions).map((malfunction) => (
-                <label key={malfunction}>
-                    <input
-                        type="checkbox"
-                        name={malfunction}
-                        checked={formData.malfunctions[malfunction]}
-                        onChange={handleMalfunctionChange}
-                    />
-                    {malfunction.charAt(0).toUpperCase() + malfunction.slice(1)}
-                </label>
-            ))}
 
-                                                                     // {/* Catastrophic Malfunction */}
+
+// {/* Catastrophic Malfunction */}
             <label>
                 <input
                     type="checkbox"
@@ -314,13 +333,28 @@ const CreateReport = () => {
 </div>
 
 
+
+
+
+
+
+    {/* Add more fields as needed */}
+  </div>
+)}
+
+
+
+
+
+
+
+
+
+
         </form>
 
 
 
-            <div>
-                <h2>Selected Firearm ID: {selectedFirearmID} </h2>
-            </div>
 
          
         </form>
