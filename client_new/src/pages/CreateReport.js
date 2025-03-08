@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../config";
-
+import AuthContext from "../context/AuthContext";
 
 
 
 const CreateReport = () => {
+    const { user } = useContext(AuthContext);
     const [userFirearms, setUserFirearms] = useState([]);
     const [selectedFirearmID, setSelectedFirearmID] =useState("")
     const [selectedUserFirearm, setSelectedUserFirearm] = useState(null);
@@ -13,7 +14,7 @@ const CreateReport = () => {
 
 //------------------------------------------------------------------------- GETS USERS FIREARMS
     useEffect(() => {
-        // console.log(firearms)
+      
           const token = localStorage.getItem("token");
           // console.log("Token from local storage",token)
           axios.get(`${config.API_URL}/api/userFirearms`, { 
@@ -21,7 +22,7 @@ const CreateReport = () => {
           })
           .then(response => setUserFirearms(response.data))
           .catch(error => console.error("Error fetching user firearms:", error));
-      }, [console.log(userFirearms)]);
+      }, []);
   
 
     const handleSelect = (e) => {
@@ -33,7 +34,7 @@ const CreateReport = () => {
         setSelectedUserFirearm(firearm || null); 
     };
     
-    // UseEffect to watch for selectedUserFirearm updates
+    // UseEffect to watch for selectedUserFirearm updates and COnsole logs them
     useEffect(() => {
         console.log("Selected User Firearm:", selectedUserFirearm);
     }, [selectedUserFirearm]); // This will log only when selectedUserFirearm updates
@@ -42,20 +43,30 @@ const CreateReport = () => {
 
 
 
+//-----------------------------------------------------------------------------------------UPDATES FORMDATA WHEN VALUES CHANGE------------------------------------------------
+
+    useEffect(() => {
+        setFormData((prev) => ({
+            ...prev,
+            firearm_id: selectedFirearmID, // Update firearm_id
+            user_id: user?.id || "", // Update user_id (fallback to empty string if user is undefined)
+        }));
+    }, [selectedFirearmID, user?.id]); // Runs whenever selectedFirearmID or user.id changes
+    
+
+//^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--
 
 
     // const RangeReportForm = ({ selectedUserFirearm, ammoOptions }) => {
         const [formData, setFormData] = useState({
             user_id:"",
-            firearm_id:selectedFirearmID,
-            ammo: "",
-            suppressor: false,
-            optic: false,
+            firearm_id: "",
+            ammo_id: "1",
+            suppressor: 0,
+            optic: 0,
             modificationLevel: 1,
             date: new Date().toISOString().split("T")[0], // Default to today's date
-            manufactureYear: "",
-            roundsFired: "",
-            malfunctions: {
+            rounds_fired: "",
                 firing: 0,
                 unlocking: 0,
                 extracting: 0,
@@ -67,32 +78,33 @@ const CreateReport = () => {
                 magazine: 0,
                 ammunition: 0,
                 other: 0,
-            },
-            catastrophicFailure: false,
-            comments: "",
-        });
+                catastrophic: false,
+                comments: "",
+        } );
     
         const handleChange = (e) => {
             const { name, value, type, checked } = e.target;
             setFormData((prev) => ({
                 ...prev,
                 [name]: type === "checkbox" ? checked : value,
+            
             }));
+            console.log("Form Data", formData)
         };
     
-        const handleMalfunctionChange = (e) => {
-            const { name, checked } = e.target;
-            setFormData((prev) => ({
-                ...prev,
-                malfunctions: {
-                    ...prev.malfunctions,
-                    [name]: checked,
-                },
-            }));
-        };
+        // const handleMalfunctionChange = (e) => {
+        //     const { name, checked } = e.target;
+        //     setFormData((prev) => ({
+        //         ...prev,
+        //         malfunctions: {
+        //             ...prev.malfunctions,
+        //             [name]: checked,
+        //         },
+        //     }));
+        // };
     
         const handleSubmit = (e) => {
-            // e.preventDefault();
+            e.preventDefault();
             console.log("Form Submitted:", formData);
         };
 
@@ -114,9 +126,10 @@ const CreateReport = () => {
 
         <form>
             <h1>Range Report</h1>
+
         {/* ----------------------------------------------------------------ADD FIREARM FROM COllLLECTION */}
-            <h2>Firearm Used</h2>
-            <h3>Add from Collection</h3>
+            <h2>- Firearm Used -</h2>
+  
 
 
 
@@ -155,11 +168,46 @@ const CreateReport = () => {
 
 
     <div>
-                <h2>Selected Firearm ID: {selectedFirearmID} </h2>
-                <h2>   Hammer Modification  {selectedUserFirearm.hammer_mod}</h2>
+  
+
+
+                <h3>   Firearm Modifications         </h3>
+                {/* <p>
+                             Hammer   {selectedUserFirearm.hammer_mod}
+                <br></br>
+                             Barrel   {selectedUserFirearm.barrel_mod}
+                <br></br>
+                              Slide   {selectedUserFirearm.slide_mod}
+                <br></br>
+                              Extractor   {selectedUserFirearm.extractor_mod}
+                <br></br>
+                               Recoil Spring   {selectedUserFirearm.recoilSpring_mod}
+                <br></br>
+                               Trigger Group   {selectedUserFirearm.triggerGroup_mod}
+                </p>
+                */}
+
+            <p>{selectedUserFirearm.slide_mod === 1 ? "• Slide  " : ""}</p>
+            <p>{selectedUserFirearm.barrel_mod === 1 ? "• Barrel  " : ""}</p>
+            <p>{selectedUserFirearm.recoilSpring_mod === 1 ? "• Recoil Spring " : ""}</p>
+            <p>{selectedUserFirearm.extractor_mod === 1 ? "• Extractor" : ""}</p>
+            <p>{selectedUserFirearm.triggerGroup_mod === 1 ? "• Trigger Group" : ""}</p>
+            <p>{selectedUserFirearm.hammer_mod === 1 ? "• Hammer" : ""}</p>
+            <p>{selectedUserFirearm.firingPinStriker_mod === 1 ? "• Firing Pin/Striker" : ""}</p> 
+
+
+
+<hr></hr>
+
+
+
             </div>
 
+<h2> - Ammunition Used -</h2>
+<h3> (still under development) </h3>
+<p>
 
+</p>
             {/* Ammo Selection Dropdown */}
             <label>
                 Ammo Selection:
@@ -175,7 +223,7 @@ const CreateReport = () => {
             </label>
 
 
-
+<hr></hr>
 
 
             <div>
@@ -344,31 +392,23 @@ const CreateReport = () => {
 
 
 
-
-
-
+<hr></hr>
+<h4>Debug Menu</h4>
+<h5>user_id: {user.id}</h5>
+<h6>firearm_id: {selectedFirearmID} </h6>
+<h6>ammo_id: {} </h6>
 
 
 
 
         </form>
-
-
-
-
-         
         </form>
 
     </div>
 )}
 
 
-{/* ----------------------------------CHANGE TO DISPLAY ONCE ALL NECESSARY DATA HAS BEEN FILLED IN */}
 
- 
-// </div>
 
-//     );
-// };
 
 export default CreateReport;
