@@ -43,19 +43,6 @@ const CreateReport = () => {
 
 
 
-//-----------------------------------------------------------------------------------------UPDATES FORMDATA WHEN VALUES CHANGE------------------------------------------------
-
-    useEffect(() => {
-        setFormData((prev) => ({
-            ...prev,
-            firearm_id: selectedFirearmID, // Update firearm_id
-            user_id: user?.id || "", // Update user_id (fallback to empty string if user is undefined)
-        }));
-    }, [selectedFirearmID, user?.id]); // Runs whenever selectedFirearmID or user.id changes
-    
-
-//^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--
-
 
     // const RangeReportForm = ({ selectedUserFirearm, ammoOptions }) => {
         const [formData, setFormData] = useState({
@@ -64,9 +51,15 @@ const CreateReport = () => {
             ammo_id: "1",
             suppressor: 0,
             optic: 0,
-            modificationLevel: 1,
             date: new Date().toISOString().split("T")[0], // Default to today's date
-            rounds_fired: "",
+            barrel_mod:0,
+            slide_mod:0,
+            extractor_mod:0,
+            recoilSpring_mod:0,
+            triggerGroup_mod:0,
+            hammer_mod:0,
+            firingPinStriker_mod:0,
+            rounds_fired: 0,
                 firing: 0,
                 unlocking: 0,
                 extracting: 0,
@@ -82,6 +75,34 @@ const CreateReport = () => {
                 comments: "",
         } );
     
+
+
+//-----------------------------------------------------------------------------------------UPDATES FORMDATA WHEN VALUES CHANGE ------------------------------------------------
+//-----------------------------------------------------------------------------------------Stuffs values from userSelecteFirearm into formData ------------------------------------------------
+
+useEffect(() => {
+    setFormData((prev) => ({
+        ...prev,
+        firearm_id: selectedFirearmID, 
+        user_id: user?.id || "", 
+        barrel_mod: selectedUserFirearm?.barrel_mod ?? 0, // Use optional chaining and fallback value
+        slide_mod: selectedUserFirearm?.slide_mod ?? 0,
+        extractor_mod: selectedUserFirearm?.extractor_mod ?? 0,
+        recoilSpring_mod:selectedUserFirearm?.recoilSpring_mod ?? 0,
+        triggerGroup_mod:selectedUserFirearm?.triggerGroup_mod ?? 0,
+        firingPinStriker_mod:selectedUserFirearm?.firingPinStriker_mod ?? 0,
+    }));
+    console.log("Form Data:", formData)
+}, [selectedFirearmID, user?.id, selectedUserFirearm]);
+
+//^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--
+
+
+
+
+
+
+
         const handleChange = (e) => {
             const { name, value, type, checked } = e.target;
             setFormData((prev) => ({
@@ -91,18 +112,7 @@ const CreateReport = () => {
             }));
             console.log("Form Data", formData)
         };
-    
-        // const handleMalfunctionChange = (e) => {
-        //     const { name, checked } = e.target;
-        //     setFormData((prev) => ({
-        //         ...prev,
-        //         malfunctions: {
-        //             ...prev.malfunctions,
-        //             [name]: checked,
-        //         },
-        //     }));
-        // };
-    
+
         const handleSubmit = (e) => {
             e.preventDefault();
             console.log("Form Submitted:", formData);
@@ -129,11 +139,6 @@ const CreateReport = () => {
 
         {/* ----------------------------------------------------------------ADD FIREARM FROM COllLLECTION */}
             <h2>- Firearm Used -</h2>
-  
-
-
-
-
 <select value={selectedFirearmID} onChange={handleSelect}>
     <option value="">Select Firearm from Collection</option>
     {userFirearms.map((firearm) => (
@@ -161,7 +166,7 @@ const CreateReport = () => {
 
 
 {/* 
-//-----------------------------------------------------------------------------------IF SELECTED USER FIREARM EXISTS, onc */}
+//-----------------------------------------------------------------------------------IF SELECTED USER FIREARM EXISTS, Display */}
             {selectedUserFirearm && (
   <div>
     {/* Your content here */}
@@ -172,21 +177,9 @@ const CreateReport = () => {
 
 
                 <h3>   Firearm Modifications         </h3>
-                {/* <p>
-                             Hammer   {selectedUserFirearm.hammer_mod}
-                <br></br>
-                             Barrel   {selectedUserFirearm.barrel_mod}
-                <br></br>
-                              Slide   {selectedUserFirearm.slide_mod}
-                <br></br>
-                              Extractor   {selectedUserFirearm.extractor_mod}
-                <br></br>
-                               Recoil Spring   {selectedUserFirearm.recoilSpring_mod}
-                <br></br>
-                               Trigger Group   {selectedUserFirearm.triggerGroup_mod}
-                </p>
-                */}
 
+
+{/* //--------------------------------------------------------------------------------------DISPLAY MODIFICATIONS */}
             <p>{selectedUserFirearm.slide_mod === 1 ? "• Slide  " : ""}</p>
             <p>{selectedUserFirearm.barrel_mod === 1 ? "• Barrel  " : ""}</p>
             <p>{selectedUserFirearm.recoilSpring_mod === 1 ? "• Recoil Spring " : ""}</p>
@@ -228,36 +221,47 @@ const CreateReport = () => {
 
             <div>
                                                                                        {/* Suppressor Checkbox */}
-            <label>
-                <input type="checkbox" name="suppressor" 
-                checked={formData.suppressor} onChange={handleChange} />
-                Suppressor Used
+        <label>
+            <input
+                type="checkbox"
+                name="suppressor"
+                checked={formData.suppressor === 1}
+                onChange={(e) => setFormData((prev) => ({
+                ...prev,
+            suppressor: e.target.checked ? 1 : 0, //1 when checked, 0 unchecked
+   
+        }))}
+    />
+    Suppressor Used
             </label>
             </div>
 
             <div>
                                                                                         {/* Optic Checkbox */}
             <label>
-                <input type="checkbox" name="optic" 
-                checked={formData.optic} onChange={handleChange} />
-                Optic Used
+            <input
+                type="checkbox"
+                name="optic"
+                checked={formData.optic === 1}
+                onChange={(e) => setFormData((prev) => ({
+                ...prev,
+            optic: e.target.checked ? 1 : 0, //1 when checked, 0 unchecked
+   
+        }))}
+    />
+    Optic Used
             </label>
             </div>
 
+
+
+
+
+
+
                 <div>
                                                                                       {/* MODIFICATIONS */}
-            <label>
-                Modification Level: {formData.modificationLevel}
-                <input
-                    type="range"
-                    name="modificationLevel"
-                    min="0"
-                    max="5"
-                    value={formData.modificationLevel}
-                    onChange={handleChange}
-                />
 
-            </label>
 </div>
                                                                                                   {/* Date Input */}
             <label>
@@ -282,7 +286,7 @@ const CreateReport = () => {
 <div>
             <label>
                     Firing
-                <input type="number" name="Firing" value={formData.firing} onChange={handleChange} />
+                <input type="number" name="firing" value={formData.firing} onChange={handleChange} />
             </label>
 
             <label>
@@ -292,7 +296,7 @@ const CreateReport = () => {
 
             <label>
             Extracting
-                <input type="number" name="Extracting" value={formData.extracting} onChange={handleChange} />
+                <input type="number" name="extracting" value={formData.extracting} onChange={handleChange} />
             </label>
 
 </div>
@@ -301,17 +305,17 @@ const CreateReport = () => {
 <div>
             <label>
                     Ejecting
-                <input type="number" name="Ejecting" value={formData.ejecting} onChange={handleChange} />
+                <input type="number" name="ejecting" value={formData.ejecting} onChange={handleChange} />
             </label>
 
             <label>
             Cocking
-                <input type="number" name="Cocking" value={formData.cocking} onChange={handleChange} />
+                <input type="number" name="cocking" value={formData.cocking} onChange={handleChange} />
             </label>
 
             <label>
             Feeding
-                <input type="number" name="Feeding" value={formData.feeding} onChange={handleChange} />
+                <input type="number" name="feeding" value={formData.feeding} onChange={handleChange} />
             </label>
 
 </div>
@@ -321,11 +325,11 @@ const CreateReport = () => {
 <div>
 <label>
             Chambering 
-                <input type="number" name="Chambering" value={formData.chambering} onChange={handleChange} />
+                <input type="number" name="chambering" value={formData.chambering} onChange={handleChange} />
             </label>
             <label>
                     Locking 
-                <input type="number" name="Locking" value={formData.locking} onChange={handleChange} />
+                <input type="number" name="locking" value={formData.locking} onChange={handleChange} />
             </label>
 
 
@@ -334,7 +338,7 @@ const CreateReport = () => {
 <div>
 <label>
                     Magazine Failure
-                <input type="number" name="Magazine" value={formData.magazine} onChange={handleChange} />
+                <input type="number" name="magazine" value={formData.magazine} onChange={handleChange} />
             </label>
 
 </div>
@@ -345,7 +349,7 @@ const CreateReport = () => {
 <div>
 <label>
                     Ammunition Failure
-                <input type="number" name="Ammunition" value={formData.ammunition} onChange={handleChange} />
+                <input type="number" name="ammunition" value={formData.ammunition} onChange={handleChange} />
             </label>
 
 </div>
@@ -355,8 +359,8 @@ const CreateReport = () => {
 
 
 
-// {/* Catastrophic Malfunction */}
-            <label>
+{/* Catastrophic Malfunction */}
+            {/* <label>
                 <input
                     type="checkbox"
                     name="catastrophicFailure"
@@ -364,8 +368,22 @@ const CreateReport = () => {
                     onChange={handleChange}
                 />
                 Did you encounter a Catastrophic Malfunction?
-            </label>
+            </label> */}
 
+
+            <label>
+            <input
+                type="checkbox"
+                name="catastrophic"
+                checked={formData.catastrophic === 1}
+                onChange={(e) => setFormData((prev) => ({
+                ...prev,
+            catastrophic: e.target.checked ? 1 : 0, //1 when checked, 0 unchecked
+   
+        }))}
+    />
+     Did you encounter a Catastrophic Malfunction?
+            </label>
 
 <div>
                                                                                 {/* Comment Box */}
@@ -393,14 +411,23 @@ const CreateReport = () => {
 
 
 <hr></hr>
-<h4>Debug Menu</h4>
-<h5>user_id: {user.id}</h5>
+<h4>---Debug Menu---</h4>
+{/* <h5>user_id: {user.id}</h5>
 <h6>firearm_id: {selectedFirearmID} </h6>
-<h6>ammo_id: {} </h6>
+<h6>ammo_id: {} </h6> */}
+Form Data
 
-
-
-
+<h6>User_id: {formData.user_id}</h6>
+<h6>Ammo_id: {formData.ammo_id}</h6>
+<h6>Supressor: {formData.suppressor}</h6>
+<h6>Optic: {formData.optic}</h6>
+<h6>Barrel mod: {formData.barrel_mod}</h6>
+<h6>Slide mod: {formData.slide_mod}</h6>
+<h6>Recoil: {formData.recoilSpring_mod}</h6>
+<h6>Extractor: {formData.extractor_mod}</h6>
+<h6> Hammer: {formData.hammer_mod}</h6>
+<h6> Trigger Group: {formData.triggerGroup_mod}</h6>
+<h6>Firing Pin/Striker: {formData.firingPinStriker_mod}</h6>
         </form>
         </form>
 
