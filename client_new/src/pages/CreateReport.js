@@ -113,13 +113,59 @@ useEffect(() => {
             console.log("Form Data", formData)
         };
 
-        const handleSubmit = (e) => {
-            e.preventDefault();
-            console.log("Form Submitted:", formData);
+        // const handleSubmit = (e) => {
+        //     e.preventDefault();
+        //     console.log("Form Submitted:", formData);
+        // };
+
+        const handleSubmit = async () => {
+            const token = localStorage.getItem("token");
+        
+            try {
+                const response = await axios.post(`${config.API_URL}/api/reports`, formData, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+        
+                console.log("Report submitted successfully:", response.data);
+                alert("Report submitted successfully!");
+                
+                // Optionally, reset the form after submission
+                setFormData({
+                    user_id: user?.id || "",
+                    firearm_id: selectedFirearmID || "",
+                    ammo_id: "1",
+                    suppressor: 0,
+                    optic: 0,
+                    date: new Date().toISOString().split("T")[0],
+                    barrel_mod: 0,
+                    slide_mod: 0,
+                    extractor_mod: 0,
+                    recoilSpring_mod: 0,
+                    triggerGroup_mod: 0,
+                    hammer_mod: 0,
+                    firingPinStriker_mod: 0,
+                    rounds_fired: 0,
+                    firing: 0,
+                    unlocking: 0,
+                    extracting: 0,
+                    ejecting: 0,
+                    cocking: 0,
+                    feeding: 0,
+                    chambering: 0,
+                    locking: 0,
+                    magazine: 0,
+                    ammunition: 0,
+                    other: 0,
+                    catastrophic: false,
+                    comments: "",
+                });
+        
+            } catch (error) {
+                console.error("Error submitting report:", error);
+                alert("Failed to submit report.");
+            }
         };
-
-
-
+        
 
 
 
@@ -392,10 +438,20 @@ useEffect(() => {
                 <textarea name="comments" value={formData.comments} onChange={handleChange} rows="4" />
             </label>
 
-            {/* Submit Button */}
+            {/* Submit Button
             <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
                 Submit Report
             </button>
+
+
+ */}
+
+
+
+            <button type="button" onClick={handleSubmit}>
+    Submit Report
+</button>
+
 </div>
 
 
