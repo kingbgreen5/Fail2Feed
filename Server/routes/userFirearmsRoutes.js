@@ -8,35 +8,6 @@ const {getFirearmId} = require('../controllers/firearmController');
 
 
 
-// //WORKING
-// // Route to add a firearm to the user's profile
-// router.post("/add", authenticateToken, async (req, res) => {
-//     try {
-//         console.log('Add firearm route hit', req.body);
-//         const { make, model } = req.body;
-//         if (!make || !model) {
-//             return res.status(400).json({ message: "Make and model are required" });
-//         }
-
-//             const firearmID = await  getFirearmId(make, model);
-//         console.log("firearm ID", firearmID)
-//         if (!firearmID) {
-//             return res.status(404).json({ message: "Firearm not found" });
-//         }
-
-//         const userId = req.user.id;
-//         const firearm_id = firearmID;
-//         const firearmEntryId = await addUserFirearm(userId, firearm_id);
-//         console.log(firearmEntryId)
-//         res.status(201).json({ message: "Firearm added successfully", firearmEntryId });
-//     } catch (error) {
-//         console.error("Error adding firearm:", error);
-//         res.status(500).json({ message: error.message || "Failed to add firearm" });
-//     }
-   
-// });
-
-
 router.post("/add", authenticateToken, async (req, res) => {
     try {
         console.log('Add firearm route hit', req.body);

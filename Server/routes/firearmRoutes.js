@@ -3,7 +3,8 @@ const router = express.Router();
 const authenticateUser = require("../middleware/authMiddleware"); 
 const { QueryTypes } = require('sequelize');
 const db = require('../config/db');
-const Firearm = require("../models/firearmModel");
+// const { Firearm } = require("../models/firearmModel");
+const { Firearm } = require("../models"); // Ensure correct model import
 
 router.get('/all', async (req, res) => {
     try {
@@ -16,6 +17,16 @@ router.get('/all', async (req, res) => {
         res.status(500).json({ error: 'Database query failed' });
     }
 });
+
+
+
+
+
+
+
+
+
+
 
 // Get unique firearm makes
 router.get('/makes', async (req, res) => {
@@ -52,6 +63,42 @@ router.get("/models", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch models" });
     }
 });
+
+
+
+
+
+// Route to find a firearm by make and model
+router.get("/find", async (req, res) => {
+    try {
+        const { make, model } = req.query;
+
+        if (!make || !model) {
+            return res.status(400).json({ error: "Make and model are required" });
+        }
+
+        // const firearm = await findFirearmByMakeAndModel(make, model);
+
+        const firearm = await Firearm.findOne({
+            where: { make, model }
+        });
+
+
+        if (!firearm) {
+            return res.status(404).json({ error: "Firearm not found" });
+        }
+
+        res.json(firearm);
+    } catch (error) {
+        console.error("Error finding firearm:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
+
+
+
 
 // Update a firearm
 router.put('/update/:id', authenticateUser.authenticateToken, async (req, res) => {

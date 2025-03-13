@@ -2,21 +2,6 @@ const db = require('../models');
 const UserFirearms = db.UserFirearms;
 const Firearm = db.Firearm;
 
-// Add a firearm to the user's profile
-// const addUserFirearm = async (userId, firearmId) => {
-//     try {
-//         const result = await UserFirearms.create({
-//             user_id: userId,
-//             firearm_id: firearmId
-//         });
-        
-//         return result.id;
-//     } catch (error) {
-//         console.error('Error in addUserFirearm:', error);
-//         throw error;
-//     }
-// };
-
 
 
 const addUserFirearm = async (userId, firearmId, modifications) => {
@@ -33,8 +18,6 @@ const addUserFirearm = async (userId, firearmId, modifications) => {
         throw error;
     }
 };
-
-
 
 
 
