@@ -15,20 +15,27 @@ const findFirearmById = async (id) => {
 };
 
 
-// const getFirearmId = async (make, model) => {
-//     try {
-//         console.log("GetFirearmID CONTROLLER HIT")
-//         const firearm = await Firearm.findOne({
-//             where: { make, model }
-//         });
 
-//         // return result.id;
-//         return firearm;
-//     } catch (error) {
-//         console.error('Error finding firearm by make and model:', error);
-//         throw error;
-//     }
-// };
+
+
+
+const findFirearmByMakeAndModel = async (make, model) => {
+    try {
+        const firearm = await Firearm.findOne({
+            where: { make, model }
+        });
+
+        return firearm;
+    } catch (error) {
+        console.error("Error finding firearm by make and model:", error);
+        throw error;
+    }
+};
+
+
+
+
+
 
 const getFirearmId = async (make, model) => {
     try {
@@ -58,5 +65,7 @@ const getFirearmId = async (make, model) => {
 
 module.exports = {
     getFirearmId,
-    findFirearmById
+    findFirearmById,
+    findFirearmByMakeAndModel
+
 };

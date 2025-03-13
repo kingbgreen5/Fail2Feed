@@ -26,6 +26,7 @@ body {
   text-align: center;
   min-height: 100vh;
   background-color: var(--bg-primary);
+  
 }
 
 .App-header {
@@ -355,4 +356,11 @@ button:disabled {
   font-weight: bold;
   margin: 0;
   color: #333; /* dark text for contrast */
+}
+
+.userFirearm.remove-button{
+  background: #5b0000;
+  padding: 10px;  
+  border-radius: 50px;
+
 }

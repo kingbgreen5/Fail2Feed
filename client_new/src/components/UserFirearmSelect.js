@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../config";
@@ -7,42 +8,25 @@ const UserFirearmSelect = () => {
     const [models, setModels] = useState([]);
     const [selectedMake, setSelectedMake] = useState("");
     const [selectedModel, setSelectedModel] = useState("");
-    const [message, setMessage] = useState("");
+    const [showComponent, setShowComponent] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
     useEffect(() => {
-        setLoading(true);
-        setError("");
         axios.get(`${config.API_URL}/api/firearms/makes`)
-            .then(response => {
-                console.log("Makes response:", response.data);
-                setMakes(response.data);
-            })
-            .catch(error => {
-                console.error("Error fetching makes:", error);
-                setError("Failed to load manufacturers. Please try again.");
-            })
-            .finally(() => setLoading(false));
+            .then(response => setMakes(response.data))
+            .catch(error => console.error("Error fetching makes:", error));
     }, []);
 
     useEffect(() => {
         if (selectedMake) {
-            setLoading(true);
-            setError("");
-            axios.get(`${config.API_URL}/api/firearms/models`, {
-                params: { make: selectedMake }
-            })
-            .then(response => {
-                console.log("Models response:", response.data);
-                setModels(response.data);
-            })
-            .catch(error => {
-                console.error("Error fetching models:", error);
-                setError("Failed to load models. Please try again.");
-                setModels([]);
-            })
-            .finally(() => setLoading(false));
+            axios.get(`${config.API_URL}/api/firearms/models`, { params: { make: selectedMake } })
+                .then(response => setModels(response.data))
+                .catch(error => {
+                    console.error("Error fetching models:", error);
+                    setModels([]);
+                });
         } else {
             setModels([]);
         }
@@ -66,7 +50,6 @@ const UserFirearmSelect = () => {
         )
         .then(response => {
             setMessage(response.data.message || "Firearm added to your profile!");
-            // Clear selections
             setSelectedMake("");
             setSelectedModel("");
         })
@@ -78,47 +61,62 @@ const UserFirearmSelect = () => {
     };
 
     return (
-        <div className="firearm-select">
-            <h2>Select Firearm</h2>
-
-            {error && <div className="error-message">{error}</div>}
-            {message && <div className="success-message">{message}</div>}
-
-            <div className="select-group">
-                <label>Manufacturer:</label>
-                <select 
-                    value={selectedMake} 
-                    onChange={(e) => setSelectedMake(e.target.value)}
-                    disabled={loading}
-                >
-                    <option value="">Select Manufacturer</option>
-                    {makes.map((make, index) => (
-                        <option key={index} value={make}>{make}</option>
-                    ))}
-                </select>
-            </div>
-
-            <div className="select-group">
-                <label>Model:</label>
-                <select 
-                    value={selectedModel} 
-                    onChange={(e) => setSelectedModel(e.target.value)}
-                    disabled={!selectedMake || loading}
-                >
-                    <option value="">Select Model</option>
-                    {models.map((model, index) => (
-                        <option key={index} value={model}>{model}</option>
-                    ))}
-                </select>
-            </div>
-
-            <button 
-                onClick={handleConfirmSelection} 
-                disabled={!selectedMake || !selectedModel || loading}
-                className="confirm-button"
-            >
-                {loading ? "Adding..." : "Confirm Selection"}
+        <div>
+            <button onClick={() => setShowComponent(!showComponent)}>
+                {showComponent ? "Hide Firearm Selection" : "Add Firearm"}
             </button>
+
+            {showComponent && (
+                <div className="firearm-select">
+                    <h2>Add Firearm to Collection</h2>
+
+                    {error && <div className="error-message">{error}</div>}
+                    {message && <div className="success-message">{message}</div>}
+
+                    <div className="select-group">
+                        <label>Manufacturer:</label>
+                        <select value={selectedMake} onChange={(e) => setSelectedMake(e.target.value)}>
+                            <option value="">Select Manufacturer</option>
+                            {makes.map((make, index) => (
+                                <option key={index} value={make}>{make}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="select-group">
+                        <label>Model:</label>
+                        <select value={selectedModel} onChange={(e) => setSelectedModel(e.target.value)}>
+                            <option value="">Select Model</option>
+                            {models.map((model, index) => (
+                                <option key={index} value={model}>{model}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Show modifications only if a model is selected */}
+                    {selectedModel && (
+                        <div>
+                            <h4>Firearm Modifications</h4>
+                            <label><input type="checkbox" name="slide_mod" /> The Slide</label>
+                            <label><input type="checkbox" name="triggerGroup_mod" /> Trigger Group</label>
+                            <label><input type="checkbox" name="hammer_mod" /> The Hammer</label>
+                            <label><input type="checkbox" name="firingPinStriker_mod" /> Firing Pin/Striker</label>
+                            <label><input type="checkbox" name="extractor_mod" /> Extractor</label>
+                            <label><input type="checkbox" name="recoilSpring_mod" /> Recoil Spring</label>
+                            <label><input type="checkbox" name="barrel_mod" /> Barrel</label>
+
+                            {/* Submit Button */}
+                            <button 
+                                onClick={handleConfirmSelection} 
+                                disabled={loading} 
+                                className="confirm-button"
+                            >
+                                {loading ? "Adding..." : "Confirm Selection"}
+                            </button>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

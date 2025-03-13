@@ -18,7 +18,8 @@ const NavBar = () => {
           <>
             <li><Link to="/dashboard">Dashboard</Link></li>
             <li><Link to="/create-report">Create Report</Link></li>
-            <li><Link to="/search">Search</Link></li>
+            <li><Link to="/Search">Search</Link></li>
+            {/* <li><Link to="/guns">Guns</Link></li> */}
             {user && <li>Welcome, {user.email}!</li>}
             <li><button onClick={handleLogout}>Logout</button></li>
           </>

@@ -18,11 +18,39 @@ class UserFirearms extends Model {
             },
             is_active: {
                 type: DataTypes.BOOLEAN,
-                defaultValue: true
+                defaultValue: 1
             },
             created_at: {
                 type: DataTypes.DATE,
                 defaultValue: DataTypes.NOW
+            },
+            slide_mod: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
+            },
+            barrel_mod: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
+            },
+            recoilSpring_mod: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
+            },
+            extractor_mod: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
+            },
+            triggerGroup_mod: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
+            },
+            hammer_mod: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
+            },
+            firingPinStriker_mod: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0
             }
         }, {
             sequelize,
@@ -34,6 +62,7 @@ class UserFirearms extends Model {
 
     static associate(models) {
         this.belongsTo(models.Firearm, { foreignKey: 'firearm_id' });
+        // this.belongsTo(models.User, { foreignKey: 'user_id' });
     }
 }
 

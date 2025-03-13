@@ -7,6 +7,7 @@ import AuthForm from './components/AuthForm';
 import CreateReport from './pages/CreateReport';
 import UserDashboard from './pages/UserDashboard';
 import FirearmSearch from './components/FirearmSearch';
+import Search from './pages/Search';
 import './App.css';
 
 // Protected Route component
@@ -29,6 +30,18 @@ function AppRoutes() {
           <AuthForm />
         </PublicRoute>
       } />
+
+      
+<Route path="/guns" element={
+        <ProtectedRoute>
+          <CreateReport />
+        </ProtectedRoute>
+      } />
+
+
+
+
+
       <Route path="/create-report" element={
         <ProtectedRoute>
           <CreateReport />
@@ -39,9 +52,10 @@ function AppRoutes() {
           <UserDashboard />
         </ProtectedRoute>
       } />
-      <Route path="/search" element={
+      <Route path="/Search" element={
         <ProtectedRoute>
-          <FirearmSearch />
+          {/* <FirearmSearch /> */}
+          <Search />
         </ProtectedRoute>
       } />
       <Route path="/" element={<Navigate to="/dashboard" />} />

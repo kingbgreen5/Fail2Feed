@@ -3,7 +3,7 @@ const cors = require('cors');
 const db = require('./models');
 const authRoutes = require('./routes/authRoutes');
 const firearmRoutes = require('./routes/firearmRoutes');
-const reportsRoutes = require('./routes/reportRoutes');
+const reportRoutes = require('./routes/reportRoutes');
 const userRoutes = require('./routes/userRoutes');
 const userFirearmsRoutes = require('./routes/userFirearmsRoutes');
 
@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRoutes); 
 app.use('/api/auth', authRoutes);
 app.use('/api/firearms', firearmRoutes);
-app.use('/api/reports', reportsRoutes);
+app.use('/api/reports', reportRoutes);
 app.use('/api/userFirearms', userFirearmsRoutes);
 
 const PORT = process.env.PORT || 5000;

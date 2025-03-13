@@ -11,13 +11,16 @@ const UserDashboard = () => {
             <div>
                 User Role: {user.role}
             </div>
-
-            <div>
-                User ID: {user.id}
-            </div>
-
-            <UserFirearmSelect />
+        <div>
+            User ID: {user.id}
+        <div>
+        <UserFirearmSelect />
             <UserFirearmList />
+
+        </div>
+
+        </div>
+  
         </div>
     );
 };
