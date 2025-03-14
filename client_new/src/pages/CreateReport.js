@@ -103,15 +103,45 @@ useEffect(() => {
 
 
 
+        // const handleChange = (e) => {
+        //     const { name, value, type, checked } = e.target;
+        //     setFormData((prev) => ({
+        //         ...prev,
+        //         [name]: type === "checkbox" ? checked : value,
+            
+        //     }));
+        //     console.log("Form Data", formData)
+        // };
+
+
+
+
+
         const handleChange = (e) => {
             const { name, value, type, checked } = e.target;
+            let newValue = type === "checkbox" ? checked : value;
+        
+            // Convert negative numbers to 0
+            if (type === "number" && Number(newValue) < 0) {
+                newValue = "0"; // Ensuring it's a string to prevent input issues
+            }
+        
             setFormData((prev) => ({
                 ...prev,
-                [name]: type === "checkbox" ? checked : value,
-            
+                [name]: newValue,
             }));
-            console.log("Form Data", formData)
+        
+            console.log("Form Data", { ...formData, [name]: newValue });
         };
+        
+
+
+
+
+
+
+
+
 
         // const handleSubmit = (e) => {
         //     e.preventDefault();
@@ -321,7 +351,7 @@ useEffect(() => {
                                                                                            {/* Rounds Fired Input */}
             <label>
                 Rounds Fired with this Ammo:
-                <input type="number" name="roundsFired" value={formData.roundsFired} onChange={handleChange} />
+                <input type="number" name="rounds_fired" value={formData.rounds_fired}  min="0" onChange={handleChange} />
             </label>
 
 

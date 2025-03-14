@@ -114,6 +114,26 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+
+// Get all reports for a specific firearm_id
+router.get('/firearm/:firearm_id', async (req, res) => {
+    try {
+        const { firearm_id } = req.params;
+        const reports = await Report.findAll({
+            where: { firearm_id, is_active: true } // Fetch only active reports
+        });
+
+        if (!reports.length) {
+            return res.status(404).json({ error: 'No reports found for this firearm' });
+        }
+
+        res.json(reports);
+    } catch (error) {
+        console.error('Error fetching reports by firearm_id:', error);
+        res.status(500).json({ error: 'Database error' });
+    }
+});
+
 // Delete a report by ID (soft delete)
 router.delete('/:id', async (req, res) => {
     try {
@@ -128,5 +148,8 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Database error' });
     }
 });
+
+
+
 
 module.exports = router;
