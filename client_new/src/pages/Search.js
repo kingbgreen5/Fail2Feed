@@ -16,6 +16,10 @@ const Search = () => {
     const [reports, setReports] = useState([]);
     const [firearmId, setFirearmId] = useState("");
     const [totalRoundsFired, setTotalRoundsFired] = useState(0);
+    const [totalMalfunctions, setTotalMalfunctions] = useState(0);
+
+
+
 
 // ----------------------------------------------------------GET ALL FIREARMS
 useEffect(() => {
@@ -23,7 +27,7 @@ useEffect(() => {
         .then(response => {
             // setMakes(response.data);
             setFirearms(response.data); // Ensure firearms are updated with fetched data
-            console.log(firearms)
+
         })
         .catch(error => console.error("Error fetching makes:", error));
 }, []); // Runs only once when the component mounts
@@ -32,11 +36,15 @@ useEffect(() => {
 
 
    // ----------------------------------------------------------FIREARM CONSOLE LOG
-   useEffect(() => {
-    if (firearms !== null) {
-        console.log(firearms); // Logs the updated firearms state when it's not null
-    }
-}, [firearms]); // This effect runs when firearms state changes
+//    useEffect(() => {
+//     if (firearms !== null) {
+//         console.log(firearms); // Logs the updated firearms state when it's not null
+//     }
+// }, [firearms]); // This effect runs when firearms state changes
+
+
+
+
 
 //-----------------------------------------------------------------EXTRACE MAKE FROM FIREARM LIST
 useEffect(() => {
@@ -109,15 +117,26 @@ useEffect(() => {
     
             setReports(reportsData);
     
-            //--------------------------------------------------------------- Calculate total rounds fired
+            //------------------------------------------------------ Calculate total rounds fired
             const totalRounds = reportsData.reduce((sum, report) => sum + (report.rounds_fired || 0), 0);
             setTotalRoundsFired(totalRounds);
+
+    //------------------------------------------------------ Calculate total malfunctions
+            const totalMalfunctions = reportsData.reduce((sum, report) => sum + (report.rounds_fired || 0), 0)
+
+
         } catch (err) {
             setError("No reports found or an error occurred.");
             setReports([]); // Clear reports on error
             setTotalRoundsFired(0); // Reset total rounds on error
         }
     };
+
+
+
+
+
+    
 //--------------------------------------------------------------------------------------CONSOLE LOG REPORTS
 
     useEffect(() => {

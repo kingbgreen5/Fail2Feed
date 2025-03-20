@@ -6,6 +6,8 @@ const firearmRoutes = require('./routes/firearmRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 const userRoutes = require('./routes/userRoutes');
 const userFirearmsRoutes = require('./routes/userFirearmsRoutes');
+const cron = require('node-cron');
+const updateAggregateData = require('./utils/updateAggregateData');
 
 require('dotenv').config();
 const app = express();
@@ -43,3 +45,9 @@ db.sequelize.sync()
     .catch(err => {
         console.error('Failed to sync database:', err);
     });
+
+
+    // Run every minute (change to '0 */6 * * *' for every 6 hours)
+cron.schedule('*/1 * * * *', async () => {
+    await updateAggregateData();
+});
