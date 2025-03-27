@@ -41,7 +41,7 @@ const UserFirearmList = () => {
 
     return (
         <div>
-            <h2>Your Firearms</h2>
+            <h1>Firearm Collection </h1>
             {message && <p>{message}</p>}
 
             {firearms.length === 0 ? (
@@ -51,25 +51,34 @@ const UserFirearmList = () => {
     {firearms.map((firearm) => (
       <div key={firearm.id} className="firearm-tile">
         <div className="firearm-info">
-          <p className="firearm-make">{firearm.Firearm.make}</p>
-          <p className="firearm-model">{firearm.Firearm.model}</p>
-          <p className="firearm-model"> Internal ID: {firearm.Firearm.id}</p>
-          <p className="firearm-model"> userFirearm ID: {firearm.id} </p>
-          <p className="firearm-model">Total Rounds Fired: {firearm.Firearm.rounds_fired}</p>
-          <p>{firearm.slide_mod === 1 ? "Slide Modified " : ""}</p>
-          <p>{firearm.barrel_mod === 1 ? "Barrel Modified " : ""}</p>
-          <p>{firearm.recoilSpring_mod === 1 ? "Recoil Spring Modified " : ""}</p>
-          <p>{firearm.extractor_mod === 1 ? "Extractor Modified " : ""}</p>
-          <p>{firearm.triggerGroup_mod === 1 ? "Trigger Group Modified " : ""}</p>
-          <p>{firearm.hammer_mod === 1 ? "Hammer Modified " : ""}</p>
-          <p>{firearm.firingPinStriker_mod === 1 ? "Firing Pin/Striker Modified " : ""}</p>
+          <h3 className="firearm-tile-title">{firearm.Firearm.make} {firearm.Firearm.model}</h3>
+          {/* <h2 className="firearm-tile-title">{firearm.Firearm.model}</h2> */}
+
+
+
+          {/* -------------------------------------------MAKE MODS DISPLAY ON HOVER???? */}
+<div></div>
+            <div className="firearm-tile-mods"> 
+          <h3 className="firearm-tile-mods">---- Modifications ----</h3>
+          <p className="firearm-tile-mods">{firearm.slide_mod === 1 ? "Slide" : ""}</p>
+          <p className="firearm-tile-mods">{firearm.barrel_mod === 1 ? "Barrel" : ""}</p>
+          <p className="firearm-tile-mods">{firearm.recoilSpring_mod === 1 ? "Recoil Spring" : ""}</p>
+          <p className="firearm-tile-mods">{firearm.extractor_mod === 1 ? "Extractor" : ""}</p>
+          <p className="firearm-tile-mods">{firearm.triggerGroup_mod === 1 ? "Trigger Group" : ""}</p>
+          <p className="firearm-tile-mods">{firearm.hammer_mod === 1 ? "Hammer" : ""}</p>
+          <p className="firearm-tile-mods">{firearm.firingPinStriker_mod === 1 ? "Firing Pin/Striker" : ""}</p>
+          </div>
+          <p className="firearm-tile-debug"> Internal ID: {firearm.Firearm.id}</p>
+          <p className="firearm-tile-debug"> userFirearm ID: {firearm.id} </p>
+          <br></br>
+
 
         </div>
         <button
           className="userFirearm remove-button"
           onClick={() => handleRemoveFirearm(firearm.id)}
         >
-          x
+          Delete
         </button>
       </div>
     ))}

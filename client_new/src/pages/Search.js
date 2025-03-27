@@ -189,7 +189,7 @@ useEffect(() => {
    
        
                 <div className="firearm-select">
-        <h1>Firearm Lookup</h1>
+        <h1>Advanced Search</h1>
 
                     {error && <div className="error-message">{error}</div>}
                     {message && <div className="success-message">{message}</div>}

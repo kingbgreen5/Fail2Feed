@@ -3,8 +3,10 @@ const router = express.Router();
 const authenticateUser = require("../middleware/authMiddleware"); 
 const { QueryTypes } = require('sequelize');
 const db = require('../config/db');
-// const { Firearm } = require("../models/firearmModel");
 const { Firearm } = require("../models"); // Ensure correct model import
+
+
+
 
 router.get('/all', async (req, res) => {
     try {
@@ -17,12 +19,6 @@ router.get('/all', async (req, res) => {
         res.status(500).json({ error: 'Database query failed' });
     }
 });
-
-
-
-
-
-
 
 
 
@@ -117,5 +113,9 @@ router.put('/update/:id', authenticateUser.authenticateToken, async (req, res) =
         res.status(500).json({ error: 'Failed to update firearm' });
     }
 });
+
+
+
+
 
 module.exports = router;

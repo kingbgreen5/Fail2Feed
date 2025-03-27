@@ -204,7 +204,7 @@ useEffect(() => {
     return (
 
         
-        <div>
+        <div  className="report-form">
 
 
 
@@ -497,11 +497,13 @@ useEffect(() => {
 
 
 <hr></hr>
-<h4>---Debug Menu---</h4>
-{/* <h5>user_id: {user.id}</h5>
-<h6>firearm_id: {selectedFirearmID} </h6>
-<h6>ammo_id: {} </h6> */}
-Form Data
+
+{/* ----------------------------------------------------------------------DEBUG MENU---------------------------(HIDDEN)---------------- */}
+{/* 
+
+
+<h4 className="create-report-debug">---Debug Menu---</h4>
+
 
 <h6>User_id: {formData.user_id}</h6>
 <h6>Ammo_id: {formData.ammo_id}</h6>
@@ -514,10 +516,21 @@ Form Data
 <h6> Hammer: {formData.hammer_mod}</h6>
 <h6> Trigger Group: {formData.triggerGroup_mod}</h6>
 <h6>Firing Pin/Striker: {formData.firingPinStriker_mod}</h6>
+ */}
+
+
         </form>
         </form>
 
+
+
+
     </div>
+
+
+
+
+
 )}
 
 

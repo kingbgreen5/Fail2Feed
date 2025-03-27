@@ -5,7 +5,8 @@ import AuthContext from './context/AuthContext';
 import NavBar from './components/NavBar';
 import AuthForm from './components/AuthForm';
 import CreateReport from './pages/CreateReport';
-import UserDashboard from './pages/UserDashboard';
+import UserCollection from './pages/UserCollection';
+import Guns from "./pages/Guns"
 import FirearmSearch from './components/FirearmSearch';
 import Search from './pages/Search';
 import './App.css';
@@ -32,14 +33,6 @@ function AppRoutes() {
       } />
 
       
-<Route path="/guns" element={
-        <ProtectedRoute>
-          <CreateReport />
-        </ProtectedRoute>
-      } />
-
-
-
 
 
       <Route path="/create-report" element={
@@ -47,18 +40,41 @@ function AppRoutes() {
           <CreateReport />
         </ProtectedRoute>
       } />
-      <Route path="/dashboard" element={
-        <ProtectedRoute>
-          <UserDashboard />
-        </ProtectedRoute>
-      } />
-      <Route path="/Search" element={
+
+
+      <Route path="/search" element={
         <ProtectedRoute>
           {/* <FirearmSearch /> */}
           <Search />
         </ProtectedRoute>
       } />
-      <Route path="/" element={<Navigate to="/dashboard" />} />
+
+
+
+
+
+
+<Route path="/guns" element={
+        <ProtectedRoute>
+            <Guns />
+        </ProtectedRoute>
+      } />
+
+
+//-----------------------------------------------------------------Home Route goes to nowhere currently because dashboard doesnt exist
+
+
+<Route path="/collection" element={
+        <ProtectedRoute>
+          <UserCollection />
+        </ProtectedRoute>
+      } />
+
+
+
+
+
+      <Route path="/" element={<Navigate to="/collection" />} />
     </Routes>
   );
 }
