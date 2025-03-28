@@ -72,15 +72,16 @@ return (
 
 <ul className="firearm-data-list">
       {firearms.map((item) => (
-        <div>  
-        <li key={item.id}>
-      
-        <strong>Firearm:</strong> {item["Firearm.make"]} {item["Firearm.model"]}
-          {/* <strong>Firearm ID:</strong> {item.firearm_id}  */}
-          <strong> Total Rounds Fired:</strong> {item.rounds_fired} 
-          <strong> Malfunctions:</strong> {item.total_malfunctions}
-        </li>
-        </div>
+
+<div  className="firearm-data-li">  
+    <li key={item.id}> 
+        <h2>{item.Firearm?.make} {item.Firearm?.model}</h2>  
+        <h4>Total Rounds Fired: {item.rounds_fired}</h4>  
+        <h4>Malfunctions: {item.total_malfunctions}</h4> 
+        <h4>Failure Rate: {item.failure_rate_percentage} %</h4>
+    </li>
+</div>
+
       ))}
     </ul>
 

@@ -27,7 +27,6 @@
   --error-color: #4A0404;
 
 
-  
   --success-color: #00C851;
   --success-color: #044A4A;
   --border-color: #404040;
@@ -462,3 +461,13 @@ color: var(--text-primary);
   transition: transform 0.3s ease-in-out; /* smooth hover effect */
   }
   
+
+
+
+
+  .firearm-data-li{
+margin: 100px;
+    }
+    
+  
+
