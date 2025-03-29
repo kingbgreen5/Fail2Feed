@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children }) => {
 // Public Route component (redirects to dashboard if already authenticated)
 const PublicRoute = ({ children }) => {
   const { isAuthenticated } = useContext(AuthContext);
-  return !isAuthenticated ? children : <Navigate to="/dashboard" />;
+  return !isAuthenticated ? children : <Navigate to="/collection" />;
 };
 
 function AppRoutes() {
@@ -61,7 +61,7 @@ function AppRoutes() {
       } />
 
 
-//-----------------------------------------------------------------Home Route goes to nowhere currently because dashboard doesnt exist
+//-----------------------------------------------------------------Home Route
 
 
 <Route path="/collection" element={

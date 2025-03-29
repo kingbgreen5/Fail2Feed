@@ -63,7 +63,7 @@ const AuthForm = () => {
                     const success = login(data.token);
                     if (success) {
                         alert("Login successful!");
-                        navigate('/dashboard');
+                        navigate('/collection');
                     } else {
                         alert("Error processing login. Please try again.");
                     }

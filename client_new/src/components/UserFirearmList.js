@@ -58,8 +58,10 @@ const UserFirearmList = () => {
 
           {/* -------------------------------------------MAKE MODS DISPLAY ON HOVER???? */}
 <div></div>
-            <div className="firearm-tile-mods"> 
-          <h3 className="firearm-tile-mods">---- Modifications ----</h3>
+            <div className="firearm-tile-mod-container"> 
+           
+          <h4 className="firearm-tile-mod-title">-Modifications-</h4>
+       
           <p className="firearm-tile-mods">{firearm.slide_mod === 1 ? "Slide" : ""}</p>
           <p className="firearm-tile-mods">{firearm.barrel_mod === 1 ? "Barrel" : ""}</p>
           <p className="firearm-tile-mods">{firearm.recoilSpring_mod === 1 ? "Recoil Spring" : ""}</p>
@@ -68,8 +70,14 @@ const UserFirearmList = () => {
           <p className="firearm-tile-mods">{firearm.hammer_mod === 1 ? "Hammer" : ""}</p>
           <p className="firearm-tile-mods">{firearm.firingPinStriker_mod === 1 ? "Firing Pin/Striker" : ""}</p>
           </div>
-          <p className="firearm-tile-debug"> Internal ID: {firearm.Firearm.id}</p>
+
+
+          {/* <p className="firearm-tile-debug"> Internal ID: {firearm.Firearm.id}</p>
           <p className="firearm-tile-debug"> userFirearm ID: {firearm.id} </p>
+ */}
+
+
+
           <br></br>
 
 

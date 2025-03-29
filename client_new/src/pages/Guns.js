@@ -64,39 +64,32 @@ return (
 
 
 
-<div>
 
 
 
-{firearms && (   
 
-<ul className="firearm-data-list">
-      {firearms.map((item) => (
+<div className="firearm-data-container">
+  {firearms && firearms.map((item) => (
+    <div key={item.id} className="firearm-card">
+      <h2>{item.Firearm?.make} {item.Firearm?.model}</h2>
+{/*       
+      <h3>Failure Rate:</h3>
+      <h2 className="failure-rate">{item.failure_rate_percentage} %</h2>
+ */}
 
-<div  className="firearm-data-li">  
-    <li key={item.id}> 
-        <h2>{item.Firearm?.make} {item.Firearm?.model}</h2>  
-        <h4>Total Rounds Fired: {item.rounds_fired}</h4>  
-        <h4>Malfunctions: {item.total_malfunctions}</h4> 
-        <h4>Failure Rate: {item.failure_rate_percentage} %</h4>
-    </li>
+      <h4>
+        <span className="failure-rate-label">Failure Rate: </span> 
+        <span className="failure-rate-value">{item.failure_rate_percentage} %</span>
+      </h4>
+
+      {/* <h4>Total Rounds Fired: {item.rounds_fired}</h4>
+      <h4>Malfunctions: {item.total_malfunctions}</h4> */}
+
+    </div>
+  ))}
 </div>
 
-      ))}
-    </ul>
 
-
-
-
-
-
-
-
-
-
-)}
-
-</div>
 
 </div>
 )};
