@@ -103,15 +103,45 @@ useEffect(() => {
 
 
 
+        // const handleChange = (e) => {
+        //     const { name, value, type, checked } = e.target;
+        //     setFormData((prev) => ({
+        //         ...prev,
+        //         [name]: type === "checkbox" ? checked : value,
+            
+        //     }));
+        //     console.log("Form Data", formData)
+        // };
+
+
+
+
+
         const handleChange = (e) => {
             const { name, value, type, checked } = e.target;
+            let newValue = type === "checkbox" ? checked : value;
+        
+            // Convert negative numbers to 0
+            if (type === "number" && Number(newValue) < 0) {
+                newValue = "0"; // Ensuring it's a string to prevent input issues
+            }
+        
             setFormData((prev) => ({
                 ...prev,
-                [name]: type === "checkbox" ? checked : value,
-            
+                [name]: newValue,
             }));
-            console.log("Form Data", formData)
+        
+            console.log("Form Data", { ...formData, [name]: newValue });
         };
+        
+
+
+
+
+
+
+
+
 
         // const handleSubmit = (e) => {
         //     e.preventDefault();
@@ -174,7 +204,7 @@ useEffect(() => {
     return (
 
         
-        <div>
+        <div  className="report-form">
 
 
 
@@ -321,7 +351,7 @@ useEffect(() => {
                                                                                            {/* Rounds Fired Input */}
             <label>
                 Rounds Fired with this Ammo:
-                <input type="number" name="roundsFired" value={formData.roundsFired} onChange={handleChange} />
+                <input type="number" name="rounds_fired" value={formData.rounds_fired}  min="0" onChange={handleChange} />
             </label>
 
 
@@ -467,11 +497,13 @@ useEffect(() => {
 
 
 <hr></hr>
-<h4>---Debug Menu---</h4>
-{/* <h5>user_id: {user.id}</h5>
-<h6>firearm_id: {selectedFirearmID} </h6>
-<h6>ammo_id: {} </h6> */}
-Form Data
+
+{/* ----------------------------------------------------------------------DEBUG MENU---------------------------(HIDDEN)---------------- */}
+{/* 
+
+
+<h4 className="create-report-debug">---Debug Menu---</h4>
+
 
 <h6>User_id: {formData.user_id}</h6>
 <h6>Ammo_id: {formData.ammo_id}</h6>
@@ -484,10 +516,21 @@ Form Data
 <h6> Hammer: {formData.hammer_mod}</h6>
 <h6> Trigger Group: {formData.triggerGroup_mod}</h6>
 <h6>Firing Pin/Striker: {formData.firingPinStriker_mod}</h6>
+ */}
+
+
         </form>
         </form>
 
+
+
+
     </div>
+
+
+
+
+
 )}
 
 

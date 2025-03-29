@@ -13,6 +13,13 @@ const Search = () => {
     const [error, setError] = useState("");
     const [firearms, setFirearms] = useState(null);
     const [selectedFirearm, setSelectedFirearm] = useState(null);
+    const [reports, setReports] = useState([]);
+    const [firearmId, setFirearmId] = useState("");
+    const [totalRoundsFired, setTotalRoundsFired] = useState(0);
+    const [totalMalfunctions, setTotalMalfunctions] = useState(0);
+
+
+
 
 // ----------------------------------------------------------GET ALL FIREARMS
 useEffect(() => {
@@ -20,7 +27,7 @@ useEffect(() => {
         .then(response => {
             // setMakes(response.data);
             setFirearms(response.data); // Ensure firearms are updated with fetched data
-            console.log(firearms)
+
         })
         .catch(error => console.error("Error fetching makes:", error));
 }, []); // Runs only once when the component mounts
@@ -29,11 +36,15 @@ useEffect(() => {
 
 
    // ----------------------------------------------------------FIREARM CONSOLE LOG
-   useEffect(() => {
-    if (firearms !== null) {
-        console.log(firearms); // Logs the updated firearms state when it's not null
-    }
-}, [firearms]); // This effect runs when firearms state changes
+//    useEffect(() => {
+//     if (firearms !== null) {
+//         console.log(firearms); // Logs the updated firearms state when it's not null
+//     }
+// }, [firearms]); // This effect runs when firearms state changes
+
+
+
+
 
 //-----------------------------------------------------------------EXTRACE MAKE FROM FIREARM LIST
 useEffect(() => {
@@ -66,6 +77,7 @@ useEffect(() => {
         if (selectedMake && selectedModel && firearms !== null) {
             const firearm = firearms.find(f => f.make === selectedMake && f.model === selectedModel);
             setSelectedFirearm(firearm || null); // Store the matched firearm or null if not found
+      
         } else {
             setSelectedFirearm(null);
         }
@@ -74,81 +86,97 @@ useEffect(() => {
 
 
 
-
-
-    // useEffect(() => {
-    //     axios.get(`${config.API_URL}/api/firearms/makes`)
-    //         .then(response => setMakes(response.data))
-    //         .catch(error => console.error("Error fetching makes:", error));
-    // }, []);
-
-    // useEffect(() => {
-    //     if (selectedMake) {
-    //         axios.get(`${config.API_URL}/api/firearms/models`, { params: { make: selectedMake } })
-    //             .then(response => setModels(response.data))
-    //             .catch(error => {
-    //                 console.error("Error fetching models:", error);
-    //                 setModels([]);
-    //                 console.log(models)
-    //             });
-    //     } else {
-    //         setModels([]);
+    // const fetchReports = async () => {
+    //     if (!firearmId) {
+    //         setError("Please enter a firearm ID.");
+    //         return;
     //     }
-    // }, [selectedMake]);
-    
+    //     setError(""); // Clear previous errors
 
-
-
-
-    // useEffect(() => {
-    //     if (selectedModel) {
-    //         axios.get(`${config.API_URL}/api/firearms/models`, { params: { make: selectedMake } })
-    //             .then(response => setModels(response.data))
-    //             .catch(error => {
-    //                 console.error("Error fetching models:", error);
-    //                 setModels([]);
-    //                 console.log(models)
-    //             });
-    //     } else {
-    //         setModels([]);
-    //         console.log(models)
+    //     try {
+    //         const response = await axios.get(`${config.API_URL}/api/reports/firearm/${firearmId}`);
+    //         setReports(response.data);
+    //     } catch (err) {
+    //         setError("No reports found or an error occurred.");
+    //         setReports([]); // Clear reports on error
     //     }
-    // }, [selectedMake]);
-    
+    // };
 
-
-
-
-
-    const fetchFirearmByMakeAndModel = async (make, model) => {
-        try {
-            const response = await axios.get(`${config.API_URL}/api/firearms/find`, {
-                params: { make, model },
-            });
-    
-            return response.data; // This contains the firearm data
-        } catch (error) {
-            console.error("Error fetching firearm:", error);
-            return null;
-        }
-    };
-
-
-    const handleSearchFirearm = async () => {
-        if (!selectedMake || !selectedModel) {
-            console.error("Make and model are required");
+//-----------------------------------------------------------------------------------FETCH REPORTS
+    const fetchReports = async () => {
+        if (!selectedFirearm) {
+            setError("Please select a firearm first.");
             return;
         }
     
-        const firearm = await fetchFirearmByMakeAndModel(selectedMake, selectedModel);
+        setError(""); // Clear previous errors
     
-        if (firearm) {
-            console.log("Found firearm:", firearm);
-            // You can update state or display the firearm info here
-        } else {
-            console.log("No firearm found.");
+        try {
+            const response = await axios.get(`${config.API_URL}/api/reports/firearm/${selectedFirearm.id}`);
+            const reportsData = response.data;
+    
+            setReports(reportsData);
+    
+            //------------------------------------------------------ Calculate total rounds fired
+            const totalRounds = reportsData.reduce((sum, report) => sum + (report.rounds_fired || 0), 0);
+            setTotalRoundsFired(totalRounds);
+
+    //------------------------------------------------------ Calculate total malfunctions
+            const totalMalfunctions = reportsData.reduce((sum, report) => sum + (report.rounds_fired || 0), 0)
+
+
+        } catch (err) {
+            setError("No reports found or an error occurred.");
+            setReports([]); // Clear reports on error
+            setTotalRoundsFired(0); // Reset total rounds on error
         }
     };
+
+
+
+
+
+    
+//--------------------------------------------------------------------------------------CONSOLE LOG REPORTS
+
+    useEffect(() => {
+        if (reports !== null) {
+            console.log(reports); // Logs the updated firearms state when it's not null
+        }
+    }, [reports]); // This effect runs when reports state changes
+    
+
+
+
+    // const fetchFirearmByMakeAndModel = async (make, model) => {
+    //     try {
+    //         const response = await axios.get(`${config.API_URL}/api/firearms/find`, {
+    //             params: { make, model },
+    //         });
+    
+    //         return response.data; // This contains the firearm data
+    //     } catch (error) {
+    //         console.error("Error fetching firearm:", error);
+    //         return null;
+    //     }
+    // };
+
+
+    // const handleSearchFirearm = async () => {
+    //     if (!selectedMake || !selectedModel) {
+    //         console.error("Make and model are required");
+    //         return;
+    //     }
+    
+    //     const firearm = await fetchFirearmByMakeAndModel(selectedMake, selectedModel);
+    
+    //     if (firearm) {
+    //         console.log("Found firearm:", firearm);
+    //         // You can update state or display the firearm info here
+    //     } else {
+    //         console.log("No firearm found.");
+    //     }
+    // };
 
 
 
@@ -161,7 +189,7 @@ useEffect(() => {
    
        
                 <div className="firearm-select">
-        <h1>Firearm Lookup</h1>
+        <h1>Advanced Search</h1>
 
                     {error && <div className="error-message">{error}</div>}
                     {message && <div className="success-message">{message}</div>}
@@ -209,9 +237,9 @@ useEffect(() => {
 
    {selectedMake} {selectedModel}
 
-
+{/* 
    <button onClick={handleSearchFirearm}>Search Firearm</button>
-
+ */}
 
 
 
@@ -223,6 +251,7 @@ useEffect(() => {
                     <p><strong>Make:</strong> {selectedFirearm.make}</p>
                     <p><strong>Model:</strong> {selectedFirearm.model}</p>
                     <p> ID: {selectedFirearm.id}</p>
+                    <p> TOTAL ROUNDS FIRED: {totalRoundsFired}</p>
                                                                                {/* Add more firearm details as needed */}
                 </div>
             )}
@@ -245,13 +274,71 @@ useEffect(() => {
                     <p><strong>Model:</strong> {firearm.model}</p>
                     <p><strong>Rounds Fired:</strong> {firearm.rounds_fired}</p>
                     <p><strong>Reports Filed:</strong> {firearm.reports_filed}</p>
+                    <p> {totalRoundsFired}</p>
+                </div>
+            )}
+        </div>
+
+
+
+
+
+
+
+        <div>
+            <h3>Get Reports by Firearm ID</h3>
+
+            {/* Input Field for Firearm ID */}
+            <input
+                type="number"
+                placeholder="Enter Firearm ID"
+                value={firearmId}
+                onChange={(e) => setFirearmId(e.target.value)}
+            />
+
+            {/* Fetch Reports Button */}
+            <button onClick={fetchReports}>Fetch Reports</button>
+
+            {/* Display Errors */}
+            {error && <p style={{ color: "red" }}>{error}</p>}
+
+            {/* Display Reports */}
+            {reports.length > 0 && (
+                <div>
+                    <h4>Reports for Firearm ID: {firearmId}</h4>
+                    <ul>
+                        {reports.map((report) => (
+                            <li key={report.id}>
+                                <strong>Date:</strong> {report.date}, <strong>Rounds Fired:</strong> {report.rounds_fired}
+                                <br />
+                                <strong>Comments:</strong> {report.comments}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
         </div>
              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
             
-    
     );
 };
 

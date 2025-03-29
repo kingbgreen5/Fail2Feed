@@ -1,15 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
+
+
+
+
 :root {
   /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #2d2d2d;
+  /* --bg-primary: #f5f2f1;
+
+  --bg-primary: #060505;
+
+  --bg-secondary: #fcf9f2;
+  --bg-secondary: #302e28;
+ */
+  /* --text-primary: #707c3b; */
+
+
+
+/* Black and white */
+  --bg-primary: #060505;
+  --bg-secondary: #191814;
   --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
-  --accent-primary: #4CAF50;
-  --accent-hover: #45a049;
-  --error-color: #ff4444;
+  --text-secondary: #949494;
+
+  --accent-primary: #486969;
+  --accent-hover: #6e3e2e;
+  --error-color: #562e2e;
+
+
   --success-color: #00C851;
+  --success-color: #044A4A;
   --border-color: #404040;
+
+
+
+
+
+
+
 }
+
+select, option {
+  font-family: 'Courier Prime', monospace !important;
+}
+
+
+
 
 body {
   background-color: var(--bg-primary);
@@ -20,14 +56,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Courier Prime', monospace;
 }
 
 .App {
   text-align: center;
   min-height: 100vh;
   background-color: var(--bg-primary);
-  
+  font-family: 'Courier Prime', monospace;
 }
+
+
 
 .App-header {
   background-color: var(--bg-secondary);
@@ -39,6 +78,8 @@ body {
   font-size: calc(10px + 2vmin);
   color: var(--text-primary);
 }
+
+
 
 /* Navbar Styles */
 .navbar {
@@ -71,7 +112,9 @@ body {
 
 .navbar button {
   background-color: var(--error-color);
+
   color: var(--text-primary);
+
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -82,6 +125,36 @@ body {
 .navbar button:hover {
   background-color: #cc0000;
 }
+
+
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: var(--text-primary);
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.navbar ul li a.active {
+  background-color: #007bff;
+  color: white;
+}
+
+
+
+
+
+
+
+
+
 
 /* Auth Form Styles */
 .auth-form {
@@ -130,6 +203,7 @@ body {
   padding: 0.75rem;
   background-color: var(--accent-primary);
   color: var(--text-primary);
+  color: #FCF5E5;
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -205,6 +279,7 @@ tr:hover {
 button {
   background-color: var(--accent-primary);
   color: var(--text-primary);
+  color: #FCF5E5;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -285,6 +360,7 @@ button:disabled {
   padding: 0.75rem;
   background-color: var(--accent-primary);
   color: var(--text-primary);
+  color: #FCF5E5;
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -333,34 +409,168 @@ button:disabled {
 .firearm-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 16px;
   justify-content: center;
 }
 
+
+
 .firearm-tile {
-  background-color: #a7a7a7; /* light gray background */
+  background-color: var(--bg-secondary); 
+   color: var(--text-primary);
   border-radius: 10px;       /* rounded corners */
   padding: 20px;             /* space inside the tile */
-  width: 200px;              /* fixed width */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  width: 25%;              /* fixed width */
+  min-height:10%;
+  max-height: 280x;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 2.1); 
   text-align: center;        /* center text */
   transition: transform 0.3s ease-in-out; /* smooth hover effect */
+
+  background-color: var(--bg-secondary);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  height: 280px;
+  width: 173px;
+
+
+
 }
 
+
+
+
+.firearm-data-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.firearm-card {
+  background-color: var(--bg-secondary);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 280px;
+}
+
+
+
+
+
+
+
+/* 
 .firearm-tile:hover {
-  transform: translateY(-5px); /* lift the tile on hover */
+  transform: translateY(-5px); 
 }
+ */
 
-.firearm-make, .firearm-model {
-  font-size: 14px;
+
+.firearm-tile-title{
   font-weight: bold;
-  margin: 0;
-  color: #333; /* dark text for contrast */
+  color: #000000; /* dark text for contrast */
+  color: var(--text-primary);
+
 }
 
-.userFirearm.remove-button{
-  background: #5b0000;
-  padding: 10px;  
-  border-radius: 50px;
 
+
+
+/* -------------------------modifications */
+
+.firearm-tile-mod-container{
+  color:var(--text-secondary);
+
+  }
+
+  .firearm-tile-mod-title{
+    margin-bottom:4px;
+    color:var(--text-secondary);
+    text-align: start;
+    padding:1px;
+    }
+  
+.firearm-tile-mods{
+margin: 0;
+color:var(--text-secondary);
+text-align: start;
+padding:1px;
+}
+
+
+/* SET TO TRANSPARENT */
+.firearm-tile-debug{
+  margin: 0;
+  color:#3c3c32;
+  text-align: start;
+  
+  }
+  
+.userFirearm.remove-button{
+  margin-bottom:1%;
+  background: #4A0404;;
+  padding: 10px;  
+  color: #FCF5E5;
+}
+
+.userFirearm.remove-button:hover {
+  background-color: #cc0000
+}
+
+/* -----------------------------------------------------------------------------------REPORT FORM------------------------------------- */
+
+
+.report-form{
+  background-color: var( --bg-secondary);
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+
+
+  border-radius: 10px;       /* rounded corners */
+  padding: 20px;             /* space inside the tile */
+  width: 800px;              /* fixed width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 2.1); 
+  text-align: center;        /* center text */
+  transition: transform 0.3s ease-in-out; /* smooth hover effect */
+  }
+  
+
+
+/* ----------------------------------------------THE DATA */
+.firearm-data-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.firearm-card {
+  background-color: var(--bg-secondary);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 280px;
+}
+
+.failure-rate {
+  color: red;
+  font-weight: bold;
+}
+
+.failure-rate-label {
+  color: var(--text-secondary); /* Change this to any color you want */
+  font-weight: bold;
+}
+
+.failure-rate-value {
+  color: red; /* This will make the percentage red */
+  font-weight: bold;
 }

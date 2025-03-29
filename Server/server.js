@@ -6,6 +6,11 @@ const firearmRoutes = require('./routes/firearmRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 const userRoutes = require('./routes/userRoutes');
 const userFirearmsRoutes = require('./routes/userFirearmsRoutes');
+const aggregateRoutes = require('./routes/aggregateDataRoutes')
+
+const cron = require('node-cron');
+const updateAggregateData = require('./utils/updateAggregateData');
+
 
 require('dotenv').config();
 const app = express();
@@ -29,6 +34,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/firearms', firearmRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/userFirearms', userFirearmsRoutes);
+app.use('/api/aggregate', aggregateRoutes)
+
+
 
 const PORT = process.env.PORT || 5000;
 
@@ -43,3 +51,9 @@ db.sequelize.sync()
     .catch(err => {
         console.error('Failed to sync database:', err);
     });
+
+
+    // Run every minute (change to '0 */6 * * *' for every 6 hours)
+cron.schedule('*/1 * * * *', async () => {
+    await updateAggregateData();
+});

@@ -13,6 +13,29 @@ const UserFirearmSelect = () => {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
+    const [modifications, setModifications] = useState({
+        slide_mod: false,
+        barrel_mod: false,
+        recoilSpring_mod: false,
+        extractor_mod: false,
+        triggerGroup_mod: false,
+        hammer_mod: false,
+        firingPinStriker_mod: false
+    });
+    
+
+    const handleModificationChange = (e) => {
+        const { name, checked } = e.target;
+        setModifications(prev => ({
+            ...prev,
+            [name]: checked
+        }));
+    };
+
+
+
+
+
     useEffect(() => {
         axios.get(`${config.API_URL}/api/firearms/makes`)
             .then(response => setMakes(response.data))
@@ -32,26 +55,84 @@ const UserFirearmSelect = () => {
         }
     }, [selectedMake]);
 
+
+
+
+
+
+
+
+
+
+
+
+
+    // const handleConfirmSelection = () => {
+    //     if (!selectedMake || !selectedModel) {
+    //         setError("Please select both manufacturer and model");
+    //         return;
+    //     }
+
+    //     setLoading(true);
+    //     setError("");
+    //     setMessage("");
+
+    //     const token = localStorage.getItem("token");
+    //     axios.post(
+    //         `${config.API_URL}/api/userFirearms/add`,
+    //         { make: selectedMake, model: selectedModel },
+    //         { headers: { Authorization: `Bearer ${token}` } }
+    //     )
+    //     .then(response => {
+    //         setMessage(response.data.message || "Firearm added to your profile!");
+    //         setSelectedMake("");
+    //         setSelectedModel("");
+    //         console.log()
+    //         // window.location.reload();
+    //     })
+    //     .catch(error => {
+    //         console.error("Error adding firearm:", error);
+    //         setError(error.response?.data?.message || "Error adding firearm. Please try again.");
+    //     })
+    //     .finally(() => setLoading(false));
+    // };
+
+
+
     const handleConfirmSelection = () => {
         if (!selectedMake || !selectedModel) {
             setError("Please select both manufacturer and model");
             return;
         }
-
+    
         setLoading(true);
         setError("");
         setMessage("");
-
+    
         const token = localStorage.getItem("token");
+    
         axios.post(
             `${config.API_URL}/api/userFirearms/add`,
-            { make: selectedMake, model: selectedModel },
+            { 
+                make: selectedMake, 
+                model: selectedModel,
+                ...modifications  // ✅ Include modifications in the request
+            },
             { headers: { Authorization: `Bearer ${token}` } }
         )
         .then(response => {
             setMessage(response.data.message || "Firearm added to your profile!");
             setSelectedMake("");
             setSelectedModel("");
+            setModifications({  // Reset checkboxes after submission
+                slide_mod: false,
+                barrel_mod: false,
+                recoilSpring_mod: false,
+                extractor_mod: false,
+                triggerGroup_mod: false,
+                hammer_mod: false,
+                firingPinStriker_mod: false
+            });
         })
         .catch(error => {
             console.error("Error adding firearm:", error);
@@ -59,6 +140,31 @@ const UserFirearmSelect = () => {
         })
         .finally(() => setLoading(false));
     };
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <div>
@@ -97,13 +203,84 @@ const UserFirearmSelect = () => {
                     {selectedModel && (
                         <div>
                             <h4>Firearm Modifications</h4>
-                            <label><input type="checkbox" name="slide_mod" /> The Slide</label>
+                            {/* <label><input type="checkbox" name="slide_mod" /> The Slide</label>
                             <label><input type="checkbox" name="triggerGroup_mod" /> Trigger Group</label>
                             <label><input type="checkbox" name="hammer_mod" /> The Hammer</label>
                             <label><input type="checkbox" name="firingPinStriker_mod" /> Firing Pin/Striker</label>
                             <label><input type="checkbox" name="extractor_mod" /> Extractor</label>
                             <label><input type="checkbox" name="recoilSpring_mod" /> Recoil Spring</label>
-                            <label><input type="checkbox" name="barrel_mod" /> Barrel</label>
+                            <label><input type="checkbox" name="barrel_mod" /> Barrel</label> */}
+
+<label>
+    <input 
+        type="checkbox" 
+        name="slide_mod" 
+        checked={modifications.slide_mod} 
+        onChange={handleModificationChange} 
+    /> The Slide
+</label>
+
+<label>
+    <input 
+        type="checkbox" 
+        name="triggerGroup_mod" 
+        checked={modifications.triggerGroup_mod} 
+        onChange={handleModificationChange} 
+    /> Trigger Group
+</label>
+
+<label>
+    <input 
+        type="checkbox" 
+        name="hammer_mod" 
+        checked={modifications.hammer_mod} 
+        onChange={handleModificationChange} 
+    /> The Hammer
+</label>
+
+<label>
+    <input 
+        type="checkbox" 
+        name="firingPinStriker_mod" 
+        checked={modifications.firingPinStriker_mod} 
+        onChange={handleModificationChange} 
+    /> Firing Pin/Striker
+</label>
+
+<label>
+    <input 
+        type="checkbox" 
+        name="extractor_mod" 
+        checked={modifications.extractor_mod} 
+        onChange={handleModificationChange} 
+    /> Extractor
+</label>
+
+<label>
+    <input 
+        type="checkbox" 
+        name="recoilSpring_mod" 
+        checked={modifications.recoilSpring_mod} 
+        onChange={handleModificationChange} 
+    /> Recoil Spring
+</label>
+
+<label>
+    <input 
+        type="checkbox" 
+        name="barrel_mod" 
+        checked={modifications.barrel_mod} 
+        onChange={handleModificationChange} 
+    /> Barrel
+</label>
+
+
+
+
+
+
+
+
 
                             {/* Submit Button */}
                             <button 

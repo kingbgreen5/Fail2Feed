@@ -1,0 +1,25 @@
+Brian Notes
+
+Privacy concerns- gun owners are privacy conscious
+
+
+data purity
+-a small for signing up to contribute data
+-more detail and data breakdown
+paid subscribers gives more trustworthiness vs advertisers
+
+
+
+
+aggregate table that is the quick access table that gets updated by the reports table.
+
+dont expect users device to do the math.
+
+reactive for phone 
+
+node.js chron library to aggregate the data regularly
+
+Trello project board
+
+
+

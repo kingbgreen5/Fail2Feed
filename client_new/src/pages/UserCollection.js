@@ -3,26 +3,25 @@ import AuthContext from "../context/AuthContext";
 import UserFirearmSelect from "../components/UserFirearmSelect";
 import UserFirearmList from "../components/UserFirearmList";
 
-const UserDashboard = () => {
+const UserCollection = () => {
     const { user } = useContext(AuthContext);
 
     return (
         <div>
-            <div>
-                User Role: {user.role}
-            </div>
+            <h6>
+                User Role: {user.role} | User ID: {user.id}
+            </h6>
+     
+   
         <div>
-            User ID: {user.id}
-        <div>
-        <UserFirearmSelect />
             <UserFirearmList />
-
+            <UserFirearmSelect />
         </div>
 
-        </div>
+  
   
         </div>
     );
 };
 
-export default UserDashboard;
+export default UserCollection;
