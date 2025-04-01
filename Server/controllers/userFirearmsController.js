@@ -20,34 +20,6 @@ const addUserFirearm = async (userId, firearmId, modifications) => {
 };
 
 
-
-
-
-
-// Get all active firearms for a user
-// const getUserFirearms = async (userId) => {
-//     try {
-//         const firearms = await UserFirearms.findAll({
-//             where: {
-//                 user_id: userId,
-//                 is_active: true
-//             },
-//             include: [{
-//                 model: Firearm,
-//                 attributes: ['make', 'model', 'id', 'rounds_fired']
-//             }],
-//             attributes: ['id', 'created_at']
-//         });
-//         return firearms;
-//     } catch (error) {
-//         console.error('Error in getUserFirearms:', error);
-//         throw error;
-//     }
-// };
-
-
-
-
 const getUserFirearms = async (userId) => {
     try {
         const firearms = await UserFirearms.findAll({
@@ -57,7 +29,7 @@ const getUserFirearms = async (userId) => {
             },
             include: [{
                 model: Firearm,
-                attributes: ['make', 'model', 'id', 'rounds_fired']
+                attributes: ['make', 'model', 'id']
             }],
             attributes: { exclude: [] } // Fetch all attributes
         });

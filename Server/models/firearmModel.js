@@ -16,14 +16,6 @@ class Firearm extends Model {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            rounds_fired: {
-                type: DataTypes.INTEGER,
-                defaultValue: 0,
-            },
-            reports_filed: {
-                type: DataTypes.INTEGER,
-                defaultValue: 0,
-            },
             is_active: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,

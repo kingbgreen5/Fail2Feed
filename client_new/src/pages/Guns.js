@@ -79,7 +79,26 @@ return (
 
       <h4>
         <span className="failure-rate-label">Failure Rate: </span> 
-        <span className="failure-rate-value">{item.failure_rate_percentage} %</span>
+        <span className="failure-rate-value">{item.failure_rate_percentage} % </span>
+
+        <div>   
+            
+        <div>Malfunctions</div>
+        <div>   Firing: {item.firing_total}  </div>
+        <div>   Unlocking:   </div>
+        <div>   Extracting:   </div>
+        <div>   Ejecting:   </div>
+        <div>   Cocking:   </div>
+        <div>   Feeding:   </div>
+        <div>   Chambering:   </div>
+        <div>   Locking:   </div>
+        <div>   Magazine:   </div>
+        <div>   Ammunition:   </div>
+        <div>   Other:   </div>
+        <div>   Catastrophic: </div>
+
+        </div>
+
       </h4>
 
       {/* <h4>Total Rounds Fired: {item.rounds_fired}</h4>
