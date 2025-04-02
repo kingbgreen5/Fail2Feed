@@ -565,12 +565,13 @@ padding:1px;
   font-weight: bold;
 }
 
-.failure-rate-label {
+.failure-label {
   color: var(--text-secondary); /* Change this to any color you want */
   font-weight: bold;
+  align-items: left;
 }
 
-.failure-rate-value {
+.failure-percent {
   color: red; /* This will make the percentage red */
   font-weight: bold;
 }
