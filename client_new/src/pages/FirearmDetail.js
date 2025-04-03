@@ -58,8 +58,9 @@ const FirearmDetail = () => {
             <p>Rounds Fired: {firearm.rounds_fired}</p>
             <p>Total Malfunctions: {firearm.total_malfunctions}</p>
 
-<div>
+<div className="malfunction-span-breakdown">
                           <h2>Malfunction Breakdown</h2>
+                          <h4>% of {firearm.total_malfunctions} total malfunctions</h4>
     <hr />
                             <div><span className="failure-label">Firing: </span> <span className="failure-percent">{firearm.firing_percent} % </span></div>
                             <div><span className="failure-label">Unlocking: </span> <span className="failure-percent">{firearm.unlocking_percent} % </span></div>
@@ -76,7 +77,9 @@ const FirearmDetail = () => {
 
 
 <div className="malfunction-chart-container"> 
+    <h2> % of all Malfunctions</h2>
 {firearm && chartData.length > 0 && (
+    
     <ResponsiveContainer width="100%" height={400}>
         <BarChart data={chartData} layout="vertical">
             <XAxis type="number" domain={[0, 100]} stroke="#8884d8" />
@@ -86,7 +89,7 @@ const FirearmDetail = () => {
         </BarChart>
     </ResponsiveContainer>
 )}
-
+<h4> </h4>
 </div>
 
 

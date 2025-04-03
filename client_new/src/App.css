@@ -579,7 +579,20 @@ padding:1px;
 
 .malfunction-chart-container{
   background-color:#131413;
-  width: 40%;
+  padding:3%;
+  width: 50%;
+  border-radius: 10px;
+  align-items: center;
+  align-self: auto;
+  margin: auto;
+  margin-top:5%;
+  margin-bottom: 5%;
+}
+
+.malfunction-span-breakdown{
+  background-color:#131413;
+  padding:3%;
+  width: 50%;
   border-radius: 10px;
   align-items: center;
   align-self: auto;
