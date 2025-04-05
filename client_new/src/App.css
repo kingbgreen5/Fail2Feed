@@ -551,6 +551,12 @@ padding:1px;
   justify-content: center;
 }
 
+
+.firearm-data-container:hover {
+transform: ;
+}
+
+
 .firearm-card {
   background-color: var(--bg-secondary);
   border-radius: 10px;
