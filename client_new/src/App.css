@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
-
-
-
-
 :root {
   /* Dark theme colors */
   /* --bg-primary: #f5f2f1;
@@ -531,8 +527,6 @@ padding:1px;
   margin-top: 5%;
   margin-bottom: 5%;
 
-
-
   border-radius: 10px;       /* rounded corners */
   padding: 20px;             /* space inside the tile */
   width: 800px;              /* fixed width */
@@ -541,6 +535,143 @@ padding:1px;
   transition: transform 0.3s ease-in-out; /* smooth hover effect */
   }
   
+
+/* .range-report-modification-container{
+  color:var(--text-secondary);
+   
+
+} */
+
+.range-report-firearm-select{
+  width: 80%;
+}
+
+.range-report-modification-title{
+  color:var(--text-secondary);
+
+}
+
+.range-report-modification-list{
+  color:var(--text-secondary);
+  margin-left: 40%;
+  text-align: left;
+}
+
+
+.range-report-suppressor-optic{
+  margin-left: 40%;
+  text-align: left;
+  margin: 1em;
+}
+
+.range-report-date{
+  margin-left: 40%;
+  text-align: left;
+  margin: 1em;
+}
+
+.range-report-rounds-fired{
+  margin-left: 40%;
+  text-align: left;
+  margin: 1em;
+  ;
+}
+
+.range-report-malfunction-card{
+  margin: 1em;
+  padding: 2em;
+  align-items: left;
+}
+
+.range-report-malfunctions-field{
+  margin: .4em;
+  margin-top: .5em;
+  margin-bottom: .5em;
+  width: 3em;
+}
+
+
+
+
+
+
+.malfunction-section-container {
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* Use CSS Grid to force two columns */
+.malfunction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: .5rem;
+}
+
+.malfunction-column {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.malfunction-card {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  text-align: left;
+  margin: 1em;
+  font-weight: 800;
+}
+
+.malfunction-input {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width:3em;
+}
+
+.malfunction-catastrophic-row {
+  margin-top: 2rem;
+}
+
+.malfunction-catastrophic {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* ----------------------------------------------THE DATA */
@@ -553,8 +684,10 @@ padding:1px;
 
 
 .firearm-data-container:hover {
-transform: ;
+
 }
+
+
 
 
 .firearm-card {

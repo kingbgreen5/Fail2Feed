@@ -215,7 +215,7 @@ useEffect(() => {
 
         {/* ----------------------------------------------------------------ADD FIREARM FROM COllLLECTION */}
             <h2>- Firearm Used -</h2>
-<select value={selectedFirearmID} onChange={handleSelect}>
+<select value={selectedFirearmID} onChange={handleSelect} className="range-report-firearm-select">
     <option value="">Select Firearm from Collection</option>
     {userFirearms.map((firearm) => (
         <option key={firearm.Firearm.id} value={firearm.Firearm.id}>
@@ -226,15 +226,7 @@ useEffect(() => {
 
 {/* 
 -----------------------------------ADD AMMO SELECTION */}
-{/* 
- <select value={selectedFirearmID} onChange={handleSelect}>
-    <option value="">Ammunition used: </option>
-    {userFirearms.map((firearm) => (
-        <option key={firearm.Firearm.id} value={firearm.Firearm.id}>
-            {firearm.Firearm.make} - {firearm.Firearm.model}
-        </option>
-    ))}
-</select>  */}
+
 
 
 <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-lg shadow-md">
@@ -248,12 +240,15 @@ useEffect(() => {
     {/* Your content here */}
 
 
-    <div>
-  
 
+                                                                                        {/* MODIFICATIONS */}
+    <div className="range-report-modification-container">
 
+                       <div className="range-report-modification-title">
                 <h3>   Firearm Modifications         </h3>
+                        </div>
 
+                        <div className="range-report-modification-list">
 
 {/* //--------------------------------------------------------------------------------------DISPLAY MODIFICATIONS */}
             <p>{selectedUserFirearm.slide_mod === 1 ? "• Slide  " : ""}</p>
@@ -263,39 +258,14 @@ useEffect(() => {
             <p>{selectedUserFirearm.triggerGroup_mod === 1 ? "• Trigger Group" : ""}</p>
             <p>{selectedUserFirearm.hammer_mod === 1 ? "• Hammer" : ""}</p>
             <p>{selectedUserFirearm.firingPinStriker_mod === 1 ? "• Firing Pin/Striker" : ""}</p> 
-
-
-
-<hr></hr>
-
-
-
+            </div>
             </div>
 
-<h2> - Ammunition Used -</h2>
-<h3> (still under development) </h3>
-<p>
-
-</p>
-            {/* Ammo Selection Dropdown */}
-            <label>
-                Ammo Selection:
-                {/* <select name="ammo" value={formData.ammo} onChange={handleChange}>
-                    <option value="">Select Ammo</option>
-                    {ammoOptions.map((ammo) => (
-                        <option key={ammo.id} value={ammo.name}>
-                            {ammo.name}
-                        </option>
-                    ))}
-                </select> */}
-
-            </label>
-
-
 <hr></hr>
 
 
-            <div>
+
+            <div className="range-report-suppressor-optic">
                                                                                        {/* Suppressor Checkbox */}
         <label>
             <input
@@ -308,11 +278,11 @@ useEffect(() => {
    
         }))}
     />
-    Suppressor Used
+       : Suppressor Used
             </label>
             </div>
 
-            <div>
+            <div className="range-report-suppressor-optic">
                                                                                         {/* Optic Checkbox */}
             <label>
             <input
@@ -325,7 +295,7 @@ useEffect(() => {
    
         }))}
     />
-    Optic Used
+   : Optic Used
             </label>
             </div>
 
@@ -336,62 +306,155 @@ useEffect(() => {
 
 
                 <div>
-                                                                                      {/* MODIFICATIONS */}
+
 
 </div>
-                                                                                                  {/* Date Input */}
+                         
+        <div className="range-report-date">                                                                              {/* Date Input */}
             <label>
                 Date:
                 <input type="date" name="date" value={formData.date} onChange={handleChange} />
             </label>
+        </div>   
+
+
+
             <div>
   
 </div>
-<div>
+
+<div className="range-report-rounds-fired" >
                                                                                            {/* Rounds Fired Input */}
             <label>
-                Rounds Fired with this Ammo:
+                Rounds Fired :
                 <input type="number" name="rounds_fired" value={formData.rounds_fired}  min="0" onChange={handleChange} />
             </label>
 
 
 </div>
-            <h3 className="text-lg font-semibold">Malfunctions Encountered</h3>
+            <h2 className="text-lg font-semibold">Malfunctions Encountered</h2>
 
 
-<div>
-            <label>
-                    Firing
-                <input type="number" name="firing" value={formData.firing} onChange={handleChange} />
+
+
+            <div className="malfunction-section-container">
+  <h2 className="section-title">Firearm Malfunctions</h2>
+
+  <div className="malfunction-grid">
+    {/* Left Column */}
+    <div className="malfunction-column">
+      <label className="malfunction-card">
+        Firing
+        <input type="number" name="firing" value={formData.firing} onChange={handleChange} className="malfunction-input" />
+      </label>
+
+      <label className="malfunction-card">
+        Unlocking
+        <input type="number" name="unlocking" value={formData.unlocking} onChange={handleChange} className="malfunction-input" />
+      </label>
+
+      <label className="malfunction-card">
+        Extracting
+        <input type="number" name="extracting" value={formData.extracting} onChange={handleChange} className="malfunction-input" />
+      </label>
+
+      <label className="malfunction-card">
+        Ejecting
+        <input type="number" name="ejecting" value={formData.ejecting} onChange={handleChange} className="malfunction-input" />
+      </label>
+
+      <label className="malfunction-card">
+        Cocking
+        <input type="number" name="cocking" value={formData.cocking} onChange={handleChange} className="malfunction-input" />
+      </label>
+    </div>
+
+    {/* Right Column */}
+    <div className="malfunction-column">
+      <label className="malfunction-card">
+        Feeding
+        <input type="number" name="feeding" value={formData.feeding} onChange={handleChange} className="malfunction-input" />
+      </label>
+
+      <label className="malfunction-card">
+        Chambering
+        <input type="number" name="chambering" value={formData.chambering} onChange={handleChange} className="malfunction-input" />
+      </label>
+
+      <label className="malfunction-card">
+        Locking
+        <input type="number" name="locking" value={formData.locking} onChange={handleChange} className="malfunction-input" />
+      </label>
+
+      <label className="malfunction-card">
+        Magazine Failure
+        <input type="number" name="magazine" value={formData.magazine} onChange={handleChange} className="malfunction-input" />
+      </label>
+
+      <label className="malfunction-card">
+        Ammunition Failure
+        <input type="number" name="ammunition" value={formData.ammunition} onChange={handleChange} className="malfunction-input" />
+      </label>
+    </div>
+  </div>
+
+  {/* Catastrophic checkbox across both columns */}
+  <div className="malfunction-catastrophic-row">
+    <label className="malfunction-catastrophic">
+      <input
+        type="checkbox"
+        name="catastrophic"
+        checked={formData.catastrophic === 1}
+        onChange={(e) =>
+          setFormData((prev) => ({
+            ...prev,
+            catastrophic: e.target.checked ? 1 : 0,
+          }))
+        }
+      />
+      Did you encounter a Catastrophic Malfunction?
+    </label>
+  </div>
+</div>
+
+
+
+
+{/* 
+
+<div >
+            <label className="range-report-malfunction-card">
+                    Firing:
+                <input type="number" name="firing" value={formData.firing} onChange={handleChange} className="range-report-malfunctions-field"/>
+            </label>
+ 
+            <label className="range-report-malfunction-card">
+            Unlocking:
+                <input type="number" name="unlocking" value={formData.unlocking} onChange={handleChange} className="range-report-malfunctions-field" />
             </label>
 
-            <label>
-            Unlocking
-                <input type="number" name="unlocking" value={formData.unlocking} onChange={handleChange} />
-            </label>
-
-            <label>
-            Extracting
-                <input type="number" name="extracting" value={formData.extracting} onChange={handleChange} />
+            <label className="range-report-malfunction-card">
+            Extracting:
+                <input type="number" name="extracting" value={formData.extracting} onChange={handleChange} className="range-report-malfunctions-field" />
             </label>
 
 </div>
 
 
 <div>
-            <label>
+            <label className="range-report-malfunction-card">
                     Ejecting
-                <input type="number" name="ejecting" value={formData.ejecting} onChange={handleChange} />
+                <input type="number" name="ejecting" value={formData.ejecting} onChange={handleChange} className="range-report-malfunctions-field" />
             </label>
 
-            <label>
+            <label className="range-report-malfunction-card">
             Cocking
-                <input type="number" name="cocking" value={formData.cocking} onChange={handleChange} />
+                <input type="number" name="cocking" value={formData.cocking} onChange={handleChange} className="range-report-malfunctions-field" />
             </label>
 
-            <label>
+            <label className="range-report-malfunction-card">
             Feeding
-                <input type="number" name="feeding" value={formData.feeding} onChange={handleChange} />
+                <input type="number" name="feeding" value={formData.feeding} onChange={handleChange} className="range-report-malfunctions-field" />
             </label>
 
 </div>
@@ -399,13 +462,15 @@ useEffect(() => {
 
 
 <div>
-<label>
+<label className="range-report-malfunction-card">
+
             Chambering 
-                <input type="number" name="chambering" value={formData.chambering} onChange={handleChange} />
+                <input type="number" name="chambering" value={formData.chambering} onChange={handleChange} className="range-report-malfunctions-field" />
             </label>
-            <label>
+
+            <label className="range-report-malfunction-card">
                     Locking 
-                <input type="number" name="locking" value={formData.locking} onChange={handleChange} />
+                <input type="number" name="locking" value={formData.locking} onChange={handleChange} className="range-report-malfunctions-field" />
             </label>
 
 
@@ -414,7 +479,7 @@ useEffect(() => {
 <div>
 <label>
                     Magazine Failure
-                <input type="number" name="magazine" value={formData.magazine} onChange={handleChange} />
+                <input type="number" name="magazine" value={formData.magazine} onChange={handleChange} className="range-report-malfunctions-field" />
             </label>
 
 </div>
@@ -425,7 +490,7 @@ useEffect(() => {
 <div>
 <label>
                     Ammunition Failure
-                <input type="number" name="ammunition" value={formData.ammunition} onChange={handleChange} />
+                <input type="number" name="ammunition" value={formData.ammunition} onChange={handleChange} className="range-report-malfunctions-field" />
             </label>
 
 </div>
@@ -461,6 +526,14 @@ useEffect(() => {
      Did you encounter a Catastrophic Malfunction?
             </label>
 
+
+ */}
+
+
+
+
+
+
 <div>
                                                                                 {/* Comment Box */}
                 <label>
@@ -475,7 +548,6 @@ useEffect(() => {
 
 
  */}
-
 
 
             <button type="button" onClick={handleSubmit}>
@@ -498,12 +570,15 @@ useEffect(() => {
 
 <hr></hr>
 
+{/* <div>
+    suppressor{formData.suppressor}
+</div> */}
+
 {/* ----------------------------------------------------------------------DEBUG MENU---------------------------(HIDDEN)---------------- */}
-{/* 
 
 
-<h4 className="create-report-debug">---Debug Menu---</h4>
 
+{/* <h4 className="create-report-debug">---Debug Menu---</h4
 
 <h6>User_id: {formData.user_id}</h6>
 <h6>Ammo_id: {formData.ammo_id}</h6>
