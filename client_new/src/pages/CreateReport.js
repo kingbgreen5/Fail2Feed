@@ -387,34 +387,19 @@ useEffect(() => {
       </label>
 
       <label className="malfunction-card">
-        Magazine Failure
+        Magazine 
         <input type="number" name="magazine" value={formData.magazine} onChange={handleChange} className="malfunction-input" />
       </label>
 
       <label className="malfunction-card">
-        Ammunition Failure
+        Ammunition
         <input type="number" name="ammunition" value={formData.ammunition} onChange={handleChange} className="malfunction-input" />
       </label>
     </div>
   </div>
 
-  {/* Catastrophic checkbox across both columns */}
-  <div className="malfunction-catastrophic-row">
-    <label className="malfunction-catastrophic">
-      <input
-        type="checkbox"
-        name="catastrophic"
-        checked={formData.catastrophic === 1}
-        onChange={(e) =>
-          setFormData((prev) => ({
-            ...prev,
-            catastrophic: e.target.checked ? 1 : 0,
-          }))
-        }
-      />
-      Did you encounter a Catastrophic Malfunction?
-    </label>
-  </div>
+
+  
 </div>
 
 
@@ -512,7 +497,7 @@ useEffect(() => {
             </label> */}
 
 
-            <label>
+            <label className="range-report-catastrophic">
             <input
                 type="checkbox"
                 name="catastrophic"
@@ -526,35 +511,20 @@ useEffect(() => {
      Did you encounter a Catastrophic Malfunction?
             </label>
 
-
- */}
-
-
-
-
-
-
-<div>
+<div className="range-report-comments">
                                                                                 {/* Comment Box */}
+                                                                               <h2>Comments:</h2>
                 <label>
-                Comments:
-                <textarea name="comments" value={formData.comments} onChange={handleChange} rows="4" />
+             
+                <textarea name="comments" value={formData.comments} onChange={handleChange} rows="4" className="range-report-comment-box" cols={40}/>
             </label>
-
-            {/* Submit Button
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-                Submit Report
-            </button>
-
-
- */}
-
+</div>
 
             <button type="button" onClick={handleSubmit}>
     Submit Report
 </button>
 
-</div>
+
 
 
 

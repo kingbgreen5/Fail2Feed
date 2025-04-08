@@ -617,6 +617,7 @@ padding:1px;
 .malfunction-column {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: .5rem;
 }
 
@@ -624,9 +625,10 @@ padding:1px;
   display: flex;
   flex-direction: column;
   font-weight: 500;
-  text-align: left;
+align-items: center;
   margin: 1em;
   font-weight: 800;
+  text-align: left;
 }
 
 .malfunction-input {
@@ -651,10 +653,28 @@ padding:1px;
 
 
 
+.range-report-comments{
+margin: 1em;
 
+}
 
-
-
+.range-report-comments-box{
+margin:1em;
+padding:1em;
+width: 500px;
+width: 500px;
+background-color: #f8f8f8;
+  }
+  
+  textarea{
+    background-color: #dfe1df;
+    color: var(--bg-secondary);
+    font-weight: 900;
+  }
+  
+  input{
+    background-color: #dfe1df
+  }
 
 
 
