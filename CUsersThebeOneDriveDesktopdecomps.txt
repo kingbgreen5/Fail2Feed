@@ -1,0 +1,10 @@
+C:\Users\Thebe\OneDrive\Desktop\decomps
+location of pokemerald
+
+/mnt/c/Users/Thebe/OneDrive/Desktop/decomps
+
+make clean
+make -j8
+
+
+cd /mnt/c/Users/Thebe/OneDrive/Desktop/decomps

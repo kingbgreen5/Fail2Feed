@@ -544,6 +544,7 @@ padding:1px;
 
 .range-report-firearm-select{
   width: 80%;
+  border: 1px solid #ccc;
 }
 
 .range-report-modification-title{
@@ -568,93 +569,157 @@ padding:1px;
   margin-left: 40%;
   text-align: left;
   margin: 1em;
+  font-weight: 700;
+  padding: .4em;
 }
 
-.range-report-rounds-fired{
+/* 
+.range-report-rounds-fired-container{
   margin-left: 40%;
   text-align: left;
   margin: 1em;
-  ;
 }
-
-.range-report-malfunction-card{
-  margin: 1em;
-  padding: 2em;
-  align-items: left;
-}
-
-.range-report-malfunctions-field{
-  margin: .4em;
-  margin-top: .5em;
-  margin-bottom: .5em;
-  width: 3em;
-}
+ */
 
 
-
-
-
-
-.malfunction-section-container {
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 2rem;
-}
-
-.section-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-}
-
-/* Use CSS Grid to force two columns */
-.malfunction-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: .5rem;
-}
-
-.malfunction-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .5rem;
-}
-
-.malfunction-card {
-  display: flex;
-  flex-direction: column;
-  font-weight: 500;
-align-items: center;
-  margin: 1em;
-  font-weight: 800;
+.range-report-rounds-fired-label{
   text-align: left;
+  /* font-weight: 700  ;
+  font-size: larger; */
+
 }
 
-.malfunction-input {
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  width:3em;
+
+
+
+
+.range-report-rounds-fired-input {
+  font-size: 1rem;
+  padding: 0.4rem 0.6rem;
+  width: 100px; /* fixed width prevents stretching */
 }
 
-.malfunction-catastrophic-row {
-  margin-top: 2rem;
-}
 
-.malfunction-catastrophic {
+
+.range-report-rounds-fired-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-weight: 500;
+  gap: 0.5rem; /* space between label and input */
 }
+
+.range-report-rounds-fired-label {
+  font-size: 1.5rem; /* or any larger size */
+  font-weight: bold;
+}
+
+.range-report-rounds-fired-input {
+  font-size: 1rem; /* normal size */
+  padding: 0.5rem;
+  width: 100px; /* or any fixed size */
+}
+
+
+
+
+
+
+
+
+
+.malfunction-dynamic-section {
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.malfunction-entry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+
+
+.malfunction-select{
+  width: 80%;
+  border: 1px solid #ccc;
+
+}
+
+/* .malfunction-count{
+  width: 4em;
+  padding: .5em;
+  width:4em;
+  font-weight: 700;
+  font-size: larger;
+} */
+
+.remove-button {
+  background-color: var(--error-color);
+  color: white;
+  padding: 0.3rem 0.7rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-malfunction-button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+input{
+  background-color: #dfe1df;
+  /* border-radius: 6px;
+  width: 4em;
+  padding: .5em;
+  width:4em;
+  font-weight: 700;
+  font-size: larger; */
+}
+
+.range-report-rounds-fired-input, .malfunction-count{
+
+  border-radius: 6px;
+  width: 4em;
+  padding: .5em;
+  width:4em;
+  font-weight: 700;
+  font-size: larger;
+}
+
+
+
+
+
+
+
+
+.range-report-catastrophic{
+  margin-bottom: 6rem;
+}
+
+
+
+
+
+
 
 
 
 
 .range-report-comments{
 margin: 1em;
+margin-top: 4rem;
 
 }
 
@@ -672,10 +737,6 @@ background-color: #f8f8f8;
     font-weight: 900;
   }
   
-  input{
-    background-color: #dfe1df
-  }
-
 
 
 
