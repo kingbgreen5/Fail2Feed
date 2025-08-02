@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
-
-
-
-
 :root {
   /* Dark theme colors */
   /* --bg-primary: #f5f2f1;
@@ -531,8 +527,6 @@ padding:1px;
   margin-top: 5%;
   margin-bottom: 5%;
 
-
-
   border-radius: 10px;       /* rounded corners */
   padding: 20px;             /* space inside the tile */
   width: 800px;              /* fixed width */
@@ -542,6 +536,224 @@ padding:1px;
   }
   
 
+/* .range-report-modification-container{
+  color:var(--text-secondary);
+   
+
+} */
+
+.range-report-firearm-select{
+  width: 80%;
+  border: 1px solid #ccc;
+}
+
+.range-report-modification-title{
+  color:var(--text-secondary);
+
+}
+
+.range-report-modification-list{
+  color:var(--text-secondary);
+  margin-left: 40%;
+  text-align: left;
+}
+
+
+.range-report-suppressor-optic{
+  margin-left: 40%;
+  text-align: left;
+  margin: 1em;
+}
+
+.range-report-date{
+  margin-left: 40%;
+  text-align: left;
+  margin: 1em;
+  font-weight: 700;
+  padding: .4em;
+}
+
+/* 
+.range-report-rounds-fired-container{
+  margin-left: 40%;
+  text-align: left;
+  margin: 1em;
+}
+ */
+
+
+.range-report-rounds-fired-label{
+  text-align: left;
+  /* font-weight: 700  ;
+  font-size: larger; */
+
+}
+
+
+
+
+
+.range-report-rounds-fired-input {
+  font-size: 1rem;
+  padding: 0.4rem 0.6rem;
+  width: 100px; /* fixed width prevents stretching */
+}
+
+
+
+.range-report-rounds-fired-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* space between label and input */
+}
+
+.range-report-rounds-fired-label {
+  font-size: 1.5rem; /* or any larger size */
+  font-weight: bold;
+}
+
+.range-report-rounds-fired-input {
+  font-size: 1rem; /* normal size */
+  padding: 0.5rem;
+  width: 100px; /* or any fixed size */
+}
+
+
+
+
+
+
+
+
+
+.malfunction-dynamic-section {
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.malfunction-entry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+
+
+.malfunction-select{
+  width: 80%;
+  border: 1px solid #ccc;
+
+}
+
+/* .malfunction-count{
+  width: 4em;
+  padding: .5em;
+  width:4em;
+  font-weight: 700;
+  font-size: larger;
+} */
+
+.remove-button {
+  background-color: var(--error-color);
+  color: white;
+  padding: 0.3rem 0.7rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-malfunction-button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+input{
+  background-color: #dfe1df;
+  /* border-radius: 6px;
+  width: 4em;
+  padding: .5em;
+  width:4em;
+  font-weight: 700;
+  font-size: larger; */
+}
+
+.range-report-rounds-fired-input, .malfunction-count{
+
+  border-radius: 6px;
+  width: 4em;
+  padding: .5em;
+  width:4em;
+  font-weight: 700;
+  font-size: larger;
+}
+
+
+
+
+
+
+
+
+.range-report-catastrophic{
+  margin-bottom: 6rem;
+}
+
+
+
+
+
+
+
+
+
+
+.range-report-comments{
+margin: 1em;
+margin-top: 4rem;
+
+}
+
+.range-report-comments-box{
+margin:1em;
+padding:1em;
+width: 500px;
+width: 500px;
+background-color: #f8f8f8;
+  }
+  
+  textarea{
+    background-color: #dfe1df;
+    color: var(--bg-secondary);
+    font-weight: 900;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ----------------------------------------------THE DATA */
 .firearm-data-container {
@@ -550,6 +762,14 @@ padding:1px;
   gap: 16px;
   justify-content: center;
 }
+
+
+.firearm-data-container:hover {
+
+}
+
+
+
 
 .firearm-card {
   background-color: var(--bg-secondary);
@@ -565,12 +785,37 @@ padding:1px;
   font-weight: bold;
 }
 
-.failure-rate-label {
+.failure-label {
   color: var(--text-secondary); /* Change this to any color you want */
+  font-weight: bold;
+  align-items: left;
+}
+
+.failure-percent {
+  color: red; /* This will make the percentage red */
   font-weight: bold;
 }
 
-.failure-rate-value {
-  color: red; /* This will make the percentage red */
-  font-weight: bold;
+
+.malfunction-chart-container{
+  background-color:#131413;
+  padding:3%;
+  width: 50%;
+  border-radius: 10px;
+  align-items: center;
+  align-self: auto;
+  margin: auto;
+  margin-top:5%;
+  margin-bottom: 5%;
+}
+
+.malfunction-span-breakdown{
+  background-color:#131413;
+  padding:3%;
+  width: 50%;
+  border-radius: 10px;
+  align-items: center;
+  align-self: auto;
+  margin: auto;
+  margin-top:5%
 }

@@ -9,6 +9,7 @@ import UserCollection from './pages/UserCollection';
 import Guns from "./pages/Guns"
 import FirearmSearch from './components/FirearmSearch';
 import Search from './pages/Search';
+import FirearmDetail from "./pages/FirearmDetail";
 import './App.css';
 
 // Protected Route component
@@ -32,7 +33,6 @@ function AppRoutes() {
         </PublicRoute>
       } />
 
-      
 
 
       <Route path="/create-report" element={
@@ -59,6 +59,10 @@ function AppRoutes() {
             <Guns />
         </ProtectedRoute>
       } />
+
+//------------------------------------------------------------DETAIL PAGE
+<Route path="/firearm/:id" 
+element={<FirearmDetail />} />
 
 
 //-----------------------------------------------------------------Home Route

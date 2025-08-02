@@ -6,6 +6,11 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const User = require('../models/userModel');
 require('dotenv').config();
+const { sequelize } = require("../models"); // Import the Sequelize instance
+const { Op } = require('sequelize');
+
+
+
 
 const SECRET_KEY = process.env.JWT_SECRET || 'your_jwt_secret_key';
 
@@ -99,12 +104,23 @@ router.post('/register', async (req, res) => {
 
         // Check if user exists
         const existingUser = await User.findOne({ 
+            // where: { 
+            //     [sequelize.Op.or]: [
+            //         { email },
+            //         { username }
+            //     ]
+            // } 
+
             where: { 
-                [sequelize.Op.or]: [
+                [Op.or]: [
                     { email },
                     { username }
                 ]
-            } 
+            }
+
+
+
+
         });
         
         if (existingUser) {

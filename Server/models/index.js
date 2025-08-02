@@ -1,5 +1,5 @@
 
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -30,12 +30,24 @@ const Firearm = require('./firearmModel');
 const UserFirearms = require('./userFirearmsModel');
 const Report = require('./reportModel'); 
 const AggregateData = require('./aggregateDataModel');
+const User = require('./userModel');
+
 
 // Initialize models
-db.Firearm = Firearm.init(sequelize);
-db.UserFirearms = UserFirearms.init(sequelize);
-db.Report = Report.init(sequelize); 
-db.AggregateData = AggregateData.init(sequelize); 
+// db.Firearm = Firearm.init(sequelize);
+// db.UserFirearms = UserFirearms.init(sequelize);
+// db.Report = Report.init(sequelize); 
+// db.AggregateData = AggregateData.init(sequelize); 
+// db.User = User.init(sequelize); 
+
+
+
+// Initialize models (Pass `sequelize` and `DataTypes`)
+db.Firearm = Firearm.init(sequelize, DataTypes);
+db.UserFirearms = UserFirearms.init(sequelize, DataTypes);
+db.Report = Report.init(sequelize, DataTypes); 
+db.AggregateData = AggregateData.init(sequelize, DataTypes); 
+db.User = User;
 
 
 // Run associations

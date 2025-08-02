@@ -4,33 +4,106 @@ const { Model, DataTypes } = require('sequelize');
 class AggregateData extends Model {
     static init(sequelize) {
         return super.init({
-            id: {
-                type: DataTypes.INTEGER,
-                primaryKey: true,
-                autoIncrement: true,
-            },
-            firearm_id: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'firearms', // Ensure this matches your Firearm table name
-                    key: 'id'
+            // id: {
+            //     type: DataTypes.INTEGER,
+            //     primaryKey: true,
+            //     autoIncrement: true,
+            // },
+            // firearm_id: {
+            //     type: DataTypes.INTEGER,
+            //     allowNull: false,
+            //     references: {
+            //         model: 'firearms', // Ensure this matches your Firearm table name
+            //         key: 'id'
+            //     },
+            //     onUpdate: 'CASCADE',
+            //     onDelete: 'CASCADE'
+            // },
+            // rounds_fired: {
+            //     type: DataTypes.INTEGER,
+            //     defaultValue: 0,
+            // },
+            // total_malfunctions: {
+            //     type: DataTypes.INTEGER,
+            //     defaultValue: 0,
+            // },
+            // failure_rate: {
+            //     type: DataTypes.DECIMAL(10, 4), // Stores decimal values accurately
+            //     defaultValue: 0.0000,
+            // }
+
+
+            
+                id: {
+                  type: DataTypes.INTEGER,
+                  autoIncrement: true,
+                  primaryKey: true,
                 },
-                onUpdate: 'CASCADE',
-                onDelete: 'CASCADE'
-            },
-            rounds_fired: {
-                type: DataTypes.INTEGER,
-                defaultValue: 0,
-            },
-            total_malfunctions: {
-                type: DataTypes.INTEGER,
-                defaultValue: 0,
-            },
-            failure_rate: {
-                type: DataTypes.DECIMAL(10, 4), // Stores decimal values accurately
-                defaultValue: 0.0000,
-            }
+                firearm_id: {
+                  type: DataTypes.STRING(45),
+                  allowNull: false,
+                  unique: true,
+                },
+                rounds_fired: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                total_malfunctions: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                failure_rate: {
+                  type: DataTypes.DECIMAL(10, 4),
+                  defaultValue: null,
+                },
+                firing_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                unlocking_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                extracting_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                ejecting_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                cocking_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                feeding_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                chambering_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                locking_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                magazine_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                ammunition_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                other_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
+                catastrophic_total: {
+                  type: DataTypes.INTEGER,
+                  defaultValue: null,
+                },
         }, {
             sequelize,
             modelName: 'AggregateData',
