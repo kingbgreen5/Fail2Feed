@@ -58,10 +58,10 @@ const CreateReport = () => {
             barrel_mod:0,
             slide_mod:0,
             extractor_mod:0,
-            recoilSpring_mod:0,
-            triggerGroup_mod:0,
+            recoilspring_mod:0,
+            triggergroup_mod:0,
             hammer_mod:0,
-            firingPinStriker_mod:0,
+            firingpinstriker_mod:0,
             rounds_fired: 0,
                 firing: 0,
                 unlocking: 0,
@@ -126,10 +126,6 @@ const CreateReport = () => {
 
 
 
-        // const handleSubmit = (e) => {
-        //     e.preventDefault();
-        //     console.log("Form Submitted:", formData);
-        // };
 
         const handleSubmit = async () => {
             const token = localStorage.getItem("token");
@@ -153,10 +149,10 @@ const CreateReport = () => {
                     barrel_mod: 0,
                     slide_mod: 0,
                     extractor_mod: 0,
-                    recoilSpring_mod: 0,
-                    triggerGroup_mod: 0,
+                    s: 0,
+                    g: 0,
                     hammer_mod: 0,
-                    firingPinStriker_mod: 0,
+                    firingpinstriker_mod: 0,
                     rounds_fired: 0,
                     firing: 0,
                     unlocking: 0,
@@ -308,9 +304,9 @@ useEffect(() => {
       barrel_mod: selectedUserFirearm?.barrel_mod ?? 0, // Use optional chaining and fallback value
       slide_mod: selectedUserFirearm?.slide_mod ?? 0,
       extractor_mod: selectedUserFirearm?.extractor_mod ?? 0,
-      recoilSpring_mod:selectedUserFirearm?.recoilSpring_mod ?? 0,
-      triggerGroup_mod:selectedUserFirearm?.triggerGroup_mod ?? 0,
-      firingPinStriker_mod:selectedUserFirearm?.firingPinStriker_mod ?? 0,
+      s:selectedUserFirearm?.s ?? 0,
+      g:selectedUserFirearm?.g ?? 0,
+      firingpinstriker_mod:selectedUserFirearm?.firingpinstriker_mod ?? 0,
       firing:malfunctions.Firing ?? 0,
       unlocking:malfunctions.Unlocking ?? 0,
       extracting:malfunctions.Extracting ?? 0,
@@ -396,11 +392,11 @@ useEffect(() => {
 {/* //--------------------------------------------------------------------------------------DISPLAY MODIFICATIONS */}
             <p>{selectedUserFirearm.slide_mod === 1 ? "• Slide  " : ""}</p>
             <p>{selectedUserFirearm.barrel_mod === 1 ? "• Barrel  " : ""}</p>
-            <p>{selectedUserFirearm.recoilSpring_mod === 1 ? "• Recoil Spring " : ""}</p>
+            <p>{selectedUserFirearm.s === 1 ? "• Recoil Spring " : ""}</p>
             <p>{selectedUserFirearm.extractor_mod === 1 ? "• Extractor" : ""}</p>
-            <p>{selectedUserFirearm.triggerGroup_mod === 1 ? "• Trigger Group" : ""}</p>
+            <p>{selectedUserFirearm.g === 1 ? "• Trigger Group" : ""}</p>
             <p>{selectedUserFirearm.hammer_mod === 1 ? "• Hammer" : ""}</p>
-            <p>{selectedUserFirearm.firingPinStriker_mod === 1 ? "• Firing Pin/Striker" : ""}</p> 
+            <p>{selectedUserFirearm.firingpinstriker_mod === 1 ? "• Firing Pin/Striker" : ""}</p> 
             </div>
             <hr></hr>
             </div>
@@ -661,9 +657,14 @@ useEffect(() => {
 
 
 
+  <button type="submit" disabled={!selectedUserFirearm}>
+    Submit Report
+  </button>
+
+{/* 
           <button type="submit" onClick={handleSubmit} disabled={!selectedUserFirearm}>
             Submit Report
-          </button>
+          </button> */}
 
 
 
@@ -698,11 +699,11 @@ useEffect(() => {
 <h6>Optic: {formData.optic}</h6>
 <h6>Barrel mod: {formData.barrel_mod}</h6>
 <h6>Slide mod: {formData.slide_mod}</h6>
-<h6>Recoil: {formData.recoilSpring_mod}</h6>
+<h6>Recoil: {formData.s}</h6>
 <h6>Extractor: {formData.extractor_mod}</h6>
 <h6> Hammer: {formData.hammer_mod}</h6>
-<h6> Trigger Group: {formData.triggerGroup_mod}</h6>
-<h6>Firing Pin/Striker: {formData.firingPinStriker_mod}</h6>
+<h6> Trigger Group: {formData.g}</h6>
+<h6>Firing Pin/Striker: {formData.firingpinstriker_mod}</h6>
 <h5>Malfunctions</h5>
 <h6>Firing: {formData.firing}</h6>
 <h6> Unlocking: {formData.unlocking}</h6>

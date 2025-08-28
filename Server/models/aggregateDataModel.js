@@ -1,46 +1,15 @@
-
 const { Model, DataTypes } = require('sequelize');
 
 class AggregateData extends Model {
     static init(sequelize) {
         return super.init({
-            // id: {
-            //     type: DataTypes.INTEGER,
-            //     primaryKey: true,
-            //     autoIncrement: true,
-            // },
-            // firearm_id: {
-            //     type: DataTypes.INTEGER,
-            //     allowNull: false,
-            //     references: {
-            //         model: 'firearms', // Ensure this matches your Firearm table name
-            //         key: 'id'
-            //     },
-            //     onUpdate: 'CASCADE',
-            //     onDelete: 'CASCADE'
-            // },
-            // rounds_fired: {
-            //     type: DataTypes.INTEGER,
-            //     defaultValue: 0,
-            // },
-            // total_malfunctions: {
-            //     type: DataTypes.INTEGER,
-            //     defaultValue: 0,
-            // },
-            // failure_rate: {
-            //     type: DataTypes.DECIMAL(10, 4), // Stores decimal values accurately
-            //     defaultValue: 0.0000,
-            // }
-
-
-            
                 id: {
                   type: DataTypes.INTEGER,
                   autoIncrement: true,
                   primaryKey: true,
                 },
                 firearm_id: {
-                  type: DataTypes.STRING(45),
+                  type: DataTypes.INTEGER,
                   allowNull: false,
                   unique: true,
                 },

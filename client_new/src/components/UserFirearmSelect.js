@@ -49,9 +49,11 @@ const UserFirearmSelect = () => {
                 .catch(error => {
                     console.error("Error fetching models:", error);
                     setModels([]);
+                 
                 });
         } else {
             setModels([]);
+            
         }
     }, [selectedMake]);
 
@@ -64,38 +66,6 @@ const UserFirearmSelect = () => {
 
 
 
-
-
-
-    // const handleConfirmSelection = () => {
-    //     if (!selectedMake || !selectedModel) {
-    //         setError("Please select both manufacturer and model");
-    //         return;
-    //     }
-
-    //     setLoading(true);
-    //     setError("");
-    //     setMessage("");
-
-    //     const token = localStorage.getItem("token");
-    //     axios.post(
-    //         `${config.API_URL}/api/userFirearms/add`,
-    //         { make: selectedMake, model: selectedModel },
-    //         { headers: { Authorization: `Bearer ${token}` } }
-    //     )
-    //     .then(response => {
-    //         setMessage(response.data.message || "Firearm added to your profile!");
-    //         setSelectedMake("");
-    //         setSelectedModel("");
-    //         console.log()
-    //         // window.location.reload();
-    //     })
-    //     .catch(error => {
-    //         console.error("Error adding firearm:", error);
-    //         setError(error.response?.data?.message || "Error adding firearm. Please try again.");
-    //     })
-    //     .finally(() => setLoading(false));
-    // };
 
 
 

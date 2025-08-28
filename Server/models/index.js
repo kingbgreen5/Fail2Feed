@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
     process.env.DB_PASSWORD || 'Welcome1',
     {
         host: process.env.DB_HOST || 'localhost',
-        dialect: 'mysql',
+        dialect: 'postgres',
         logging: false,
         pool: {
             max: 5,
@@ -33,14 +33,6 @@ const AggregateData = require('./aggregateDataModel');
 const User = require('./userModel');
 
 
-// Initialize models
-// db.Firearm = Firearm.init(sequelize);
-// db.UserFirearms = UserFirearms.init(sequelize);
-// db.Report = Report.init(sequelize); 
-// db.AggregateData = AggregateData.init(sequelize); 
-// db.User = User.init(sequelize); 
-
-
 
 // Initialize models (Pass `sequelize` and `DataTypes`)
 db.Firearm = Firearm.init(sequelize, DataTypes);
@@ -58,3 +50,5 @@ Object.values(db).forEach((model) => {
 });
 
 module.exports = db;
+
+
