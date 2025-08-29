@@ -59,9 +59,9 @@ db.sequelize.sync()
 
 
     // Run every minute (change to '0 */6 * * *' for every 6 hours)
-// cron.schedule('*/1 * * * *', async () => {
-//     await updateAggregateData();
-// })
+cron.schedule('*/1 * * * *', async () => {
+    await updateAggregateData();
+})
 
 
 ;

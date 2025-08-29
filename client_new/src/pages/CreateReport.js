@@ -74,7 +74,7 @@ const CreateReport = () => {
                 magazine: 0,
                 ammunition: 0,
                 other: 0,
-                catastrophic: false,
+                catastrophic: 0,
                 comments: "",
         } );
     
@@ -165,7 +165,7 @@ const CreateReport = () => {
                     magazine: 0,
                     ammunition: 0,
                     other: 0,
-                    catastrophic: false,
+                    catastrophic: 0,
                     comments: "",
                 });
         
@@ -613,31 +613,65 @@ useEffect(() => {
 
 
 
-{/* Catastrophic Malfunction */}
-            {/* <label>
-                <input
-                    type="checkbox"
-                    name="catastrophicFailure"
-                    checked={formData.catastrophicFailure}
-                    onChange={handleChange}
-                />
-                Did you encounter a Catastrophic Malfunction?
-            </label> */}
 
 
-            <label className="range-report-catastrophic">
-            <input
-                type="checkbox"
-                name="catastrophic"
-                checked={formData.catastrophic === 1}
-                onChange={(e) => setFormData((prev) => ({
-                ...prev,
-            catastrophic: e.target.checked ? 1 : 0, //1 when checked, 0 unchecked
-   
-        }))}
+
+
+{/* 
+<label className="range-report-catastrophic">
+  Were any of these malfunctions catastrophic? If so how many? 
+  <input
+    type="number"
+    name="catastrophic"
+    value={formData.catastrophic ?? 0}
+    min="0"
+    onChange={(e) =>
+      setFormData((prev) => ({
+        ...prev,
+        catastrophic: parseInt(e.target.value, 10) || 0
+      }))
+    }
+    className="ml-2 w-20 rounded-md border border-gray-300 p-1"
+  />
+</label> */}
+
+
+{/* Conditionally render catastrophic input */}
+{(
+  formData.firing > 0 ||
+  formData.unlocking > 0 ||
+  formData.extracting > 0 ||
+  formData.ejecting > 0 ||
+  formData.cocking > 0 ||
+  formData.feeding > 0 ||
+  formData.chambering > 0 ||
+  formData.locking > 0 ||
+  formData.magazine > 0 ||
+  formData.ammunition > 0 ||
+  formData.other > 0
+) && (
+  <label className="range-report-catastrophic">
+  Were any of these malfunctions catastrophic? If so how many?  
+
+    <input
+      type="number"
+      name="catastrophic"
+      min="0"
+      value={formData.catastrophic}
+      onChange={(e) =>
+        setFormData((prev) => ({
+          ...prev,
+          catastrophic: parseInt(e.target.value) || 0,
+        }))
+      }
     />
-     Did you encounter a Catastrophic Malfunction?
-            </label>
+
+  </label>
+)}
+
+
+
+
 
 <div className="range-report-comments">
                                                                                 {/* Comment Box */}
