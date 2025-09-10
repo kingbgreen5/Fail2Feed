@@ -48,8 +48,8 @@ class Report extends Model {
             ammunition: DataTypes.INTEGER,
             other: DataTypes.INTEGER,
             catastrophic: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
             },
             comments: {
                 type: DataTypes.TEXT,
