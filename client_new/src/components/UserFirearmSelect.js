@@ -1,4 +1,7 @@
 
+//-----------THIS COMPONENT ALLOWS THE USER TO ADD A 
+// FIREARM TO THEIR PROFILE, INCLUDING SELECTING MODIFICATIONS----------------//
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../config";
@@ -16,11 +19,11 @@ const UserFirearmSelect = () => {
     const [modifications, setModifications] = useState({
         slide_mod: false,
         barrel_mod: false,
-        recoilSpring_mod: false,
+        recoilspring_mod: false,
         extractor_mod: false,
-        triggerGroup_mod: false,
+        triggergroup_mod: false,
         hammer_mod: false,
-        firingPinStriker_mod: false
+        firingpinstriker_mod: false
     });
     
 
@@ -97,11 +100,11 @@ const UserFirearmSelect = () => {
             setModifications({  // Reset checkboxes after submission
                 slide_mod: false,
                 barrel_mod: false,
-                recoilSpring_mod: false,
+                recoilspring_mod: false,
                 extractor_mod: false,
-                triggerGroup_mod: false,
+                triggergroup_mod: false,
                 hammer_mod: false,
-                firingPinStriker_mod: false
+                firingpinstriker_mod: false
             });
         })
         .catch(error => {

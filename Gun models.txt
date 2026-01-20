@@ -1,63 +1,153 @@
-Bodyguard 2.0   .380
-CSX 
-CSX E-SERIES        9mm
+J Frames
 
+36 Classic
+642
+642 - Performance Center
+442
+442 - Performance Center
+43 C
+340 PD
+M&P 340
+351 C
+351 PD
+60
+60 - Performance Center
+60 LS
+640
+640 - Performance Center
+63
+637
+637 - Performance Center
+360 PD
+M&P BODYGUARD 38
+638
+317
+351 PD
 
-Equalizer                          .9mm
+K FRAME
+66 COMBAT MAGNUM
+19 CARRY COMP - Performance Center
 
+L FRAME
+69
+686
+686 - Performance Center
+986 - Performance Center
 
-Shield
-9mm, 40
+N FRAME
+327 - Performance Center
+327 TRR8
+586 L-COMP - Performance Center
+610
+627 - Performance Center
+629
+629 - Performance Center
+M&P R8 - Performance Center
 
-Shield M2.0
-Shield M2.0 Performance Center 
-9mm, 40 S&W, 45 Auto
-
-Shield Plus                       
-Shield Plus- Performance Center-  
-Shield Plus Carry Comp 
-Shield Plus Carry Comp- Performance Center-     .
-.9mm, 30 Super Carry
-
-
-
-full size   
-M&P M2.0 Full Size Metal
-M&P M2.0 Full Size Metal Carry Comp -Performance Center-  
-M&P M2.0 Full Size -Performance Center-  
-M&P M2.0 Full Size   
-M&P M2.0 Full Size Competitor -Performance Center-              
- 9mm, 40, 45 Auto, 10MM
-
-
-
-Compact
-M&P M2.0 Compact
-M&P M2.0 Compact -Performance Center-
-M&P M2.0 Compact Carry Comp
-M&P M2.0 Compact Carry Comp -Performance Center-
-M&P M2.0 Compact Metal
-M&P M2.0 Compact Metal -Performance Center-
-
-SubCompact
-M&P M2.0
-9mm
-
-
-Shield EZ
-Shield EZ -Performance Center-
-380 Auto, 30 Super Carry
-
-M@p 5.7
-
-Bodyguard 380
+X FRAME
+S&W 500
+S&W 500 - Performance Center
+460V
+460XVR - Performance Center
 
 
 
-M&P 22 Magnum
-.22 Magnum
+SMITH
 
-SDVE
 
-SD 2.0
-9mm, 40 S&W
+
+
+
+berreta
+CZ-USAS
+glock
+Kimber
+
+
+
+
+--------Sig Sauer--------
+
+
+P365
+P365-XL
+P365-X
+P365-XMACRO
+P365-380
+
+P320 FULL SIZE
+P320 COMPACT
+
+P322
+
+P211
+P220
+P226
+P229
+P938
+P238
+1911
+
+
+
+
+
+
+
+----------RUGER----------
+
+LCP
+LCPII
+LCPMAX
+SECURITY-380
+RMX
+MAX-9
+SECURITY-9
+RUGER-5.7
+RUGER AMERICAN
+SR1911
+MARKIV
+SR22
+
+
+
+
+------Beretta-----
+92 Series
+96 Series
+M9
+M9 A1
+30X Tomcat
+3032 Tomcat
+20X Bobcat
+80X Cheetah
+APX A1 Full Size
+APX A1 Compact
+APX A1 Carry
+PX4 Storm Full
+PX4 Storm Compact Carry 2
+PX4 Storm Compact
+
+
+
+------Springfield Armory-----
+Hellcat
+Echelon
+1911 DS
+1911
+SA-35
+
+
+
+
+
+
+modifications that would matter
+
+Slide,
+Barrel
+Recoil Spring
+Extractor
+Trigger Group
+Hammer
+Firing Pin/Striker
