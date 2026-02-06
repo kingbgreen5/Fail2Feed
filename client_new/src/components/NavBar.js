@@ -21,7 +21,7 @@ const NavBar = () => {
           <>
            <span>
             
-          Welcome user{user?.username ? `, ${user.username}` : ""}
+
         </span>
             <li>
               <NavLink to="/guns" className={({ isActive }) => isActive ? "active" : ""}>
@@ -46,6 +46,9 @@ const NavBar = () => {
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
+                <li></li>
+                <li></li>
+                      Welcome {user?.username ? ` ${user.username}` : ""}
           </>
         ) : (
           <li>

@@ -70,7 +70,7 @@ return (
             <div key={firearm.id} className="firearm-tile">
               <div className="firearm-info">
                 <h3 className="firearm-tile-title">
-                  {firearm.Firearm?.make} {firearm.Firearm?.model}
+                  {firearm.Firearm?.make}: {firearm.Firearm?.model}
                 </h3>
 
                 <div className="firearm-tile-mod-container">
