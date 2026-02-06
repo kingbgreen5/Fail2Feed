@@ -142,7 +142,7 @@
 
 const { Model, DataTypes, Op } = require('sequelize');
 const sequelize = require('../config/db'); // Ensure this is correctly exporting sequelize
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 class User extends Model {
     async comparePassword(password) {
