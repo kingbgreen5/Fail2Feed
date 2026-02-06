@@ -23,20 +23,59 @@ router.get('/all', async (req, res) => {
 
 
 
-
-// Get unique firearm makes
 router.get('/makes', async (req, res) => {
     try {
-        const results = await db.query('SELECT name FROM manufacturers ORDER BY name', {
+        const results = await db.query(`
+            SELECT DISTINCT make
+            FROM firearms
+            WHERE make IS NOT NULL
+              AND make <> ''
+            ORDER BY make
+        `, {
             type: QueryTypes.SELECT
         });
-        // console.log('Makes query results:', results);
-        res.json(results.map(row => row.name));
+
+        res.json(results.map(row => row.make));
     } catch (error) {
         console.error('Error fetching makes:', error);
         res.status(500).json({ error: 'Failed to fetch manufacturers' });
     }
 });
+
+
+
+// THIS WORKS BUT IS INEFFICIENT
+
+// // Get unique firearm makes that actually have firearms
+// router.get('/makes', async (req, res) => {
+//     try {
+//         const results = await db.query(`
+//             SELECT m.name
+//             FROM manufacturers m
+//             WHERE EXISTS (
+//                 SELECT 1
+//                 FROM model f
+//                 WHERE f.manufacturer_id = m.id
+//             )
+//             ORDER BY m.name
+//         `, {
+//             type: QueryTypes.SELECT
+//         });
+
+//         res.json(results.map(row => row.name));
+//     } catch (error) {
+//         console.error('Error fetching makes:', error);
+//         res.status(500).json({ error: 'Failed to fetch manufacturers' });
+//     }
+// });
+
+
+
+
+
+
+
+
 
 // Get models for a selected make
 router.get("/models", async (req, res) => {

@@ -1,4 +1,7 @@
 
+
+//THIS IS AGGREGATED DATA FOR A SPECIFIC FIREARM
+
 import config from "../config";
 import MalfunctionChartComponent from "../components/BarChartComponent";
 
@@ -11,7 +14,7 @@ import BarChartComponent from "../components/BarChartComponent";
 import RadarChartComponent from "../components/RadarChartComponent";
 
 
-
+// FIREARM is in thise use case is what is coming back from the AGGREGATE table. SO firearm.id will give you the id of the item in the table, whereas firearm.firearm_id will give you the consistent id of the firearm in the firearms table
 const FirearmDetail = () => {
     const { id } = useParams(); // Get firearm ID from URL
     const [firearm, setFirearm] = useState(null);
@@ -46,22 +49,6 @@ const FirearmDetail = () => {
 
 
     
-    // const radarChartData = firearm
-    // ? [
-    //     { name: "Firing", value: 100 - firearm.firing_percent},
-    //     { name: "Unlocking", value:  100 -firearm.unlocking_percent },
-    //     { name: "Extracting", value:  100 -firearm.extracting_percent },
-    //     { name: "Ejecting", value:  100 -firearm.ejecting_percent },
-    //     { name: "Cocking", value:  100 -firearm.cocking_percent },
-    //     { name: "Feeding", value:  100 -firearm.feeding_percent },
-    //     { name: "Chambering", value:  100 -firearm.chambering_percent },
-    //     { name: "Locking", value:  100 -firearm.locking_percent},
-    //     { name: "Magazine", value:  100 - firearm.magazine_percent },
-    //     // { name: "Ammunition", value:  100 - firearm.ammunition_percent },
-    //     { name: "Other", value:  100 - firearm.other_percent },
-    // ].filter(data => data.value !== null && data.value !== undefined)
-    // : []; // If firearm is null, return an empty array
-
 
     const radarChartData = firearm
     ? [
@@ -83,20 +70,22 @@ const FirearmDetail = () => {
 
 
     if (!firearm) return <p>Loading firearm data...</p>;
-
+//--------------------------------------------------------------------RETURN STATEMENT-----------------------------------------------------------------------------
     return (
         <div className="firearm-detail">
             <h2>{firearm.Firearm.make} {firearm.Firearm.model}</h2>
+            
+<div><span className="failure-label">Database Firearm ID: </span> <span className="failure-label">{firearm.firearm_id}  </span></div>
 
             <h3>
-                <span className="failure-label">Total Failure Rate per round fired: </span> 
+                <span >Total Failure Rate per round fired: </span> 
                 <span className="failure-percent">{firearm.failure_rate_percentage} % </span>
             </h3>
 
             <p>Rounds Fired: {firearm.rounds_fired}</p>
             <p>Total Malfunctions: {firearm.total_malfunctions}</p>
 
-<div className="malfunction-span-breakdown"> cx
+<div className="malfunction-span-breakdown"> 
                           <h2>Malfunction Breakdown</h2>
                           <h4> Of {firearm.total_malfunctions} total malfunctions</h4>
     <hr />
@@ -129,9 +118,11 @@ const FirearmDetail = () => {
 )}
 <h4> </h4>
 </div> */}
-
 <BarChartComponent data={chartData} title="% of All Malfunctions" />
 <RadarChartComponent data={radarChartData} title="Stat Profile" />
+
+
+
 
         </div>
     );

@@ -376,17 +376,11 @@ useEffect(() => {
 //-----------------------------------------------------------------------------------IF SELECTED USER FIREARM EXISTS, Display */}
             {selectedUserFirearm && (
   <div>
-    {/* Your content here */}
-
-
-
                                                                                         {/* MODIFICATIONS */}
     <div className="range-report-modification-container">
-
                        <div className="range-report-modification-title">
                 <h3>   Firearm Modifications         </h3>
                         </div>
-
                         <div className="range-report-modification-list">
 
 {/* //--------------------------------------------------------------------------------------DISPLAY MODIFICATIONS */}
@@ -710,8 +704,8 @@ useEffect(() => {
 )}
 
 
-
-<hr></hr>
+{/* 
+<hr></hr> */}
 
 {/* <div>
     suppressor{formData.suppressor}

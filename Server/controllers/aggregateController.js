@@ -58,6 +58,12 @@ async function getAggregateData(req, res) {
 
 
 
+
+
+
+
+
+
 async function getAggregateDataById(req, res) {
     try {
         const { id } = req.params;
@@ -72,6 +78,7 @@ async function getAggregateDataById(req, res) {
                 "firing_total",
                 "unlocking_total",
                 "ejecting_total",
+                "extracting_total",
                 "cocking_total",
                 "feeding_total",
                 "chambering_total",
@@ -81,27 +88,123 @@ async function getAggregateDataById(req, res) {
                 "other_total",
                 "catastrophic_total",
 
-                // Failure Rate Percentage (Rounded to 1 decimal)
-                [db.Sequelize.literal("ROUND(failure_rate * 100, 1)"), "failure_rate_percentage"],
+                // Failure Rate Percentage
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND(failure_rate::numeric * 100, 1),
+                            0.0
+                        )
+                    `),
+                    "failure_rate_percentage"
+                ],
 
-                // Individual Malfunction Percentages (Rounded to 1 decimal)
-                [db.Sequelize.literal("ROUND((firing_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "firing_percent"],
-                [db.Sequelize.literal("ROUND((unlocking_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "unlocking_percent"],
-                [db.Sequelize.literal("ROUND((extracting_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "extracting_percent"],
-                [db.Sequelize.literal("ROUND((ejecting_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "ejecting_percent"],
-                [db.Sequelize.literal("ROUND((cocking_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "cocking_percent"],
-                [db.Sequelize.literal("ROUND((feeding_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "feeding_percent"],
-                [db.Sequelize.literal("ROUND((chambering_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "chambering_percent"],
-                [db.Sequelize.literal("ROUND((locking_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "locking_percent"],
-                [db.Sequelize.literal("ROUND((magazine_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "magazine_percent"],
-                [db.Sequelize.literal("ROUND((ammunition_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "ammunition_percent"],
-                [db.Sequelize.literal("ROUND((other_total / NULLIF(total_malfunctions, 0)) * 100, 1)"), "other_percent"]
+                // Individual Malfunction Percentages
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((firing_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "firing_percent"
+                ],
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((unlocking_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "unlocking_percent"
+                ],
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((extracting_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "extracting_percent"
+                ],
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((ejecting_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "ejecting_percent"
+                ],
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((cocking_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "cocking_percent"
+                ],
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((feeding_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "feeding_percent"
+                ],
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((chambering_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "chambering_percent"
+                ],
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((locking_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "locking_percent"
+                ],
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((magazine_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "magazine_percent"
+                ],
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((ammunition_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "ammunition_percent"
+                ],
+                [
+                    db.Sequelize.literal(`
+                        COALESCE(
+                            ROUND((other_total * 100.0) / NULLIF(total_malfunctions, 0), 1),
+                            0.0
+                        )
+                    `),
+                    "other_percent"
+                ]
             ],
             include: [
                 {
                     model: Firearm,
-                    attributes: ["make", "model"], // Fetching firearm details
-                },
+                    attributes: ["make", "model"],
+                }
             ],
         });
 
@@ -115,6 +218,11 @@ async function getAggregateDataById(req, res) {
         res.status(500).json({ error: "Database query failed" });
     }
 }
+
+
+
+
+
 
 module.exports = { getAggregateData, getAggregateDataById };
 // module.exports = { getAggregateData };
