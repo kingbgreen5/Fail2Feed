@@ -17,8 +17,8 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-    origin: 'http://localhost:3000',
-    
+    origin: ['http://localhost:3000', 'https://fail2feed-plt7.onrender.com'],
+
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
