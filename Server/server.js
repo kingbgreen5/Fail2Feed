@@ -21,9 +21,13 @@ app.use(cors({
     origin: ['http://localhost:3000', 'https://fail2feed-plt7.onrender.com'],
 
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
+    // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    // allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
+
+
+/* 🔴 Explicitly allow preflight requests 🔴 */
+app.options('*', cors());
 
 
 //console logging middleware to confirm requests are being received by the server
