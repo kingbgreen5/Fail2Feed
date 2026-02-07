@@ -113,7 +113,6 @@ app.use(cors({
     'http://localhost:3000',
     'https://fail2feed-plt7.onrender.com'
   ],
-  credentials: true
 }));
 
 /* 🔴 Explicitly handle ALL preflight OPTIONS requests 🔴 */
