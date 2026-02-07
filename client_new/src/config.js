@@ -20,7 +20,7 @@
 
 // export default config;
 const config = {
-API_URL: 'https://fail2feed-api.onrender.com'
+API_URL: 'https://fail2feed.onrender.com'
 
 };
 
