@@ -154,16 +154,41 @@ app.use('/api/aggregate', aggregateRoutes);
    ========================================================= */
 const PORT = process.env.PORT || 5000;
 
+// db.sequelize.sync()
+//   .then(() => {
+//     app.listen(PORT, () => {
+//       console.log(`✅ Server running on port ${PORT}`);
+//       console.log('✅ Database synced');
+//     });
+//   })
+//   .catch(err => {
+//     console.error('❌ Database sync failed:', err);
+//   });
+
+
+
+app.listen(PORT, () => {
+  console.log(`✅ Server listening on port ${PORT}`);
+});
+
 db.sequelize.sync()
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`✅ Server running on port ${PORT}`);
-      console.log('✅ Database synced');
-    });
+    console.log('✅ Database synced successfully');
   })
   .catch(err => {
     console.error('❌ Database sync failed:', err);
   });
+
+
+
+
+
+
+
+
+
+
+
 
 /* =========================================================
    Cron aggregate data job
