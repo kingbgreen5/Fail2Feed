@@ -12,6 +12,9 @@ const cron = require('node-cron');
 const updateAggregateData = require('./utils/updateAggregateData');
 
 
+
+require('dotenv').config();
+
 // Configure CORS
 app.use(cors({
     origin: ['http://localhost:3000', 'https://fail2feed-plt7.onrender.com'],
@@ -30,11 +33,6 @@ app.use((req, res, next) => {
 
 
 
-
-
-
-
-require('dotenv').config();
 const app = express();
 
 
