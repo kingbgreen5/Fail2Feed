@@ -14,13 +14,42 @@ const { Op } = require('sequelize');
 
 const SECRET_KEY = process.env.JWT_SECRET || 'your_jwt_secret_key';
 
+// const transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: process.env.EMAIL_USER,
+//         pass: process.env.EMAIL_PASS,
+//     },
+// });
+
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // MUST be false for 587
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
 });
+
+
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('SMTP VERIFY FAILED:', error);
+  } else {
+    console.log('SMTP SERVER READY');
+  }
+});
+
+
+
+
+
+
 
 // Login endpoint
 router.post('/login', async (req, res) => {
