@@ -385,6 +385,7 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
+     console.log("RESEND KEY EXISTS:", !!process.env.RESEND_API_KEY);
 
     if (!username || !email || !password)
       return res.status(400).json({ message: 'Username, email and password are required' });
