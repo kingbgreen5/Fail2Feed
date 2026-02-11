@@ -415,8 +415,11 @@ router.post('/register', async (req, res) => {
     const verificationUrl =
       `${process.env.FRONTEND_URL}/verify-email/${verification_token}`;
 
+     const resend = new Resend(process.env.RESEND_API_KEY);
+
+
     await resend.emails.send({
-      from: 'Fail2Feed <onboarding@resend.dev>',
+      from: 'no-reply@fail2feed.com',
       to: email,
       subject: 'Verify your email',
       html: `
