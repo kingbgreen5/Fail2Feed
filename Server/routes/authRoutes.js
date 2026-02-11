@@ -419,7 +419,7 @@ router.post('/register', async (req, res) => {
 
 
     await resend.emails.send({
-      from: 'no-reply@fail2feed.com',
+      from: 'support@fail2feed.com',
       to: email,
       subject: 'Verify your email',
       html: `
