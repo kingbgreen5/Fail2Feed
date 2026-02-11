@@ -419,16 +419,17 @@ router.post('/register', async (req, res) => {
 
 
     await resend.emails.send({
-      from: 'no-reply@fail2feed.com',
+      from: 'support@fail2feed.com',
       to: email,
       subject: 'Verify your email',
       html: `
         <h1>Welcome to Fail2Feed!</h1>
         <p>Please verify your email:</p>
-        <a href="${verificationUrl}">Verify Email</a>
+  
       `
     });
-
+    // this is the verification url, taking it out to see if it will send
+      // <a href="${verificationUrl}">Verify Email</a>
     res.status(201).json({
       message: 'Registration successful. Check your email to verify your account.'
     });
