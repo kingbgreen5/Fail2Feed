@@ -425,11 +425,11 @@ router.post('/register', async (req, res) => {
       html: `
         <h1>Welcome to Fail2Feed!</h1>
         <p>Please verify your email:</p>
-  
+      // <a href="${verificationUrl}">Verify Email</a>
       `
     });
     // this is the verification url, taking it out to see if it will send
-      // <a href="${verificationUrl}">Verify Email</a>
+  
     res.status(201).json({
       message: 'Registration successful. Check your email to verify your account.'
     });
