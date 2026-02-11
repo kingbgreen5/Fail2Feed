@@ -385,6 +385,7 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
+     console.log("RESEND KEY EXISTS:", !!process.env.RESEND_API_KEY);
 
     if (!username || !email || !password)
       return res.status(400).json({ message: 'Username, email and password are required' });
@@ -414,8 +415,11 @@ router.post('/register', async (req, res) => {
     const verificationUrl =
       `${process.env.FRONTEND_URL}/verify-email/${verification_token}`;
 
+     const resend = new Resend(process.env.RESEND_API_KEY);
+
+
     await resend.emails.send({
-      from: 'Fail2Feed <onboarding@resend.dev>',
+      from: 'no-reply@fail2feed.com',
       to: email,
       subject: 'Verify your email',
       html: `
