@@ -10,6 +10,10 @@ import Guns from "./pages/Guns"
 import FirearmSearch from './components/FirearmSearch';
 import Search from './pages/Search';
 import FirearmDetail from "./pages/FirearmDetail";
+import VerifyEmail from "./pages/VerifyEmail";
+
+
+
 import './App.css';
 
 // Protected Route component
@@ -79,6 +83,11 @@ element={<FirearmDetail />} />
 
 
       <Route path="/" element={<Navigate to="/collection" />} />
+
+
+
+      <Route path="/verify-email/:token" element={<VerifyEmail />} />
+      
     </Routes>
   );
 }

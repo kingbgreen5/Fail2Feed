@@ -428,10 +428,10 @@ router.post('/register', async (req, res) => {
        <a href="${verificationUrl}">Verify Email</a>
       `
     });
-    // this is the verification url, taking it out to see if it will send
+
   
     res.status(201).json({
-      message: 'Registration successful. Check your email to verify your account.'
+      message: 'Registration Email successful. Check your spam folder!.'
     });
   } catch (err) {
     console.error('Registration error:', err);
