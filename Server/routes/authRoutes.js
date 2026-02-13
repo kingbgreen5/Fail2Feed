@@ -355,6 +355,10 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (!user.is_verified) {
+    return res.status(403).json({ message: "Please verify your email before logging in." });
+}
+
     if (!email || !password)
       return res.status(400).json({ message: 'Email and password are required' });
 
