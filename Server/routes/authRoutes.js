@@ -355,9 +355,6 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    if (!user.is_verified) {
-    return res.status(403).json({ message: "Please verify your email before logging in." });
-}
 
     if (!email || !password)
       return res.status(400).json({ message: 'Email and password are required' });
@@ -368,6 +365,9 @@ router.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) return res.status(401).json({ message: 'Invalid credentials' });
 
+    if (!user.is_verified) {
+    return res.status(403).json({ message: "Please verify your email before logging in." });
+}
     const token = jwt.sign(
       { id: user.id, username: user.username, email: user.email, role: user.role },
       SECRET_KEY,
@@ -435,7 +435,7 @@ router.post('/register', async (req, res) => {
 
   
     res.status(201).json({
-      message: 'Registration Email successful. Check your spam folder!.'
+      message: 'Verification email sent. Check your spam folder!.'
     });
   } catch (err) {
     console.error('Registration error:', err);
@@ -458,7 +458,7 @@ router.get('/verify/:token', async (req, res) => {
       verification_token: null
     });
 
-    res.redirect(`${process.env.FRONTEND_URL}/login?verified=true`);
+   res.status(200).json({ message: "Email verified" });
   } catch (err) {
     console.error('Verification error:', err);
     res.status(500).json({ message: 'Server error during verification' });
