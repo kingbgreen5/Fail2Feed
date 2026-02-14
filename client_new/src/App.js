@@ -83,6 +83,8 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="App">
+          <h1>Fail2Feed.com</h1>
+          <h3>Handgun reliability data for the armed defender</h3>
           <NavBar />
           <AppRoutes />
         </div>

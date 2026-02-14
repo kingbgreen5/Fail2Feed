@@ -29,7 +29,7 @@ const Guns = () => {
                         onClick={() => navigate(`/firearm/${item.firearm_id}`)} // Navigate to detail page
                         style={{ cursor: "pointer" }}
                     >
-                        <h2>{item.Firearm?.manufacturer} {item.Firearm?.model}</h2>
+                        <h2>{item.Firearm?.make} {item.Firearm?.model}</h2>
                         <h4>
                             <span className="failure-label">Failure Rate: </span> 
                             <span className="failure-percent">{item.failure_rate_percentage} % </span>
