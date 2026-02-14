@@ -17,7 +17,7 @@ const NavBar = () => {
   return (
     <nav className="navbar">
       <ul>
-        //------------------------------LOGGED IN
+/* -------------------------Logged in------------------------- */
         {isAuthenticated ? (
           <>
            <span>
@@ -53,7 +53,7 @@ const NavBar = () => {
                       Welcome {user?.username ? ` ${user.username}` : ""}
           </>
         ) : (
-             //------------------------------NOT LOGGED IN
+/* ?-----------logged out-------- */
           <>
         <li>
               <NavLink to="/guns" className={({ isActive }) => isActive ? "active" : ""}>
@@ -70,7 +70,7 @@ const NavBar = () => {
                 
 
             <li>
-              <NavLink to="/collection" className={({ isActive }) => isActive ? "active" : ""}>
+             <NavLink to="/collection" className={({ isActive }) => isActive ? "active" : ""}>
                 Favorites
               </NavLink>
             </li>
