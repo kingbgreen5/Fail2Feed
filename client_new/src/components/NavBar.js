@@ -31,7 +31,7 @@ const NavBar = () => {
             </li>
             <li>
               <NavLink to="/collection" className={({ isActive }) => isActive ? "active" : ""}>
-                My Collection
+                Favorites
               </NavLink>
             </li>
             <li>
@@ -53,6 +53,27 @@ const NavBar = () => {
           </>
         ) : (
           <li>
+
+
+                        <li>
+              <NavLink to="/guns" className={({ isActive }) => isActive ? "active" : ""}>
+                The Data
+              </NavLink>
+            </li>
+                      
+              <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
+                Create Report
+              </NavLink>
+
+                <li>
+
+            <li>
+              <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
+                Favorites
+              </NavLink>
+            </li>
+
+            </li>
             <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
               Login
             </NavLink>
