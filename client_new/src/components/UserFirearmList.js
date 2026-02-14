@@ -62,7 +62,7 @@ return (
     {message && <p>{message}</p>}
 
     {firearms.length === 0 ? (
-      <p>No firearms added to your profile.</p>
+      <p>No firearms added to your favorites.</p>
     ) : (
       <div className="firearm-list">
         {firearms.map((firearm) =>

@@ -10,12 +10,16 @@ import Guns from "./pages/Guns"
 import FirearmSearch from './components/FirearmSearch';
 import Search from './pages/Search';
 import FirearmDetail from "./pages/FirearmDetail";
+import VerifyEmail from "./pages/VerifyEmail";
+
+
+
 import './App.css';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useContext(AuthContext);
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? children : <Navigate to="/collection" />;
 };
 
 // Public Route component (redirects to dashboard if already authenticated)
