@@ -17,8 +17,10 @@ const NavBar = () => {
   return (
     <nav className="navbar">
       <ul>
-/* -------------------------Logged in------------------------- */
+
         {isAuthenticated ? (
+   
+   
           <>
            <span>
             
@@ -62,18 +64,16 @@ const NavBar = () => {
             </li>
 
           <li>
-                      
               <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
                 Create Report
               </NavLink>
-</li>
-                
+               </li> 
 
             <li>
              <NavLink to="/collection" className={({ isActive }) => isActive ? "active" : ""}>
                 Favorites
               </NavLink>
-            </li>
+              </li>
 
             <li>
             <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
