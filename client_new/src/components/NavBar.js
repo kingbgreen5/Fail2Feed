@@ -52,20 +52,23 @@ const NavBar = () => {
                       Welcome {user?.username ? ` ${user.username}` : ""}
           </>
         ) : (
-          <li>
+          <>
 
 
-                        <li>
+        <li>
               <NavLink to="/guns" className={({ isActive }) => isActive ? "active" : ""}>
                 The Data
               </NavLink>
             </li>
+
+
+          <li>
                       
               <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
                 Create Report
               </NavLink>
-
-                <li>
+          </li>
+                
 
             <li>
               <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
@@ -73,11 +76,14 @@ const NavBar = () => {
               </NavLink>
             </li>
 
-            </li>
+            <li>
             <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
               Login
             </NavLink>
           </li>
+
+
+          </>
         )}
       </ul>
     </nav>
