@@ -68,9 +68,9 @@ element={<FirearmDetail />} />
 
 
 <Route path="/collection" element={
-        <ProtectedRoute>
+        // <ProtectedRoute>
           <UserCollection />
-        </ProtectedRoute>
+        // </ProtectedRoute>
       } />
 
       <Route path="/" element={<Navigate to="/guns" />} />

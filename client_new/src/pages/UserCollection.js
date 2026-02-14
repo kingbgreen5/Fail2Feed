@@ -49,7 +49,8 @@ import AuthForm from "../components/AuthForm";
 
 const UserCollection = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
-
+console.log("isAuthenticated:", isAuthenticated);
+console.log("user:", user);
   return (
     <div>
 
