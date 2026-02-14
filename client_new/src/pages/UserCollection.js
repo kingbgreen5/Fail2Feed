@@ -17,7 +17,8 @@ const UserCollection = () => {
 
     {isAuthenticated ? (
         // ------------------------------LOGGED IN
-          <>          <div>
+          <>         
+           <div>
             <UserFirearmList />
             <UserFirearmSelect />
         </div>
@@ -26,8 +27,12 @@ const UserCollection = () => {
 
     
                 //  ------------------------------NOT LOGGED IN
-    <>   <AuthForm /> 
-    </>)   }
+    <>   
+    <div>
+    <AuthForm /> 
+    </div>
+    </>
+    )}
 
 
 
