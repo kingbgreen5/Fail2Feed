@@ -23,6 +23,7 @@ const NavBar = () => {
             
 
         </span>
+        <li>Fail2Feed</li>
             <li>
               <NavLink to="/guns" className={({ isActive }) => isActive ? "active" : ""}>
                 The Data
