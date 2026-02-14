@@ -51,13 +51,8 @@ function AppRoutes() {
 
 
 
-
-
-
 <Route path="/guns" element={
-        <ProtectedRoute>
             <Guns />
-        </ProtectedRoute>
       } />
 
 //------------------------------------------------------------DETAIL PAGE
@@ -74,11 +69,7 @@ element={<FirearmDetail />} />
         </ProtectedRoute>
       } />
 
-
-
-
-
-      <Route path="/" element={<Navigate to="/collection" />} />
+      <Route path="/" element={<Navigate to="/guns" />} />
     </Routes>
   );
 }

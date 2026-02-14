@@ -57,8 +57,8 @@ const UserFirearmList = () => {
 
 return (
   <div>
-    <h1>Firearm Collection</h1>
-    <h4>(add to collection to add to range report and quick access to firearm detail page)</h4>
+    <h1>Favorites</h1>
+    <h4>(add to favorites for quick access in create report page.)</h4>
     {message && <p>{message}</p>}
 
     {firearms.length === 0 ? (

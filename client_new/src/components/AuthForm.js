@@ -1,3 +1,6 @@
+//USER LOGIN PAGE
+
+
 import { useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
@@ -16,6 +19,18 @@ const AuthForm = () => {
 
     // Check if user just verified their email
     const justVerified = new URLSearchParams(location.search).get('verified') === 'true';
+
+    
+
+
+
+
+    const [firearms, setFirearms] = useState(null);
+
+
+ 
+    
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
