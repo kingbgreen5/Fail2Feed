@@ -42,21 +42,23 @@ const NavBar = () => {
                 Create Report
               </NavLink>
             </li>
-            <li>
-              {/* <NavLink to="/search" className={({ isActive }) => isActive ? "active" : ""}>
-                Advanced Search
-              </NavLink> */}
-            </li>
+
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
-                <li></li>
-                <li></li>
+
                       Welcome {user?.username ? ` ${user.username}` : ""}
           </>
         ) : (
 /* ?-----------logged out-------- */
           <>
+
+           <span>
+            
+
+          </span>
+
+
         <li>
               <NavLink to="/guns" className={({ isActive }) => isActive ? "active" : ""}>
                 The Data
@@ -80,8 +82,6 @@ const NavBar = () => {
               Login
             </NavLink>
           </li>
-
-
           </>
         )}
       </ul>

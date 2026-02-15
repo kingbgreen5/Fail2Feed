@@ -16,7 +16,7 @@ return (
 <div>
     {isAuthenticated ? (
          <>
-         
+         <h6>Note:Create Report is conditionally rendering sucessfully</h6>
             <ReportForm />
          </>
        ) : (
