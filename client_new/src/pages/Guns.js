@@ -21,6 +21,7 @@ const Guns = () => {
     return (
         <div>
             <h1>Handgun Reliability Data</h1>
+            <h6>Note:Data from reports is aggregated once per minute, changes wont show up instantly.</h6>
     
             <div className="firearm-data-container">
                 {firearms && firearms.map((item) => (
