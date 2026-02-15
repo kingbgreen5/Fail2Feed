@@ -9,6 +9,7 @@ const CreateReport = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
 console.log("isAuthenticated:", isAuthenticated);
 console.log("user:", user);
+console.log("Create Report Page Rendered");
 
 //------------------------------------------------------------Conditional Rendering based on Authentication------------------------------------------------------------
 

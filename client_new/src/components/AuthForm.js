@@ -79,6 +79,7 @@ const AuthForm = () => {
                     if (success) {
                         alert("Login successful!");
                         navigate('/collection');
+                        console.log("Navigating to /collection");
                     } else {
                         alert("Error processing login. Please try again.");
                     }
