@@ -31,33 +31,27 @@ const PublicRoute = ({ children }) => {
 function AppRoutes() {
   return (
     <Routes>
+
       <Route path="/login" element={
-        <PublicRoute>
           <AuthForm />
-        </PublicRoute>
       } />
-
-
 
       <Route path="/create-report" element={
-        <ProtectedRoute>
           <CreateReport />
-        </ProtectedRoute>
       } />
 
+    <Route path="/guns" element={
+            <Guns />
+      } />
 
       <Route path="/search" element={
         <ProtectedRoute>
-          {/* <FirearmSearch /> */}
           <Search />
         </ProtectedRoute>
       } />
 
 
 
-<Route path="/guns" element={
-            <Guns />
-      } />
 
 //------------------------------------------------------------DETAIL PAGE
 <Route path="/firearm/:id" 
@@ -68,13 +62,12 @@ element={<FirearmDetail />} />
 
 
 <Route path="/collection" element={
-        // <ProtectedRoute>
           <UserCollection />
-        // </ProtectedRoute>
       } />
 
       <Route path="/" element={<Navigate to="/guns" />} />
     </Routes>
+
   );
 }
 
