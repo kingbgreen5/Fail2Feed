@@ -69,11 +69,11 @@ const NavBar = () => {
               </NavLink>
               </li>
 
-          <li>
+             <li>
               <NavLink to="/create-report" className={({ isActive }) => isActive ? "active" : ""}>
                 Create Report
               </NavLink>
-               </li> 
+              </li>
 
             <li>
             <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
