@@ -1,4 +1,4 @@
-
+//-----------------------------------------------------------------This is the page with firearm cards giving data summaries, each card links to a detail page with more data and charts.--------------------------------------------------------------
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../config";
@@ -17,6 +17,7 @@ const Guns = () => {
             .catch(error => console.error("Error fetching Firearm Aggregate Data:", error));
     }, []);
 
+      if (!firearms) return <p>Fetching firearm data...</p>;
     return (
         <div>
             <h1>Handgun Reliability Data</h1>
@@ -35,8 +36,8 @@ const Guns = () => {
                         <h4>
                             <span className="failure-label">Failure Rate: </span> 
                             <span className="failure-percent">{item.failure_rate_percentage} % </span>
-                            <span className="failure-label">Rounds Fired: </span> 
-                            <span className="failure-label">{item.rounds_fired}</span>
+                            <h4 className="failure-label">Rounds Fired: {item.rounds_fired}</h4> 
+                           
                         </h4>
                     </div>
                 ))}
