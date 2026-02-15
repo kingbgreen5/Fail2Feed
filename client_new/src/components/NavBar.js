@@ -26,7 +26,7 @@ const NavBar = () => {
             
 
         </span>
-        <li>Fail2Feed</li>
+
             <li>
               <NavLink to="/guns" className={({ isActive }) => isActive ? "active" : ""}>
                 The Data
@@ -63,17 +63,17 @@ const NavBar = () => {
               </NavLink>
             </li>
 
-          <li>
-              <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
-                Create Report
-              </NavLink>
-               </li> 
-
             <li>
              <NavLink to="/collection" className={({ isActive }) => isActive ? "active" : ""}>
                 Favorites
               </NavLink>
               </li>
+
+          <li>
+              <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
+                Create Report
+              </NavLink>
+               </li> 
 
             <li>
             <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>

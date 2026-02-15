@@ -1,0 +1,13 @@
+    {isAuthenticated ? (
+         <>
+
+   <THING />
+    
+
+        </>
+       ) : (
+        <div>
+          <p>Please log in to Create a Report.</p>             
+           <OTHER THING />
+        </div>
+       )}

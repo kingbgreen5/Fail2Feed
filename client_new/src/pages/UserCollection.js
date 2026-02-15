@@ -4,53 +4,26 @@ import UserFirearmSelect from "../components/UserFirearmSelect";
 import UserFirearmList from "../components/UserFirearmList";
 import AuthForm from "../components/AuthForm";
 
-// const UserCollection = () => {
-//     // const { user } = useContext(AuthContext);  
-//      const { isAuthenticated, user, logout } = useContext(AuthContext);
-//     return (
-//         <div>
-//             <h6>
-//                 User Role: {user.role} | User ID: {user.id}
-//             </h6>
-     
 
-
-//     {isAuthenticated ? (
-//         // ------------------------------LOGGED IN
-//           <>         
-//            <div>
-//             <UserFirearmList />
-//             <UserFirearmSelect />
-//         </div>
-//    </>
-//    ):(
-
-    
-//                 //  ------------------------------NOT LOGGED IN
-//     <>   
-//     <div>
-//     <AuthForm /> 
-//     </div>
-//     </>
-//     )}
-
-
-
-
-  
-  
-//         </div>
-//     );
-// };
-
-
-
-
+//----------------------------------------------------------------
+//----------------------------------------------------------------THIS IS THE USER FAVORITES/DASHBOARD PAGE
+//----------------------------------------------------------------
 
 const UserCollection = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
 console.log("isAuthenticated:", isAuthenticated);
 console.log("user:", user);
+
+
+
+
+
+
+//-------------------------------------------------------RETURN-------------------------------------------------------
+
+
+
+
   return (
     <div>
 
@@ -64,12 +37,16 @@ console.log("user:", user);
           <UserFirearmSelect />
         </>
       ) : (
+        <div>
+            <p>Please log in to view and add favorites.</p>     
         <AuthForm />
+        </div>
       )}
 
     </div>
   );
 };
+
 
 
 
