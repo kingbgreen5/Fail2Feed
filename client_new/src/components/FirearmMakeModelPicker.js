@@ -26,6 +26,10 @@ const FirearmMakeModelPicker = ({ onSelect }) => {
             })
             .then(response => {
                 setModels(response.data);
+               console.log("Models fetched for make:", selectedMake, response.data);
+
+
+
                 setSelectedModel(""); // reset model when make changes
             })
             .catch(error => {
