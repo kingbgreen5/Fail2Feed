@@ -393,10 +393,59 @@ useEffect(() => {
 
 
 {/* ------------------------------------------------------------------------------MALFUNCTIONS ENCOUNTERED */}
-{/* 
 
 
 
+
+
+<div className="malfunction-dynamic-section">
+  <h2 className="section-title">Malfunctions Encountered</h2>
+
+  {selectedTypes.map((type, index) => (
+    <div key={index} className="malfunction-entry">
+      <select
+        value={type}
+        onChange={(e) => handleTypeSelect(index, e.target.value)}
+        className="malfunction-select"
+      >
+        <option value="">Select Malfunction Type</option>
+        {malfunctionTypes
+          .filter(t => !selectedTypes.includes(t) || t === type)
+          .map((typeOption) => (
+            <option key={typeOption} value={typeOption}>{typeOption}</option>
+          ))}
+      </select>
+
+      <input
+        type="number"
+        min="0"
+        value={malfunctions[type] ?? 0}
+        onChange={(e) => handleCountChange(type, e.target.value)}
+        className="malfunction-count"
+        placeholder="Count"
+        disabled={!type}
+      />
+
+      <button
+        type="button"
+        onClick={() => removeMalfunction(index)}
+        className="remove-button"
+      >
+        Remove
+      </button>
+    </div>
+  ))}
+
+  {selectedTypes.length < MAX_MALFUNCTIONS && (
+    <button
+      type="button"
+      onClick={addMalfunction}
+      className="add-malfunction-button"
+    >
+      + Add Another Malfunction
+    </button>
+  )}
+</div>
 
 
 
@@ -480,7 +529,7 @@ useEffect(() => {
 <h6> Hammer: {formData.hammer_mod}</h6>
 <h6> Trigger Group: {formData.g}</h6>
 <h6>Firing Pin/Striker: {formData.firingpinstriker_mod}</h6>
-{/* <h5>Malfunctions</h5>
+<h5>Malfunctions</h5>
 <h6>Firing: {formData.firing}</h6>
 <h6> Unlocking: {formData.unlocking}</h6>
 <h6> Extracting: {formData.extracting}</h6>
@@ -492,7 +541,7 @@ useEffect(() => {
 <h6> Magazine: {formData.magazine}</h6>
 <h6> Ammunition: {formData.ammunition}</h6>
 <h6> Other: {formData.other}</h6>
-<h6>Catastrophic: {formData.catastrophic}</h6> */}
+<h6>Catastrophic: {formData.catastrophic}</h6>
 
 </div>
 )}

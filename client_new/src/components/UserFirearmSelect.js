@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../config";
 
-const UserFirearmSelect = () => {
+const UserFirearmSelect = ({ onFirearmAdded }) => {
     const [makes, setMakes] = useState([]);
     const [models, setModels] = useState([]);
     const [selectedMake, setSelectedMake] = useState("");
@@ -34,9 +34,6 @@ const UserFirearmSelect = () => {
             [name]: checked
         }));
     };
-
-
-
 
 
     useEffect(() => {
