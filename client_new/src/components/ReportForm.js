@@ -323,10 +323,14 @@ useEffect(() => {
 {/*//-------------------ADD FIREARM MAKE/MODEL PICKER (IF USER WANTS TO REPORT ON A FIREARM NOT IN THEIR COLLECTION) */}
 
 
-<h3>Or Select firearm picker here</h3>
+
+
+
+
+
+{/* 
   <FirearmMakeModelPicker onSelect={setSelectedFirearmID} />
-
-
+ */}
 
 
 

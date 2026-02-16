@@ -60,8 +60,8 @@ const FirearmMakeModelPicker = ({ onSelect }) => {
 
     return (
         <div className="firearm-picker">
-            <h1>------------OR-----</h1>
-            <h3>Select Firearm</h3>
+            <h1>------OR-----</h1>
+            <h3>Select Firearm by Make and Model</h3>
 
             <div className="select-group">
                 <label>Manufacturer:</label>
