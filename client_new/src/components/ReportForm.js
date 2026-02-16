@@ -315,17 +315,16 @@ useEffect(() => {
             {firearm.Firearm.make} - {firearm.Firearm.model}
         </option>
     ))}
+
+  
 </select>
 
 
+{/*//-------------------ADD FIREARM MAKE/MODEL PICKER (IF USER WANTS TO REPORT ON A FIREARM NOT IN THEIR COLLECTION) */}
 
 
-
-
-
-
-<FirearmMakeModelPicker onSelect={setSelectedFirearmID} />
-
+<h3>Or Select firearm picker here</h3>
+  <FirearmMakeModelPicker onSelect={setSelectedFirearmID} />
 
 
 

@@ -56,6 +56,7 @@ const FirearmMakeModelPicker = ({ onSelect }) => {
 
     return (
         <div className="firearm-picker">
+            <h1>------------OR-----</h1>
             <h3>Select Firearm</h3>
 
             <div className="select-group">
