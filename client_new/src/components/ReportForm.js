@@ -328,9 +328,9 @@ useEffect(() => {
 
 
 
-{/* 
+
   <FirearmMakeModelPicker onSelect={setSelectedFirearmID} />
- */}
+
 
 
 
