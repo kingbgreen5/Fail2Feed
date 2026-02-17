@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import config from "../config";
 import AuthContext from "../context/AuthContext";
-import FirearmMakeModelPicker from "./FirearmMakeModelPicker";
+import FirearmSelectorWithMods from "./FirearmSelectorWithMods";
 
 
 
@@ -322,8 +322,8 @@ useEffect(() => {
 
 {/*//-------------------ADD FIREARM MAKE/MODEL PICKER (IF USER WANTS TO REPORT ON A FIREARM NOT IN THEIR COLLECTION) */}
 
-  {/* <FirearmSelectorWithMods onSelect={setSelectedFirearmID} />
- */}
+  <FirearmSelectorWithMods onSelect={setSelectedFirearmID} />
+
 
 
 
