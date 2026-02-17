@@ -2,66 +2,72 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../config";
 
-const FirearmMakeModelPicker = ({ onSelect }) => {
+const FirearmSelectorWithMods = ({ onSelect }) => {
     const [makes, setMakes] = useState([]);
     const [models, setModels] = useState([]);
 
     const [selectedMake, setSelectedMake] = useState("");
-    const [selectedModel, setSelectedModel] = useState("");
-
     const [selectedFirearmID, setSelectedFirearmID] = useState("");
+
+    const [modifications, setModifications] = useState({
+        slide_mod: false,
+        barrel_mod: false,
+        recoilspring_mod: false,
+        extractor_mod: false,
+        triggergroup_mod: false,
+        hammer_mod: false,
+        firingpinstriker_mod: false
+    });
 
     // -------- Fetch Makes --------
     useEffect(() => {
         axios.get(`${config.API_URL}/api/firearms/makes`)
-            .then(response => setMakes(response.data))
-            .catch(error => console.error("Error fetching makes:", error));
+            .then(res => setMakes(res.data))
+            .catch(err => console.error("Error fetching makes:", err));
     }, []);
 
-    // -------- Fetch Models when Make changes --------
+    // -------- Fetch Models when Make Changes --------
     useEffect(() => {
         if (selectedMake) {
             axios.get(`${config.API_URL}/api/firearms/modelsandid`, {
                 params: { make: selectedMake }
             })
-            .then(response => {
-                setModels(response.data);
-               console.log("Models fetched for make:", selectedMake, response.data);
-
-
-
-                setSelectedModel(""); // reset model when make changes
+            .then(res => {
+                setModels(res.data);
+                setSelectedFirearmID("");
             })
-            .catch(error => {
-                console.error("Error fetching models:", error);
+            .catch(err => {
+                console.error("Error fetching models:", err);
                 setModels([]);
             });
         } else {
             setModels([]);
-            setSelectedModel("");
+            setSelectedFirearmID("");
         }
     }, [selectedMake]);
 
-    // -------- When Model Changes, Set Firearm ID --------
-    useEffect(() => {
-        if (selectedModel) {
-            // assuming your model response contains id
-            const firearm = models.find(m => m.model === selectedModel);
-            if (firearm) {
-                setSelectedFirearmID(firearm.id);
+    const handleModificationChange = (e) => {
+        const { name, checked } = e.target;
+        setModifications(prev => ({
+            ...prev,
+            [name]: checked
+        }));
+    };
 
-                // pass up to parent if needed
-                if (onSelect) {
-                    onSelect(firearm.id);
-                }
-            }
+    const handleModelChange = (e) => {
+        const firearmID = e.target.value;
+        setSelectedFirearmID(firearmID);
+
+        if (onSelect) {
+            onSelect({
+                firearm_id: firearmID,
+                modifications
+            });
         }
-    }, [selectedModel, models, onSelect]);
+    };
 
     return (
-        <div className="firearm-picker">
-            <h1>------OR-----</h1>
-            <h3>Select Firearm by Make and Model</h3>
+        <div className="firearm-select">
 
             <div className="select-group">
                 <label>Manufacturer:</label>
@@ -81,20 +87,91 @@ const FirearmMakeModelPicker = ({ onSelect }) => {
             <div className="select-group">
                 <label>Model:</label>
                 <select
-                    value={selectedModel}
-                    onChange={(e) => setSelectedModel(e.target.value)}
+                    value={selectedFirearmID}
+                    onChange={handleModelChange}
                     disabled={!selectedMake}
                 >
                     <option value="">Select Model</option>
                     {models.map((model) => (
-                        <option key={model.id} value={model.model}>
+                        <option key={model.id} value={model.id}>
                             {model.model}
                         </option>
                     ))}
                 </select>
             </div>
+
+            {/* 🔥 SHOW MODIFICATIONS ONLY AFTER MODEL SELECTED */}
+            {selectedFirearmID && (
+                <div>
+                    <h4>Firearm Modifications</h4>
+
+                    <label>
+                        <input 
+                            type="checkbox"
+                            name="slide_mod"
+                            checked={modifications.slide_mod}
+                            onChange={handleModificationChange}
+                        /> The Slide
+                    </label>
+
+                    <label>
+                        <input 
+                            type="checkbox"
+                            name="triggergroup_mod"
+                            checked={modifications.triggergroup_mod}
+                            onChange={handleModificationChange}
+                        /> Trigger Group
+                    </label>
+
+                    <label>
+                        <input 
+                            type="checkbox"
+                            name="hammer_mod"
+                            checked={modifications.hammer_mod}
+                            onChange={handleModificationChange}
+                        /> The Hammer
+                    </label>
+
+                    <label>
+                        <input 
+                            type="checkbox"
+                            name="firingpinstriker_mod"
+                            checked={modifications.firingpinstriker_mod}
+                            onChange={handleModificationChange}
+                        /> Firing Pin / Striker
+                    </label>
+
+                    <label>
+                        <input 
+                            type="checkbox"
+                            name="extractor_mod"
+                            checked={modifications.extractor_mod}
+                            onChange={handleModificationChange}
+                        /> Extractor
+                    </label>
+
+                    <label>
+                        <input 
+                            type="checkbox"
+                            name="recoilspring_mod"
+                            checked={modifications.recoilspring_mod}
+                            onChange={handleModificationChange}
+                        /> Recoil Spring
+                    </label>
+
+                    <label>
+                        <input 
+                            type="checkbox"
+                            name="barrel_mod"
+                            checked={modifications.barrel_mod}
+                            onChange={handleModificationChange}
+                        /> Barrel
+                    </label>
+
+                </div>
+            )}
         </div>
     );
 };
 
-export default FirearmMakeModelPicker;
+export default FirearmSelectorWithMods;

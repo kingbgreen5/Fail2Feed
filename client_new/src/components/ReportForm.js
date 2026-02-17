@@ -322,14 +322,7 @@ useEffect(() => {
 
 {/*//-------------------ADD FIREARM MAKE/MODEL PICKER (IF USER WANTS TO REPORT ON A FIREARM NOT IN THEIR COLLECTION) */}
 
-
-
-
-
-
-
-
-  <FirearmMakeModelPicker onSelect={setSelectedFirearmID} />
+  <FirearmSelectorWithMods onSelect={setSelectedFirearmID} />
 
 
 
