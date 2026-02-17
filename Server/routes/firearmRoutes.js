@@ -100,7 +100,36 @@ router.get("/models", async (req, res) => {
 });
 
 
+// Get models (with ID) for a selected make
+router.get("/modelsandid", async (req, res) => {
+    const make = req.query.make;
 
+    if (!make) {
+        return res.status(400).json({ error: "Manufacturer is required" });
+    }
+
+    try {
+        const results = await db.query(
+            "SELECT id, model FROM firearms WHERE make = ? ORDER BY model",
+            {
+                replacements: [make],
+                type: QueryTypes.SELECT
+            }
+        );
+
+        // This now returns:
+        // [
+        //   { id: 1, model: "19" },
+        //   { id: 2, model: "17" }
+        // ]
+
+        res.json(results);
+
+    } catch (error) {
+        console.error("Error fetching models:", error);
+        res.status(500).json({ error: "Failed to fetch models" });
+    }
+});
 
 
 // Route to find a firearm by make and model

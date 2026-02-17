@@ -21,7 +21,7 @@ const FirearmMakeModelPicker = ({ onSelect }) => {
     // -------- Fetch Models when Make changes --------
     useEffect(() => {
         if (selectedMake) {
-            axios.get(`${config.API_URL}/api/firearms/models`, {
+            axios.get(`${config.API_URL}/api/firearms/modelsandid`, {
                 params: { make: selectedMake }
             })
             .then(response => {
