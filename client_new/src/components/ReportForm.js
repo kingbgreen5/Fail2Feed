@@ -366,13 +366,13 @@ useEffect(() => {
                         <div className="range-report-modification-list">
 
 {/* //--------------------------------------------------------------------------------------DISPLAY MODIFICATIONS */}
-            <p>{selectedUserFirearm.slide_mod === 1 ? "• Slide  " : ""}</p>
-            <p>{selectedUserFirearm.barrel_mod === 1 ? "• Barrel  " : ""}</p>
-            <p>{selectedUserFirearm.s === 1 ? "• Recoil Spring " : ""}</p>
-            <p>{selectedUserFirearm.extractor_mod === 1 ? "• Extractor" : ""}</p>
-            <p>{selectedUserFirearm.g === 1 ? "• Trigger Group" : ""}</p>
-            <p>{selectedUserFirearm.hammer_mod === 1 ? "• Hammer" : ""}</p>
-            <p>{selectedUserFirearm.firingpinstriker_mod === 1 ? "• Firing Pin/Striker" : ""}</p> 
+            <p>{selectedUserFirearm.slide_mod === true ? "• Slide  " : ""}</p>
+            <p>{selectedUserFirearm.barrel_mod === true ? "• Barrel  " : ""}</p>
+            <p>{selectedUserFirearm.recoilspring_mod === true ? "• Recoil Spring " : ""}</p>
+            <p>{selectedUserFirearm.extractor_mod === true ? "• Extractor" : ""}</p>
+            <p>{selectedUserFirearm.triggergroup_mod === true ? "• Trigger Group" : ""}</p>
+            <p>{selectedUserFirearm.hammer_mod === true ? "• Hammer" : ""}</p>
+            <p>{selectedUserFirearm.firingpinstriker_mod === true ? "• Firing Pin/Striker" : ""}</p> 
             </div>
             <hr></hr>
             </div>
