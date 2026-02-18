@@ -801,7 +801,7 @@ const handleSubmit = async (e) => {
 
 <h4 className="create-report-debug">---Debug Menu---</h4>
 
-<h6>User_id: {formData.user_id}</h6>
+{/* <h6>User_id: {formData.user_id}</h6>
 <h6>Ammo_id: {formData.ammo_id}</h6>
 <h6>Supressor: {formData.suppressor}</h6>
 <h6>Optic: {formData.optic}</h6>
@@ -826,7 +826,7 @@ const handleSubmit = async (e) => {
 <h6> Other: {malfunctions.other}</h6>
 <h6>Catastrophic: {malfunctions.catastrophic}</h6>
 
-
+ */}
 
 
 
