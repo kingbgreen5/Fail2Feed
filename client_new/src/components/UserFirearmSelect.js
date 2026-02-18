@@ -16,6 +16,18 @@ const UserFirearmSelect = ({ onFirearmAdded }) => {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
+    const [userSelectedFirearm,setuserSelectedFirearm] = useState({
+        firearm_id: "",
+        slide_mod: "",
+        barrel_mod: "",
+        recoilspring_mod: "",
+        extractor_mod: "",
+        triggergroup_mod: "",
+        hammer_mod: "",
+        firingpinstriker_mod: ""
+    });
+
+    
     const [modifications, setModifications] = useState({
         slide_mod: false,
         barrel_mod: false,
@@ -193,8 +205,8 @@ const UserFirearmSelect = ({ onFirearmAdded }) => {
 <label>
     <input 
         type="checkbox" 
-        name="triggerGroup_mod" 
-        checked={modifications.triggerGroup_mod} 
+        name="triggergroup_mod" 
+        checked={modifications.triggergroup_mod} 
         onChange={handleModificationChange} 
     /> Trigger Group
 </label>
@@ -211,8 +223,8 @@ const UserFirearmSelect = ({ onFirearmAdded }) => {
 <label>
     <input 
         type="checkbox" 
-        name="firingPinStriker_mod" 
-        checked={modifications.firingPinStriker_mod} 
+        name="firingpinstriker_mod" 
+        checked={modifications.firingpinstriker_mod} 
         onChange={handleModificationChange} 
     /> Firing Pin/Striker
 </label>
@@ -229,8 +241,8 @@ const UserFirearmSelect = ({ onFirearmAdded }) => {
 <label>
     <input 
         type="checkbox" 
-        name="recoilSpring_mod" 
-        checked={modifications.recoilSpring_mod} 
+        name="recoilspring_mod" 
+        checked={modifications.recoilspring_mod} 
         onChange={handleModificationChange} 
     /> Recoil Spring
 </label>
