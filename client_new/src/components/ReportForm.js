@@ -801,17 +801,17 @@ const handleSubmit = async (e) => {
 
 <h4 className="create-report-debug">---Debug Menu---</h4>
 
-{/* <h6>User_id: {formData.user_id}</h6>
+<h6>User_id: {formData.user_id}</h6>
 <h6>Ammo_id: {formData.ammo_id}</h6>
 <h6>Supressor: {formData.suppressor}</h6>
 <h6>Optic: {formData.optic}</h6>
-<h6>Barrel mod: {selectedUserFirearm.barrel_mod}</h6>
-<h6>Slide mod: {selectedUserFirearm.slide_mod}</h6>
-<h6>Recoil: {selectedUserFirearm.recoilspring_mod}</h6>
-<h6>Extractor: {selectedUserFirearm.extractor_mod}</h6>
-<h6> Hammer: {selectedUserFirearm.hammer_mod}</h6>
-<h6> Trigger Group: {selectedUserFirearm.triggergroup_mod}</h6>
-<h6>Firing Pin/Striker: {selectedUserFirearm.firingpinstriker_mod}</h6>
+<h6>Barrel mod: {selectedUserFirearm?.barrel_mod}</h6>
+<h6>Slide mod: {selectedUserFirearm?.slide_mod}</h6>
+<h6>Recoil: {selectedUserFirearm?.recoilspring_mod}</h6>
+<h6>Extractor: {selectedUserFirearm?.extractor_mod}</h6>
+<h6> Hammer: {selectedUserFirearm?.hammer_mod}</h6>
+<h6> Trigger Group: {selectedUserFirearm?.triggergroup_mod}</h6>
+<h6>Firing Pin/Striker: {selectedUserFirearm?.firingpinstriker_mod}</h6>
 <h5>Malfunctions</h5>
 <h6>Firing: {malfunctions.firing}</h6>
 <h6> Unlocking: {malfunctions.unlocking}</h6>
@@ -826,7 +826,7 @@ const handleSubmit = async (e) => {
 <h6> Other: {malfunctions.other}</h6>
 <h6>Catastrophic: {malfunctions.catastrophic}</h6>
 
- */}
+
 
 
 
