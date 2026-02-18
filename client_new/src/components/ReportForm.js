@@ -258,9 +258,10 @@ useEffect(() => {
       barrel_mod: selectedUserFirearm?.barrel_mod ?? 0, // Use optional chaining and fallback value
       slide_mod: selectedUserFirearm?.slide_mod ?? 0,
       extractor_mod: selectedUserFirearm?.extractor_mod ?? 0,
-      s:selectedUserFirearm?.s ?? 0,
-      g:selectedUserFirearm?.g ?? 0,
-      firingpinstriker_mod:selectedUserFirearm?.firingpinstriker_mod ?? 0,
+      recoilspring_mod: selectedUserFirearm?.recoilspring_mod ?? 0,
+      triggergroup_mod: selectedUserFirearm?.triggergroup_mod ?? 0,
+      hammer_mod: selectedUserFirearm?.hammer_mod ?? 0,
+      firingpinstriker_mod: selectedUserFirearm?.firingpinstriker_mod ?? 0,
       firing:malfunctions.Firing ?? 0,
       unlocking:malfunctions.Unlocking ?? 0,
       extracting:malfunctions.Extracting ?? 0,
