@@ -77,11 +77,11 @@ return (
                   <h4 className="firearm-tile-mod-title">-Modifications-</h4>
                   <p className="firearm-tile-mods">{firearm.slide_mod === true ? "Slide" : ""}</p>
                   <p className="firearm-tile-mods">{firearm.barrel_mod === true ? "Barrel" : ""}</p>
-                  <p className="firearm-tile-mods">{firearm.recoilSpring_mod === true ? "Recoil Spring" : ""}</p>
+                  <p className="firearm-tile-mods">{firearm.recoilspring_mod === true ? "Recoil Spring" : ""}</p>
                   <p className="firearm-tile-mods">{firearm.extractor_mod === true ? "Extractor" : ""}</p>
-                  <p className="firearm-tile-mods">{firearm.triggerGroup_mod === true ? "Trigger Group" : ""}</p>
+                  <p className="firearm-tile-mods">{firearm.triggergroup_mod === true ? "Trigger Group" : ""}</p>
                   <p className="firearm-tile-mods">{firearm.hammer_mod === true ? "Hammer" : ""}</p>
-                  <p className="firearm-tile-mods">{firearm.firingPinStriker_mod === true ? "Firing Pin/Striker" : ""}</p>
+                  <p className="firearm-tile-mods">{firearm.firingpinstriker_mod === true ? "Firing Pin/Striker" : ""}</p>
                 </div>
 
                 <br />
