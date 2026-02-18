@@ -47,39 +47,50 @@ const ReportForm = () => {
   
 
 
+  //--------------------------------------------------------------old formData
+
+    // // const RangeReportForm = ({ selectedUserFirearm, ammoOptions }) => {
+    //     const [formData, setFormData] = useState({
+    //         user_id:"",
+    //         firearm_id: "",
+    //         ammo_id: "1",
+    //         suppressor: 0,
+    //         optic: 0,
+    //         date: new Date().toISOString().split("T")[0], // Default to today's date
+    //         barrel_mod:0,
+    //         slide_mod:0,
+    //         extractor_mod:0,
+    //         recoilspring_mod:0,
+    //         triggergroup_mod:0,
+    //         hammer_mod:0,
+    //         firingpinstriker_mod:0,
+    //         rounds_fired: 0,
+    //             firing: 0,
+    //             unlocking: 0,
+    //             extracting: 0,
+    //             ejecting: 0,
+    //             cocking: 0,
+    //             feeding: 0,
+    //             chambering: 0,
+    //             locking: 0,
+    //             magazine: 0,
+    //             ammunition: 0,
+    //             other: 0,
+    //             catastrophic: 0,
+    //             comments: "",
+    //     } );
 
 
-    // const RangeReportForm = ({ selectedUserFirearm, ammoOptions }) => {
-        const [formData, setFormData] = useState({
-            user_id:"",
-            firearm_id: "",
-            ammo_id: "1",
-            suppressor: 0,
-            optic: 0,
-            date: new Date().toISOString().split("T")[0], // Default to today's date
-            barrel_mod:false,
-            slide_mod:false,
-            extractor_mod:false,
-            recoilspring_mod:false,
-            triggergroup_mod:false,
-            hammer_mod:false,
-            firingpinstriker_mod:false,
-            rounds_fired: 0,
-                firing: 0,
-                unlocking: 0,
-                extracting: 0,
-                ejecting: 0,
-                cocking: 0,
-                feeding: 0,
-                chambering: 0,
-                locking: 0,
-                magazine: 0,
-                ammunition: 0,
-                other: 0,
-                catastrophic: 0,
-                comments: "",
-        } );
 
+const [formData, setFormData] = useState({
+    ammo_id: "1",
+    suppressor: 0,
+    optic: 0,
+    date: new Date().toISOString().split("T")[0],
+    rounds_fired: 0,
+    catastrophic: 0,
+    comments: ""
+});
 
 
 
@@ -115,57 +126,136 @@ const ReportForm = () => {
 
 
 
+//-----------------------------------------------------------------------------------------SUBMIT REPORT------------------------------------------------
+// ----------------------------------------------old handleSubmit
 
-
-
-        const handleSubmit = async () => {
-            const token = localStorage.getItem("token");
+        // const handleSubmit = async () => {
+        //     const token = localStorage.getItem("token");
         
-            try {
-                const response = await axios.post(`${config.API_URL}/api/reports`, formData, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
+        //     try {
+        //         const response = await axios.post(`${config.API_URL}/api/reports`, formData, {
+        //             headers: { Authorization: `Bearer ${token}` },
+        //         });
         
-                console.log("Report submitted successfully:", response.data);
-                alert("Report submitted successfully!");
+        //         console.log("Report submitted successfully:", response.data);
+        //         alert("Report submitted successfully!");
                 
-                // Optionally, reset the form after submission
-                setFormData({
-                    user_id: user?.id || "",
-                    firearm_id: selectedFirearmID || "",
-                    ammo_id: "1",
-                    suppressor: 0,
-                    optic: 0,
-                    date: new Date().toISOString().split("T")[0],
-                    barrel_mod: 0,
-                    slide_mod: 0,
-                    extractor_mod: 0,
-                    s: 0,
-                    g: 0,
-                    hammer_mod: 0,
-                    firingpinstriker_mod: 0,
-                    rounds_fired: 0,
-                    firing: 0,
-                    unlocking: 0,
-                    extracting: 0,
-                    ejecting: 0,
-                    cocking: 0,
-                    feeding: 0,
-                    chambering: 0,
-                    locking: 0,
-                    magazine: 0,
-                    ammunition: 0,
-                    other: 0,
-                    catastrophic: 0,
-                    comments: "",
-                });
+        //         // Optionally, reset the form after submission
+        //         setFormData({
+        //             user_id: user?.id || "",
+        //             firearm_id: selectedFirearmID || "",
+        //             ammo_id: "1",
+        //             suppressor: 0,
+        //             optic: 0,
+        //             date: new Date().toISOString().split("T")[0],
+        //             barrel_mod: 0,
+        //             slide_mod: 0,
+        //             extractor_mod: 0,
+        //             s: 0,
+        //             g: 0,
+        //             hammer_mod: 0,
+        //             firingpinstriker_mod: 0,
+        //             rounds_fired: 0,
+        //             firing: 0,
+        //             unlocking: 0,
+        //             extracting: 0,
+        //             ejecting: 0,
+        //             cocking: 0,
+        //             feeding: 0,
+        //             chambering: 0,
+        //             locking: 0,
+        //             magazine: 0,
+        //             ammunition: 0,
+        //             other: 0,
+        //             catastrophic: 0,
+        //             comments: "",
+        //         });
         
-            } catch (error) {
-                console.error("Error submitting report:", error);
-                alert("Failed to submit report.");
-            }
-        };
+        //     } catch (error) {
+        //         console.error("Error submitting report:", error);
+        //         alert("Failed to submit report.");
+        //     }
+        // };
         
+
+
+
+
+
+
+
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!selectedUserFirearm) return;
+
+    const token = localStorage.getItem("token");
+
+    const payload = {
+        user_id: user?.id,
+        firearm_id: selectedFirearmID,
+
+        // Firearm mods pulled directly from selectedUserFirearm
+        barrel_mod: selectedUserFirearm?.barrel_mod ? 1 : 0,
+        slide_mod: selectedUserFirearm?.slide_mod ? 1 : 0,
+        extractor_mod: selectedUserFirearm?.extractor_mod ? 1 : 0,
+        recoilspring_mod: selectedUserFirearm?.recoilspring_mod ? 1 : 0,
+        triggergroup_mod: selectedUserFirearm?.triggergroup_mod ? 1 : 0,
+        hammer_mod: selectedUserFirearm?.hammer_mod ? 1 : 0,
+        firingpinstriker_mod: selectedUserFirearm?.firingpinstriker_mod ? 1 : 0,
+
+        // Malfunctions pulled from malfunctions object
+        firing: malfunctions.Firing ?? 0,
+        unlocking: malfunctions.Unlocking ?? 0,
+        extracting: malfunctions.Extracting ?? 0,
+        ejecting: malfunctions.Ejecting ?? 0,
+        cocking: malfunctions.Cocking ?? 0,
+        feeding: malfunctions.Feeding ?? 0,
+        chambering: malfunctions.Chambering ?? 0,
+        locking: malfunctions.Locking ?? 0,
+        magazine: malfunctions.Magazine ?? 0,
+        ammunition: malfunctions.Ammunition ?? 0,
+        other: malfunctions.Other ?? 0,
+
+        // Everything user-edited
+        ...formData
+    };
+
+    try {
+        const response = await axios.post(
+            `${config.API_URL}/api/reports`,
+            payload,
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        console.log("Submitted payload:", payload);
+        alert("Report submitted successfully!");
+    } catch (error) {
+        console.error("Error submitting report:", error);
+        alert("Failed to submit report.");
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -250,33 +340,33 @@ const ReportForm = () => {
 //-----------------------------------------------------------------------------------------UPDATES FORMDATA WHEN VALUES CHANGE ------------------------------------------------
 //-----------------------------------------------------------------------------------------Stuffs values from SelecteFirearm into formData ------------------------------------------------
 
-useEffect(() => {
-  setFormData((prev) => ({
-      ...prev,
-      firearm_id: selectedFirearmID, 
-      user_id: user?.id || "", 
-      barrel_mod: selectedUserFirearm?.barrel_mod ?? 0, // Use optional chaining and fallback value
-      slide_mod: selectedUserFirearm?.slide_mod ?? 0,
-      extractor_mod: selectedUserFirearm?.extractor_mod ?? 0,
-      recoilspring_mod: selectedUserFirearm?.recoilspring_mod ?? 0,
-      triggergroup_mod: selectedUserFirearm?.triggergroup_mod ?? 0,
-      hammer_mod: selectedUserFirearm?.hammer_mod ?? 0,
-      firingpinstriker_mod: selectedUserFirearm?.firingpinstriker_mod ?? 0,
-      firing:malfunctions.Firing ?? 0,
-      unlocking:malfunctions.Unlocking ?? 0,
-      extracting:malfunctions.Extracting ?? 0,
-      ejecting:malfunctions.Ejecting ?? 0,
-      cocking:malfunctions.Cocking ?? 0,
-      feeding:malfunctions.Feeding ?? 0,
-      chambering:malfunctions.Chambering ?? 0,
-      locking:malfunctions.Locking ?? 0,
-      magazine:malfunctions.Magazine ?? 0,
-      ammunition:malfunctions.Ammunition ?? 0,
-      other:malfunctions.Other ?? 0,
+// useEffect(() => {
+//   setFormData((prev) => ({
+//       ...prev,
+//       firearm_id: selectedFirearmID, 
+//       user_id: user?.id || "", 
+//       barrel_mod: selectedUserFirearm?.barrel_mod ?? 0, // Use optional chaining and fallback value
+//       slide_mod: selectedUserFirearm?.slide_mod ?? 0,
+//       extractor_mod: selectedUserFirearm?.extractor_mod ?? 0,
+//       recoilspring_mod: selectedUserFirearm?.recoilspring_mod ?? 0,
+//       triggergroup_mod: selectedUserFirearm?.triggergroup_mod ?? 0,
+//       hammer_mod: selectedUserFirearm?.hammer_mod ?? 0,
+//       firingpinstriker_mod: selectedUserFirearm?.firingpinstriker_mod ?? 0,
+//       firing:malfunctions.Firing ?? 0,
+//       unlocking:malfunctions.Unlocking ?? 0,
+//       extracting:malfunctions.Extracting ?? 0,
+//       ejecting:malfunctions.Ejecting ?? 0,
+//       cocking:malfunctions.Cocking ?? 0,
+//       feeding:malfunctions.Feeding ?? 0,
+//       chambering:malfunctions.Chambering ?? 0,
+//       locking:malfunctions.Locking ?? 0,
+//       magazine:malfunctions.Magazine ?? 0,
+//       ammunition:malfunctions.Ammunition ?? 0,
+//       other:malfunctions.Other ?? 0,
 
-  }));
-  console.log("form Data:", formData)
-}, [selectedFirearmID, user?.id, selectedUserFirearm, malfunctions]); 
+//   }));
+//   console.log("form Data:", formData)
+// }, [selectedFirearmID, user?.id, selectedUserFirearm, malfunctions]); 
 
 //^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--^--
 
