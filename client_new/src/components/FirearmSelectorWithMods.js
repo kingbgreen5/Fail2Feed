@@ -46,25 +46,89 @@ const FirearmSelectorWithMods = ({ onSelect }) => {
         }
     }, [selectedMake]);
 
-    const handleModificationChange = (e) => {
-        const { name, checked } = e.target;
-        setModifications(prev => ({
-            ...prev,
-            [name]: checked
-        }));
+    // const handleModificationChange = (e) => {
+    //     const { name, checked } = e.target;
+    //     setModifications(prev => ({
+    //         ...prev,
+    //         [name]: checked
+    //     }));
+    // };
+
+    // const handleModelChange = (e) => {
+    //     const firearmID = e.target.value;
+    //     setSelectedFirearmID(firearmID);
+
+    //     if (onSelect) {
+    //         onSelect({
+    //             firearm_id: firearmID,
+    //             modifications
+    //         });
+    //     }
+    // };
+
+
+
+
+const handleModelChange = (e) => {
+    const firearmID = parseInt(e.target.value, 10);
+    setSelectedFirearmID(firearmID);
+
+    const selectedModelObj = models.find(m => m.id === firearmID);
+
+    if (onSelect && selectedModelObj) {
+        onSelect({
+            Firearm: {
+                id: firearmID,
+                make: selectedMake,
+                model: selectedModelObj.model
+            },
+            ...modifications
+        });
+    }
+};
+
+
+
+
+
+const handleModificationChange = (e) => {
+    const { name, checked } = e.target;
+
+    const updatedMods = {
+        ...modifications,
+        [name]: checked
     };
 
-    const handleModelChange = (e) => {
-        const firearmID = e.target.value;
-        setSelectedFirearmID(firearmID);
+    setModifications(updatedMods);
 
-        if (onSelect) {
-            onSelect({
-                firearm_id: firearmID,
-                modifications
-            });
-        }
-    };
+    if (onSelect && selectedFirearmID) {
+        onSelect({
+            Firearm: {
+                id: selectedFirearmID,
+                make: selectedMake,
+                model: models.find(m => m.id === selectedFirearmID)?.model
+            },
+            ...updatedMods
+        });
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <div className="firearm-select">

@@ -426,7 +426,14 @@ const handleSubmit = async (e) => {
 
 
 
+<h2>- Or Select Firearm Manually -</h2>
 
+<FirearmSelectorWithMods
+    onSelect={(firearmObj) => {
+        setSelectedUserFirearm(firearmObj);
+        setSelectedFirearmID(firearmObj.Firearm.id);
+    }}
+/>
 
 
 
@@ -798,26 +805,26 @@ const handleSubmit = async (e) => {
 <h6>Ammo_id: {formData.ammo_id}</h6>
 <h6>Supressor: {formData.suppressor}</h6>
 <h6>Optic: {formData.optic}</h6>
-<h6>Barrel mod: {formData.barrel_mod}</h6>
-<h6>Slide mod: {formData.slide_mod}</h6>
-<h6>Recoil: {formData.s}</h6>
-<h6>Extractor: {formData.extractor_mod}</h6>
-<h6> Hammer: {formData.hammer_mod}</h6>
-<h6> Trigger Group: {formData.g}</h6>
-<h6>Firing Pin/Striker: {formData.firingpinstriker_mod}</h6>
+<h6>Barrel mod: {selectedUserFirearm.barrel_mod}</h6>
+<h6>Slide mod: {selectedUserFirearm.slide_mod}</h6>
+<h6>Recoil: {selectedUserFirearm.recoilspring_mod}</h6>
+<h6>Extractor: {selectedUserFirearm.extractor_mod}</h6>
+<h6> Hammer: {selectedUserFirearm.hammer_mod}</h6>
+<h6> Trigger Group: {selectedUserFirearm.triggergroup_mod}</h6>
+<h6>Firing Pin/Striker: {selectedUserFirearm.firingpinstriker_mod}</h6>
 <h5>Malfunctions</h5>
-<h6>Firing: {formData.firing}</h6>
-<h6> Unlocking: {formData.unlocking}</h6>
-<h6> Extracting: {formData.extracting}</h6>
-<h6> Ejecting: {formData.ejecting}</h6>
-<h6>Cocking: {formData.cocking}</h6>
-<h6> Feeding: {formData.feeding}</h6>
-<h6> Chambering: {formData.chambering}</h6>
-<h6>Locking: {formData.locking}</h6>
-<h6> Magazine: {formData.magazine}</h6>
-<h6> Ammunition: {formData.ammunition}</h6>
-<h6> Other: {formData.other}</h6>
-<h6>Catastrophic: {formData.catastrophic}</h6>
+<h6>Firing: {malfunctions.firing}</h6>
+<h6> Unlocking: {malfunctions.unlocking}</h6>
+<h6> Extracting: {malfunctions.extracting}</h6>
+<h6> Ejecting: {malfunctions.ejecting}</h6>
+<h6>Cocking: {malfunctions.cocking}</h6>
+<h6> Feeding: {malfunctions.feeding}</h6>
+<h6> Chambering: {malfunctions.chambering}</h6>
+<h6>Locking: {malfunctions.locking}</h6>
+<h6> Magazine: {malfunctions.magazine}</h6>
+<h6> Ammunition: {malfunctions.ammunition}</h6>
+<h6> Other: {malfunctions.other}</h6>
+<h6>Catastrophic: {malfunctions.catastrophic}</h6>
 
 
 
