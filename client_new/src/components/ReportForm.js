@@ -331,7 +331,7 @@ useEffect(() => {
 
 
 
-  <FirearmSelectorWithMods onSelect={setSelectedFirearmID} />
+  {/* <FirearmSelectorWithMods onSelect={setSelectedFirearmID} /> */}
 
 
 
