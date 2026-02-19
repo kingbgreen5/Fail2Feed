@@ -128,12 +128,11 @@ const handleModificationChange = (e) => {
 
 
 
-className="range-report-firearm-select"
 
     return (
-        <div className="firearm-select">
+        <div>
 
-            <div className="select-group">
+            <div >
                 <label>Manufacturer:</label>
                 <select 
                     value={selectedMake}
