@@ -398,7 +398,7 @@ const handleSubmit = async (e) => {
             <h1>Range Report</h1>
             <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-lg shadow-md">
         {/* ----------------------------------------------------------------ADD FIREARM FROM COllLLECTION */}
-            <h2>- Firearm Used -</h2>
+            {/* <h2>- Firearm Used -</h2> */}
 <select value={selectedFirearmID} onChange={handleSelect} className="range-report-firearm-select">
     <option value="">Select Firearm from Collection</option>
     {userFirearms.map((firearm) => (
@@ -425,7 +425,7 @@ const handleSubmit = async (e) => {
   {/* <FirearmSelectorWithMods onSelect={setSelectedFirearmID} /> */}
 
 
-
+<div></div>
 <h2>- Or Select Firearm Manually -</h2>
 
 <FirearmSelectorWithMods

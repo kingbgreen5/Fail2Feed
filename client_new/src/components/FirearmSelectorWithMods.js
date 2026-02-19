@@ -128,16 +128,17 @@ const handleModificationChange = (e) => {
 
 
 
-
+className="range-report-firearm-select"
 
     return (
         <div className="firearm-select">
 
             <div className="select-group">
                 <label>Manufacturer:</label>
-                <select
+                <select 
                     value={selectedMake}
                     onChange={(e) => setSelectedMake(e.target.value)}
+                    className="range-report-firearm-select"
                 >
                     <option value="">Select Manufacturer</option>
                     {makes.map((make, index) => (
@@ -154,6 +155,7 @@ const handleModificationChange = (e) => {
                     value={selectedFirearmID}
                     onChange={handleModelChange}
                     disabled={!selectedMake}
+                    className="range-report-firearm-select"
                 >
                     <option value="">Select Model</option>
                     {models.map((model) => (
