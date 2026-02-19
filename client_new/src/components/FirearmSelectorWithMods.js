@@ -133,7 +133,7 @@ const handleModificationChange = (e) => {
         <div>
 
             <div >
-                <label>Manufacturer:</label>
+            
                 <select 
                     value={selectedMake}
                     onChange={(e) => setSelectedMake(e.target.value)}
@@ -149,7 +149,7 @@ const handleModificationChange = (e) => {
             </div>
 
             <div className="select-group">
-                <label>Model:</label>
+           
                 <select
                     value={selectedFirearmID}
                     onChange={handleModelChange}
