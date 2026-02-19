@@ -148,7 +148,7 @@ const handleModificationChange = (e) => {
                 </select>
             </div>
 
-            <div className="select-group">
+            <div >
            
                 <select
                     value={selectedFirearmID}
